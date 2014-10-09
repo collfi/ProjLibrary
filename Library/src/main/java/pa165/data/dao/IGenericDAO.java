@@ -19,5 +19,5 @@ public interface IGenericDAO<T> {
     
     public void Delete(T t);
     
-    public boolean Find(T t);
+    public T Find(T t);
 }

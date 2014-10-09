@@ -5,6 +5,7 @@
  */
 package pa165.data.dao;
 
+import java.util.List;
 import java.util.Set;
 import pa165.data.entity.Book;
 import pa165.data.entity.Book.DepartmentEnum;
@@ -15,12 +16,12 @@ import pa165.data.entity.Book.DepartmentEnum;
  */
 public interface IBookDAO {
     
-    public Set<Book> FindBooksByISBN(String Isbn);
+    public List<Book> FindBooksByISBN(String Isbn);
     
-    public Set<Book> FindBooksByAuthor(String Author);
+    public List<Book> FindBooksByAuthor(String Author);
     
-    public Set<Book> FindBooksByDepartment(String Isbn, DepartmentEnum en);
+    public List<Book> FindBooksByDepartment(DepartmentEnum en);
     
-    public Set<Book> FindBooksByName(String Name);
+    public List<Book> FindBooksByName(String Name);
     
 }

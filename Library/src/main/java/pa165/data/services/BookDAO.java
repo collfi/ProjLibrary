@@ -5,7 +5,12 @@
  */
 package pa165.data.services;
 
+import java.util.List;
 import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import pa165.data.dao.IBookDAO;
 import pa165.data.dao.IGenericDAO;
 import pa165.data.entity.Book;
@@ -16,45 +21,56 @@ import pa165.data.entity.Book;
  */
 public class BookDAO implements IBookDAO, IGenericDAO<Book>{
 
+    @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+    
     @Override
     public void Insert(Book t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.persist(t);
     }
 
     @Override
     public void Update(Book t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.persist(t);
     }
 
     @Override
     public void Delete(Book t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.remove(t);
     }
 
     @Override
-    public boolean Find(Book t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Book Find(Book t) {
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.IdBook = :book");
+        query.setParameter("book", t.getId());
+        return (Book) query.getSingleResult();
     }
 
     @Override
-    public Set<Book> FindBooksByISBN(String Isbn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Book> FindBooksByISBN(String Isbn) {
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.ISBN = :book");
+        query.setParameter("book", Isbn);
+        return query.getResultList();
     }
 
     @Override
-    public Set<Book> FindBooksByAuthor(String Author) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Book> FindBooksByAuthor(String Author) {
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Author = :book");
+        query.setParameter("book", Author);
+        return query.getResultList();
     }
 
     @Override
-    public Set<Book> FindBooksByDepartment(String Isbn, Book.DepartmentEnum en) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Book> FindBooksByDepartment(Book.DepartmentEnum en) {
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Department = :book");
+        query.setParameter("book", en);
+        return query.getResultList();
     }
 
     @Override
-    public Set<Book> FindBooksByName(String Name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Book> FindBooksByName(String Name) {
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Name = :book");
+        query.setParameter("book", Name);
+        return query.getResultList();
     }
-
-    
 }

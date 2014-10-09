@@ -5,6 +5,7 @@
  */
 package pa165.data.services;
 
+import java.util.List;
 import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -86,8 +87,8 @@ public class BookDAOTest {
         System.out.println("Find");
         Book t = null;
         BookDAO instance = new BookDAO();
-        boolean expResult = false;
-        boolean result = instance.Find(t);
+        Book expResult = null;
+        Book result = instance.Find(t);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -101,8 +102,8 @@ public class BookDAOTest {
         System.out.println("FindBooksByISBN");
         String Isbn = "";
         BookDAO instance = new BookDAO();
-        Set<Book> expResult = null;
-        Set<Book> result = instance.FindBooksByISBN(Isbn);
+        List<Book> expResult = null;
+        List<Book> result = instance.FindBooksByISBN(Isbn);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -116,8 +117,8 @@ public class BookDAOTest {
         System.out.println("FindBooksByAuthor");
         String Author = "";
         BookDAO instance = new BookDAO();
-        Set<Book> expResult = null;
-        Set<Book> result = instance.FindBooksByAuthor(Author);
+        List<Book> expResult = null;
+        List<Book> result = instance.FindBooksByAuthor(Author);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -129,11 +130,10 @@ public class BookDAOTest {
     @org.junit.Test
     public void testFindBooksByDepartment() {
         System.out.println("FindBooksByDepartment");
-        String Isbn = "";
         Book.DepartmentEnum en = null;
         BookDAO instance = new BookDAO();
-        Set<Book> expResult = null;
-        Set<Book> result = instance.FindBooksByDepartment(Isbn, en);
+        List<Book> expResult = null;
+        List<Book> result = instance.FindBooksByDepartment(en);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -147,8 +147,8 @@ public class BookDAOTest {
         System.out.println("FindBooksByName");
         String Name = "";
         BookDAO instance = new BookDAO();
-        Set<Book> expResult = null;
-        Set<Book> result = instance.FindBooksByName(Name);
+        List<Book> expResult = null;
+        List<Book> result = instance.FindBooksByName(Name);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

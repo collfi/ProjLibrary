@@ -11,9 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 
 /**
- *
+ * Entity class represents Book.
  * @author michal.lukac, 430614
  */
 @Entity
@@ -37,55 +39,74 @@ public class Book {
     
     Set<PrintedBook> Books = new HashSet<PrintedBook>();
     
+    @Enumerated(EnumType.STRING)
     DepartmentEnum Department;
     
+    public Book() {
+    }
+
+    public Book(int IdBook, String Name, Set<String> Authors, String Description,
+            String Isbn, Set<PrintedBook> Books, DepartmentEnum Department) {
+        this.IdBook = IdBook;
+        this.Name = Name;
+        this.Authors = Authors;
+        this.Description = Description;
+        this.ISBN = Isbn;
+        this.Books = Books;
+        this.Department = Department;
+    }
+
     
-    public void setId(int id) {
-        IdBook = id;
+    public void setId(int IdBook) {
+        this.IdBook = IdBook;
     }
     
     public int getId() {
-        return IdBook;
+        return this.IdBook;
     }
     
-    public void setName(String name) {
-        Name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
     
     public String getName() {
-        return Name;
+        return this.Name;
     }
     
-    public void setAuthors(Set<String> authors) {
-        Authors = authors;
+    public void setAuthors(Set<String> Authors) {
+        this.Authors = Authors;
     }
     
     public Set<String> getAuthors() {
-        return Authors;
+        return this.Authors;
     }
     
-    public void setDescription(String description) {
-        Description = description;
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
     
     public String getDescription() {
-        return Description;
+        return this.Description;
     }
     
-    public void setISBN(String isbn) {
-        this.ISBN = isbn;
+    public void setISBN(String Isbn) {
+        this.ISBN = Isbn;
     }
     
     public String getISBN() {
-        return ISBN;
+        return this.ISBN;
     }
     
-    public void setPrintedBooks(Set<PrintedBook> books) {
-        this.Books = books;
+    public void setPrintedBooks(Set<PrintedBook> Books) {
+        this.Books = Books;
     }
     
     public Set<PrintedBook> getPrintedBooks() {
         return this.Books;
+    }
+    
+    public DepartmentEnum getDepartment() {
+        return this.Department;
     }
         
     @Override
