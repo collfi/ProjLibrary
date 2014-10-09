@@ -110,7 +110,11 @@ public class Book {
     public DepartmentEnum getDepartment() {
         return this.Department;
     }
-        
+       
+    public void setDapertment(DepartmentEnum Department) {
+        this.Department = Department;
+    }
+    
     @Override
     public int hashCode() {
 	final int prime = 31;

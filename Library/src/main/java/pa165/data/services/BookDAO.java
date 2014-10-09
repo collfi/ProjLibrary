@@ -21,8 +21,13 @@ import pa165.data.entity.Book;
  */
 public class BookDAO implements IBookDAO, IGenericDAO<Book>{
 
-    @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
+    //@PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
+    
+    public BookDAO(EntityManager manager)
+    {
+        
+    }
     
     @Override
     public void Insert(Book t) {
