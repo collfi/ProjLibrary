@@ -7,6 +7,8 @@ package pa165.data.services;
 
 import java.util.List;
 import java.util.Set;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,6 +23,9 @@ import pa165.data.entity.Book;
  */
 public class BookDAOTest {
     
+    @PersistenceUnit
+    public EntityManagerFactory emf;
+
     public BookDAOTest() {
     }
     

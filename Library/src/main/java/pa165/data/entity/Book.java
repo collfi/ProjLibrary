@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import javax.persistence.OneToMany;
 
 /**
  * Entity class represents Book.
@@ -25,22 +26,23 @@ public class Book {
     
     @Id
     @GeneratedValue
-    int IdBook;
+    private int IdBook;
     
     @Column(nullable=false)
-    String Name;
+    private String Name;
     
-    Set<String> Authors = new HashSet<String>();
+    @OneToMany(mappedBy="cage")
+    private Set<String> Authors = new HashSet<String>();
     
-    String Description;
+    private String Description;
     
     @Column(nullable=false)
-    String ISBN;
+    private String ISBN;
     
-    Set<PrintedBook> Books = new HashSet<PrintedBook>();
+    private Set<PrintedBook> Books = new HashSet<PrintedBook>();
     
     @Enumerated(EnumType.STRING)
-    DepartmentEnum Department;
+    private DepartmentEnum Department;
     
     public Book() {
     }

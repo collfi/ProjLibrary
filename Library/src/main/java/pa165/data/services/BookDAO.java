@@ -31,7 +31,13 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book>{
 
     @Override
     public void Update(Book t) {
-        entityManager.persist(t);
+        Book book = (Book)entityManager.find(Book.class ,t.getId());
+        book.setName(t.getName());
+        book.setAuthors(t.getAuthors());
+        book.setDescription(t.getDescription());
+        book.setISBN(t.getISBN());
+        book.setPrintedBooks(t.getPrintedBooks());
+        entityManager.persist(book);
     }
 
     @Override
@@ -55,7 +61,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book>{
 
     @Override
     public List<Book> FindBooksByAuthor(String Author) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Author = :book");
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Author = '%:book%'");
         query.setParameter("book", Author);
         return query.getResultList();
     }
@@ -69,7 +75,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book>{
 
     @Override
     public List<Book> FindBooksByName(String Name) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Name = :book");
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Name = '%:book%'");
         query.setParameter("book", Name);
         return query.getResultList();
     }
