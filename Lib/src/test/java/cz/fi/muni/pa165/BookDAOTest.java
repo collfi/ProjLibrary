@@ -70,11 +70,12 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void test() {
         System.out.println("TEST");
-        /*EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
         List<Book> books = bdao.FindBooksByName("Harry Potter");
-        //System.out.println("Books size: " + books.size());
+        System.out.println("Books size: " + books.size());
 
-        assertEquals(1, books.size());*/
+        assertEquals(1, books.size());
     }
 }

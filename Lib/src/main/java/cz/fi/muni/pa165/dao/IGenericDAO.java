@@ -5,6 +5,7 @@
  */
 package cz.fi.muni.pa165.dao;
 import java.util.*;
+import javax.persistence.EntityManager;
 
 
 /**
@@ -12,6 +13,8 @@ import java.util.*;
  * @author michal.lukac
  */
 public interface IGenericDAO<T> {
+    
+    public void setManager(EntityManager entityManager);
     
     public void Insert(T t);
     

@@ -21,6 +21,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
     
+    @Override
+    public void setManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void Insert(Book t) {
@@ -45,7 +49,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
 
     @Override
     public Book Find(Book t) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.IdBook = :book");
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :book");
         query.setParameter("book", t.getId());
         return (Book) query.getSingleResult();
     }
@@ -59,22 +63,21 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
 
     @Override
     public List<Book> FindBooksByAuthor(String Author) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Author = '%:book%'");
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.author = '%:book%'");
         query.setParameter("book", Author);
         return query.getResultList();
     }
 
     @Override
     public List<Book> FindBooksByDepartment(Book.Department en) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Department = :book");
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.department = :book");
         query.setParameter("book", en);
         return query.getResultList();
     }
 
     @Override
     public List<Book> FindBooksByName(String Name) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.Name = '%:book%'");
-        query.setParameter("book", Name);
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", Name);
         return query.getResultList();
     }
     

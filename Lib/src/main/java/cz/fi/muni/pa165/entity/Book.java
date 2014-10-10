@@ -32,7 +32,6 @@ public class Book {
     private String name;
     
     @Transient
-    @OneToMany(mappedBy="cage")
     private Set<String> authors = new HashSet<String>();
     
     private String description;
@@ -42,7 +41,7 @@ public class Book {
     private String ISBN;
     
     @Transient
-    //??one to many?
+    @OneToMany(mappedBy="PrintedBook")
     private Set<PrintedBook> Books = new HashSet<PrintedBook>();
     
     @Enumerated(EnumType.STRING)
