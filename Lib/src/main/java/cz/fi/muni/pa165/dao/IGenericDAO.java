@@ -13,14 +13,14 @@ import javax.persistence.EntityManager;
  * @author michal.lukac
  */
 public interface IGenericDAO<T> {
-    
+    //shoulnd't INSER AND UPDATE return T???????
     public void setManager(EntityManager entityManager);
     
-    public void Insert(T t);
+    public void insert(T t);
     
-    public void Update(T t);
+    public void update(T t);
     
-    public void Delete(T t);
+    public void delete(T t);
     
-    public T Find(T t);
+    public T find(T t);
 }

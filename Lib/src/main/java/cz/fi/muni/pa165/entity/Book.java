@@ -31,8 +31,8 @@ public class Book {
     @Column(nullable=false)
     private String name;
     
-    @Transient
-    private Set<String> authors = new HashSet<String>();
+    
+    private String authors;
     
     private String description;
     
@@ -40,8 +40,8 @@ public class Book {
     @Column(nullable=false)
     private String ISBN;
     
-    @Transient
-    @OneToMany(mappedBy="PrintedBook")
+    
+    @OneToMany(mappedBy="book")
     private Set<PrintedBook> Books = new HashSet<PrintedBook>();
     
     @Enumerated(EnumType.STRING)
@@ -50,11 +50,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(int IdBook, String Name, Set<String> Authors, String Description,
+    public Book(int IdBook, String Name, String authors, String Description,
             String Isbn, Set<PrintedBook> Books, Department Department) {
         this.idBook = IdBook;
         this.name = Name;
-        this.authors = Authors;
+        this.authors = authors;
         this.description = Description;
         this.ISBN = Isbn;
         this.Books = Books;
@@ -77,14 +77,16 @@ public class Book {
     public String getName() {
         return this.name;
     }
-    
-    public void setAuthors(Set<String> Authors) {
-        this.authors = Authors;
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
     }
     
-    public Set<String> getAuthors() {
-        return this.authors;
-    }
+    
     
     public void setDescription(String Description) {
         this.description = Description;

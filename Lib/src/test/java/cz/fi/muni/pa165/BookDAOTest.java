@@ -19,6 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.persistence.spi.LoadState;
 
 import org.hibernate.annotations.OnDeleteAction;
@@ -51,31 +52,141 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         em = emf.createEntityManager();
         em.getTransaction().begin();
-		
+
         Book book = new Book();
-	book.setName("Harry Potter");		
-	book.setISBN("123112315");
-	book.setDescription("Book about Wizard!");
-        //HashSet<String> authors = new HashSet<String>();
-        //authors.add("J.K. Rownling");
-        //book.setAuthors(authors);
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
+
+        book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
-        
+
         em.persist(book);
-	em.getTransaction().commit();
-	em.close();
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     @Test
-    public void test() {
+    public void testFindBooksByName() {
         System.out.println("TEST");
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByName("Harry Potter");
+        List<Book> books = bdao.FindBooksByName("Harry");
         System.out.println("Books size: " + books.size());
 
         assertEquals(1, books.size());
     }
+
+    @Test
+    public void testInsert() {
+
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+
+        Book book = new Book();
+        book.setAuthors("Author");
+        book.setDapertment(Book.Department.Sport);
+        book.setDescription("Description");
+        book.setISBN("123456456");
+        book.setName("Name");
+
+        em.getTransaction().begin();
+
+        //book.setPrintedBooks(null);
+        bdao.insert(book);
+        em.getTransaction().commit();
+
+        // em.getTransaction().begin();
+        //final Query query = em.createQuery("SELECT idBook FROM Book");
+        List<Book> books = em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        //em.getTransaction().commit();
+        em.close();
+        assertEquals(books.size(), 2);
+    }
+
+    @Test
+    public void testDelete() {
+        //nemalo by insert, delete mat parameter iba id. aj find...zbytocne vytvaram novu book, ked to hlada iba podla id??
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        Book b = new Book();
+        b.setId(1);
+        em.getTransaction().begin();
+        b = bdao.find(b);
+        bdao.delete(b);
+        em.getTransaction().commit();
+        // final Query query = em.createQuery("SELECT idBook FROM Book");
+        List<Book> books = em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        em.close();
+        assertEquals(books.size(), 0);
+    }
+
+    @Test
+    public void testUpdate() {
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        Book book = new Book();
+        book = em.createQuery("SELECT b FROM Book b", Book.class).getSingleResult();
+        em.getTransaction().begin();
+        book.setName("Updated!");
+        bdao.update(book);
+        em.getTransaction().commit();
+        
+        Book book2 = em.createQuery("SELECT b FROM Book b", Book.class).getSingleResult();
+        em.close();
+        assertEquals(book2.getName(), "Updated!");
+
+    }
+    
+    @Test
+    public void testFindBooksByISBN() {
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        List<Book> books = bdao.FindBooksByISBN("123112315");
+        System.out.println("Books size: " + books.size());
+
+        assertEquals(1, books.size());
+    }
+    
+    @Test
+    public void testFindBooksByAuthor() {
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        List<Book> books = bdao.FindBooksByAuthor("J.K. Rowling");
+        System.out.println("Books size: " + books.size());
+
+        assertEquals(1, books.size());
+    }
+    
+     @Test
+    public void testFindBooksByDepertment() {
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        List<Book> books = bdao.FindBooksByDepartment(Book.Department.Sport);
+        System.out.println("Books size: " + books.size());
+
+        assertEquals(1, books.size());
+    }
+    
+      @Test
+    public void testFind() {
+        EntityManager em = emf.createEntityManager();
+        BookDAO bdao = new BookDAO();
+        Book b = new Book();
+        b.setId(1);
+        bdao.setManager(em);
+        Book books = bdao.find(b);
+
+        assertEquals(b, books);
+        //pridat ine porovnania
+    }
+
 }

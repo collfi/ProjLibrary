@@ -1,55 +1,309 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="9" passed="9">
   <reporter-output>
   </reporter-output>
-  <suite name="cz.fi.muni.pa165.BookDAOTest" duration-ms="3919" started-at="2014-10-10T10:56:17Z" finished-at="2014-10-10T10:56:21Z">
+  <suite name="Command line suite" duration-ms="12720" started-at="2014-10-10T22:10:17Z" finished-at="2014-10-10T22:10:30Z">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="3919" started-at="2014-10-10T10:56:17Z" finished-at="2014-10-10T10:56:21Z">
+    <test name="Command line test" duration-ms="12720" started-at="2014-10-10T22:10:17Z" finished-at="2014-10-10T22:10:30Z">
       <class name="cz.fi.muni.pa165.BookDAOTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="9" started-at="2014-10-10T12:56:17Z" finished-at="2014-10-10T12:56:17Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="10" started-at="2014-10-11T00:10:17Z" finished-at="2014-10-11T00:10:17Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3229" started-at="2014-10-10T12:56:17Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2014-10-10T12:56:20Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3644" started-at="2014-10-11T00:10:17Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2014-10-11T00:10:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-10-10T12:56:20Z" finished-at="2014-10-10T12:56:20Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-10-11T00:10:21Z" finished-at="2014-10-11T00:10:21Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.test()]]>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testDelete()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="setup" is-config="true" duration-ms="140" started-at="2014-10-10T12:56:20Z" finished-at="2014-10-10T12:56:20Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="158" started-at="2014-10-11T00:10:21Z" finished-at="2014-10-11T00:10:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="test()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="test" duration-ms="2" started-at="2014-10-10T12:56:20Z" finished-at="2014-10-10T12:56:20Z">
+        <test-method status="PASS" signature="testDelete()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testDelete" duration-ms="223" started-at="2014-10-11T00:10:21Z" finished-at="2014-10-11T00:10:21Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="526" started-at="2014-10-10T12:56:20Z" finished-at="2014-10-10T12:56:21Z">
+        </test-method> <!-- testDelete -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="564" started-at="2014-10-11T00:10:21Z" finished-at="2014-10-11T00:10:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.test()]]>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testDelete()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@417858a9]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2014-10-10T12:56:21Z" finished-at="2014-10-10T12:56:21Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="758" started-at="2014-10-11T00:10:22Z" finished-at="2014-10-11T00:10:23Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFind()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="23" started-at="2014-10-11T00:10:23Z" finished-at="2014-10-11T00:10:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testFind()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testFind" duration-ms="20" started-at="2014-10-11T00:10:23Z" finished-at="2014-10-11T00:10:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFind -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="512" started-at="2014-10-11T00:10:23Z" finished-at="2014-10-11T00:10:23Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFind()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="587" started-at="2014-10-11T00:10:23Z" finished-at="2014-10-11T00:10:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByAuthor()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="14" started-at="2014-10-11T00:10:24Z" finished-at="2014-10-11T00:10:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testFindBooksByAuthor()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testFindBooksByAuthor" duration-ms="22" started-at="2014-10-11T00:10:24Z" finished-at="2014-10-11T00:10:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFindBooksByAuthor -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="511" started-at="2014-10-11T00:10:24Z" finished-at="2014-10-11T00:10:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByAuthor()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="510" started-at="2014-10-11T00:10:24Z" finished-at="2014-10-11T00:10:25Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByDepertment()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="17" started-at="2014-10-11T00:10:25Z" finished-at="2014-10-11T00:10:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testFindBooksByDepertment()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testFindBooksByDepertment" duration-ms="17" started-at="2014-10-11T00:10:25Z" finished-at="2014-10-11T00:10:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFindBooksByDepertment -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="512" started-at="2014-10-11T00:10:25Z" finished-at="2014-10-11T00:10:25Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByDepertment()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="423" started-at="2014-10-11T00:10:25Z" finished-at="2014-10-11T00:10:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByISBN()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="14" started-at="2014-10-11T00:10:26Z" finished-at="2014-10-11T00:10:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testFindBooksByISBN()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testFindBooksByISBN" duration-ms="13" started-at="2014-10-11T00:10:26Z" finished-at="2014-10-11T00:10:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFindBooksByISBN -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="508" started-at="2014-10-11T00:10:26Z" finished-at="2014-10-11T00:10:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByISBN()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="410" started-at="2014-10-11T00:10:26Z" finished-at="2014-10-11T00:10:27Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByName()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="11" started-at="2014-10-11T00:10:27Z" finished-at="2014-10-11T00:10:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testFindBooksByName()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testFindBooksByName" duration-ms="14" started-at="2014-10-11T00:10:27Z" finished-at="2014-10-11T00:10:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFindBooksByName -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="509" started-at="2014-10-11T00:10:27Z" finished-at="2014-10-11T00:10:27Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testFindBooksByName()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="356" started-at="2014-10-11T00:10:27Z" finished-at="2014-10-11T00:10:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testInsert()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="12" started-at="2014-10-11T00:10:28Z" finished-at="2014-10-11T00:10:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testInsert()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testInsert" duration-ms="11" started-at="2014-10-11T00:10:28Z" finished-at="2014-10-11T00:10:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testInsert -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="508" started-at="2014-10-11T00:10:28Z" finished-at="2014-10-11T00:10:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testInsert()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="348" started-at="2014-10-11T00:10:28Z" finished-at="2014-10-11T00:10:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testUpdate()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="setup" is-config="true" duration-ms="14" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testUpdate()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="testUpdate" duration-ms="40" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUpdate -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="511" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.BookDAOTest.testUpdate()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:cz.fi.muni.pa165.BookDAOTest@6d4b3257]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
       </class> <!-- cz.fi.muni.pa165.BookDAOTest -->
+      <class name="cz.fi.muni.pa165.PrintedBookDAOTest">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="336" started-at="2014-10-11T00:10:29Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="setup" is-config="true" duration-ms="19" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.PrintedBookDAOTest.test()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="test()[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="test" duration-ms="24" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="508" started-at="2014-10-11T00:10:29Z" finished-at="2014-10-11T00:10:30Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void cz.fi.muni.pa165.PrintedBookDAOTest.test()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:cz.fi.muni.pa165.PrintedBookDAOTest@5d17499]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2014-10-11T00:10:30Z" finished-at="2014-10-11T00:10:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- cz.fi.muni.pa165.PrintedBookDAOTest -->
     </test> <!-- Command line test -->
-  </suite> <!-- cz.fi.muni.pa165.BookDAOTest -->
+  </suite> <!-- Command line suite -->
 </testng-results>
