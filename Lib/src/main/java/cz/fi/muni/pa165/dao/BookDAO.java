@@ -27,12 +27,13 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     }
 
     @Override
-    public void Insert(Book t) {
+    public void insert(Book t) {
         entityManager.persist(t);
     }
 
     @Override
-    public void Update(Book t) {
+    public void update(Book t) {
+        //toto mas dobre??
         Book book = (Book)entityManager.find(Book.class ,t.getId());
         book.setName(t.getName());
         book.setAuthors(t.getAuthors());
@@ -43,12 +44,12 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     }
 
     @Override
-    public void Delete(Book t) {
+    public void delete(Book t) {
         entityManager.remove(t);
     }
 
     @Override
-    public Book Find(Book t) {
+    public Book find(Book t) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :book");
         query.setParameter("book", t.getId());
         return (Book) query.getSingleResult();
@@ -62,9 +63,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     }
 
     @Override
-    public List<Book> FindBooksByAuthor(String Author) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.author = '%:book%'");
-        query.setParameter("book", Author);
+    public List<Book> FindBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
+        //menil som to na nieco take ako je findByName(). lebo to nefungovalo.
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
+        query.setParameter("book", "%" + Author + "%");
         return query.getResultList();
     }
 
@@ -77,7 +79,9 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
 
     @Override
     public List<Book> FindBooksByName(String Name) {
-        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", Name);
+        //'Harry Potter' to najde, ale 'Harry' to nenajde
+        //zmenil som to a uz to tak funguje, je to tak lepsie, nie?
+        final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
         return query.getResultList();
     }
     
