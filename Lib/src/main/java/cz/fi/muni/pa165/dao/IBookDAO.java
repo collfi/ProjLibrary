@@ -12,7 +12,7 @@ import cz.fi.muni.pa165.entity.Book.Department;
 
 /**
  *
- * @author michal.lukac, 430614
+ * @author michal.lukac, xlukac, 430614
  */
 public interface IBookDAO {
     

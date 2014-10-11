@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Boris Valentovic - xvalent2
+ * @author Michal Lukac, xlukac, 430614
  */
 public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     

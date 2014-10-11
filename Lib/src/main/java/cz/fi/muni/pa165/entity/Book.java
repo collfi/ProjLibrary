@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author Boris Valentovic - xvalent2
+ * @author Michal Lukac, 430614, xlukac
  */
 @Entity
 public class Book {
@@ -31,15 +31,12 @@ public class Book {
     @Column(nullable=false)
     private String name;
     
-    
     private String authors;
     
     private String description;
     
-    
     @Column(nullable=false)
     private String ISBN;
-    
     
     @OneToMany(mappedBy="book")
     private Set<PrintedBook> Books = new HashSet<PrintedBook>();
@@ -60,7 +57,6 @@ public class Book {
         this.Books = Books;
         this.department = Department;
     }
-
     
     public void setId(int IdBook) {
         this.idBook = IdBook;
@@ -85,8 +81,6 @@ public class Book {
     public void setAuthors(String authors) {
         this.authors = authors;
     }
-    
-    
     
     public void setDescription(String Description) {
         this.description = Description;
@@ -146,5 +140,4 @@ public class Book {
     public String toString() {
 	return "Book [id=" + idBook + ", name=" + name + ", description=" + description + "]";
     }
-    
 }

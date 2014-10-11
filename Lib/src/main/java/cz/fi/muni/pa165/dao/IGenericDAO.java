@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author michal.lukac
+ * @author michal.lukac, xlukac, 430614
  */
 public interface IGenericDAO<T> {
     //shoulnd't INSER AND UPDATE return T???????
