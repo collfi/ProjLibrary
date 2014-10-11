@@ -64,7 +64,6 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
 
     @Override
     public List<Book> FindBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
-        //menil som to na nieco take ako je findByName(). lebo to nefungovalo.
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
         query.setParameter("book", "%" + Author + "%");
         return query.getResultList();
@@ -79,8 +78,6 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
 
     @Override
     public List<Book> FindBooksByName(String Name) {
-        //'Harry Potter' to najde, ale 'Harry' to nenajde
-        //zmenil som to a uz to tak funguje, je to tak lepsie, nie?
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
         return query.getResultList();
     }
