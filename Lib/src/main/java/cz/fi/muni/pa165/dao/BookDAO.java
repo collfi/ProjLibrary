@@ -21,16 +21,28 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
     @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
     
+    /**
+     * Sets the entity manager
+     * @param entityManager 
+     */
     @Override
     public void setManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    /**
+     * Insert book to the book table.
+     * @param t book
+     */
     @Override
     public void insert(Book t) {
         entityManager.persist(t);
     }
 
+    /**
+     * Update book in table.
+     * @param t book
+     */
     @Override
     public void update(Book t) {
         //toto mas dobre??
@@ -43,11 +55,20 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         entityManager.persist(book);
     }
 
+    /**
+     * Delete book in table.
+     * @param t book
+     */
     @Override
     public void delete(Book t) {
         entityManager.remove(t);
     }
 
+    /**
+     * Find book in table.
+     * @param t book
+     * @return returned book.
+     */
     @Override
     public Book find(Book t) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :book");
@@ -55,6 +76,11 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         return (Book) query.getSingleResult();
     }
 
+    /**
+     * Find all books with specified ISBN number.
+     * @param Isbn the unique number of book
+     * @return List of books
+     */
     @Override
     public List<Book> FindBooksByISBN(String Isbn) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.ISBN = :book");
@@ -62,6 +88,12 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         return query.getResultList();
     }
 
+
+    /**
+     * Find all books with name of the author
+     * @param Author the name of author
+     * @return List of books
+     */
     @Override
     public List<Book> FindBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
@@ -69,6 +101,11 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         return query.getResultList();
     }
 
+    /**
+     * Find all Books with specified Department
+     * @param Department which belongs the book
+     * @return List of books
+     */
     @Override
     public List<Book> FindBooksByDepartment(Book.Department en) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.department = :book");
@@ -76,6 +113,11 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         return query.getResultList();
     }
 
+    /**
+     * Find all Books with specified name.
+     * @param Name name of book
+     * @return List of books
+     */
     @Override
     public List<Book> FindBooksByName(String Name) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
