@@ -15,7 +15,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Created by sergii
+* @author Pylypenko Sergii <430519@mail.muni.cz>
  */
 
 public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {

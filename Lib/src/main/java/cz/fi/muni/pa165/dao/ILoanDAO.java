@@ -8,7 +8,7 @@ import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 
 /**
- * @author sergii
+ * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
  public interface ILoanDAO {
 
