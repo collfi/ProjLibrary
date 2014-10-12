@@ -13,11 +13,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- *
+ * Class defines member of library with basic registration information. 
+ *  
  * @author Martin Malik <374128@mail.muni.cz>
  */
 @Entity
-//@Table(name="MEMBER")
 public class Member {
     
     @Id
