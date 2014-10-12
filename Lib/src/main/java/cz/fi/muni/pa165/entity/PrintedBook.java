@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author 
+ * @author @author Boris Valentovic - xvalent2
  */
 @Entity
 public class PrintedBook {
@@ -42,6 +42,15 @@ public class PrintedBook {
     @ManyToOne
     private Loan loan;
 
+    /**
+     * Constructor for printedbook.
+     * 
+     * @param idPrintedBook id of printed book
+     * @param book which book this printedbook belongs
+     * @param state state if is borrowed or not
+     * @param condition is it new or used, ...
+     * @param loan in which loan it participates
+     */
     public PrintedBook(int idPrintedBook, Book book, Boolean state, Condition condition, Loan loan) {
         this.idPrintedBook = idPrintedBook;
         this.book = book;
@@ -50,42 +59,82 @@ public class PrintedBook {
         this.loan = loan;
     }
 
+    /**
+     * Returns id
+     * @return id
+     */
     public int getIdPrintedBook() {
         return idPrintedBook;
     }
 
+    /**
+     * Sets id
+     * @param idPrintedBook id
+     */
     public void setIdPrintedBook(int idPrintedBook) {
         this.idPrintedBook = idPrintedBook;
     }
 
+    /**
+     * Returns book
+     * @return the book which printedbook belongs
+     */
     public Book getBook() {
         return book;
     }
 
+    /**
+     * Sets book
+     * @param book the book which this book belongs 
+     */
     public void setBook(Book book) {
         this.book = book;
     }
 
+    /**
+     * Returns state
+     * @return state for the book 
+     */
     public Boolean getState() {
         return state;
     }
 
+    /**
+     * Sets state
+     * @param state is it borrowed or not
+     */
     public void setState(Boolean state) {
         this.state = state;
     }
 
+    /**
+     * Returns condition.
+     * @return return condition.
+     */
     public Condition getCondition() {
         return condition;
     }
 
+    /**
+     * Set conditions.
+     * @param condition if is new, used, .. 
+     */
     public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
+    /**
+     * Returns loan
+     * @return loan in which book is participated  
+     */
     public Loan getLoan() {
         return loan;
     }
 
+    /**
+     * Sets loan.
+     * @param loan in which book is participated
+     */
     public void setLoan(Loan loan) {
         this.loan = loan;
     }
