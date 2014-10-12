@@ -24,7 +24,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     private EntityManager em;
 
     @Override
-    public List<Loan> FindAllLoansByMember(Member m, boolean is_returned) {
+    public List<Loan> findAllLoansByMember(Member m, boolean is_returned) {
         final TypedQuery<Loan> query = em.createQuery(
                 "SELECT l FROM Loan as l WHERE l.member.id = :mid and l.isReturned = :r", Loan.class);
         query.setParameter("mid", m.getIdMember());
@@ -33,7 +33,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     }
 
     @Override
-    public List<Loan> FindAllLoandsFromTo(Date from, Date to) {
+    public List<Loan> findAllLoandsFromTo(Date from, Date to) {
         final TypedQuery<Loan> query = em.createQuery(
                 "SELECT l FROM Loan as l WHERE l.fromDate > :f and l.fromDate < :t", Loan.class);
         query.setParameter("f", from);
@@ -42,7 +42,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     }
 
     @Override
-    public List<Loan> FindAllLoansWithBook(Book b) {
+    public List<Loan> findAllLoansWithBook(Book b) {
         final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id IN " +
                 "(SELECT pb.loan.id from PrintedBook as pb where pb.book.id = :bid)", Loan.class);
         query.setParameter("bid", b.getId());

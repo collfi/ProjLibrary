@@ -18,7 +18,7 @@ import cz.fi.muni.pa165.entity.Member;
      * @param is_returned if loan has been closed
      * @return list of found loans
      */
-    public List<Loan> FindAllLoansByMember(Member m, boolean is_returned);
+    public List<Loan> findAllLoansByMember(Member m, boolean is_returned);
 
     /**
      * Searches loans that have been created in specified date interval
@@ -26,13 +26,13 @@ import cz.fi.muni.pa165.entity.Member;
      * @param to date until which loan has been created
      * @return list of found loans
      */
-    public List<Loan> FindAllLoandsFromTo(Date from, Date to);
+    public List<Loan> findAllLoandsFromTo(Date from, Date to);
 
     /**
      * Method searches all loans by specific book
      * @param b book to search by
      * @return list of found loans
      */
-    public List<Loan> FindAllLoansWithBook(Book b);
+    public List<Loan> findAllLoansWithBook(Book b);
 
 }

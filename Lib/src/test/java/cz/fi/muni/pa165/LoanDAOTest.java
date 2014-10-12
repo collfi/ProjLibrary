@@ -22,7 +22,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 /**
- * Created by sergii on 12.10.14.
+ * 
+ * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
 @ContextConfiguration(classes = DaoContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -86,7 +87,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         LoanDAO ldao = new LoanDAO();
         ldao.setManager(em);
         System.out.println(ft.parse("2018-11-11"));
-        List<Loan> loans = ldao.FindAllLoandsFromTo(ft.parse("1818-11-11"), ft.parse("2018-11-11"));
+        List<Loan> loans = ldao.findAllLoandsFromTo(ft.parse("1818-11-11"), ft.parse("2018-11-11"));
         assertEquals(1, loans.size());
     }
 
@@ -109,7 +110,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         MemberDAO mbd = new MemberDAO();
         mbd.setManager(em);
         Member member = mbd.findMemberByEmail("cruel.coder@gmail.com");
-        List<Loan> loans = ldao.FindAllLoansByMember(member, false);
+        List<Loan> loans = ldao.findAllLoansByMember(member, false);
         assertEquals(1, loans.size());
     }
 
@@ -123,7 +124,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByISBN("123112315");
 
-        List<Loan> loans = ldao.FindAllLoansWithBook(books.get(0));
+        List<Loan> loans = ldao.findAllLoansWithBook(books.get(0));
         assertEquals(1, loans.size());
     }
 
