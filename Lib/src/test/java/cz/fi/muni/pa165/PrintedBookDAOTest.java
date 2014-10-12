@@ -196,7 +196,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDelete() {
-        /*EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         PrintedBookDAO bdao = new PrintedBookDAO();
         bdao.setManager(em);
         em.getTransaction().begin();
@@ -216,10 +216,11 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pbook.setIdPrintedBook(1);
           
         bdao.delete(pbook);
-        List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
         em.getTransaction().commit();
+        List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
+        
         em.close();
-        assertEquals(books.size(), 1);*/
+        assertEquals(books.size(), 1);
     }
 
     @Test

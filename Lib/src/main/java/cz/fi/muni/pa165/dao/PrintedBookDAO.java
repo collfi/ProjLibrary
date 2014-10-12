@@ -72,7 +72,8 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void delete(PrintedBook t) {
-        em.remove(t);
+        PrintedBook a = em.merge(t);
+        em.remove(a);
     }
 
     @Override

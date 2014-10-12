@@ -61,7 +61,8 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public void delete(Book t) {
-        entityManager.remove(t);
+        Book a = entityManager.merge(t);
+        entityManager.remove(a);
     }
 
     /**
