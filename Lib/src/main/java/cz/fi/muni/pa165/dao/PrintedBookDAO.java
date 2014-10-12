@@ -44,7 +44,7 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public List<PrintedBook> findPrintedBooksByLoan(Book book, Loan loan) {
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.isInLoan.id = :l");
+        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.id = :l");
         query.setParameter("i", book.getId());
         query.setParameter("l", loan.getIdLoan());
         return query.getResultList();
@@ -112,7 +112,7 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public List<PrintedBook> findAllPrintedBooksByLoan(Loan loan) {
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.isInLoan.idLoan = :l");
+        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.loan.idLoan = :l");
         query.setParameter("l", loan.getIdLoan());
         return query.getResultList();
     }

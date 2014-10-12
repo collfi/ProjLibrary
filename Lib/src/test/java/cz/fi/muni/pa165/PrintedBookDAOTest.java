@@ -4,45 +4,38 @@
  * and open the template in the editor.
  */
 package cz.fi.muni.pa165;
-import cz.fi.muni.pa165.DaoContext;
-import cz.fi.muni.pa165.dao.BookDAO;
+
 import cz.fi.muni.pa165.dao.PrintedBookDAO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;
-import java.util.Arrays;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
-import javax.persistence.spi.LoadState;
 
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.jpa.internal.util.PersistenceUtilHelper;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
+
 import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author michal.lukac, xlukac, 430614
  */
 @ContextConfiguration(classes = DaoContext.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
-    
+public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
+
     @PersistenceUnit
     public EntityManagerFactory emf;
     @PersistenceContext
@@ -54,24 +47,25 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
 
         em = emf.createEntityManager();
         em.getTransaction().begin();
-	///???toto tu ma byt?	
+        ///???toto tu ma byt?
+        //TODO +1 maybe put it somewhere to call it from other tests. this code is duplicated n-times
         Book book = new Book();
-	book.setName("Harry Potter");		
-	book.setISBN("123112315");
-	book.setDescription("Book about Wizard!");
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
-        
+
         em.persist(book);
-	em.getTransaction().commit();
-        
+        em.getTransaction().commit();
+
         em.getTransaction().begin();
-        
+
         PrintedBook pb1 = new PrintedBook();
         pb1.setBook(book);
         pb1.setCondition(PrintedBook.Condition.Used);
         pb1.setState(Boolean.FALSE);
-        
+
         PrintedBook pb2 = new PrintedBook();
         pb2.setBook(book);
         pb2.setCondition(PrintedBook.Condition.Used);
@@ -80,9 +74,13 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         Loan l = new Loan();
         HashSet<PrintedBook> set = new HashSet<PrintedBook>();
         set.add(pb2);
-        l.setBooks(set);
-        pb2.setIsInLoan(l);
-        
+        l.setReturned(false);
+        l.setToDate(new Date());
+        l.setFromDate(new Date());
+        l.setWhen(new Date());
+        l.setPbooks(set);
+        pb2.setLoan(l);
+
         em.persist(l);
         em.persist(pb1);
         em.persist(pb2);
@@ -96,11 +94,11 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         PrintedBookDAO pbDAO = new PrintedBookDAO();
         pbDAO.setManager(em);
         PrintedBook pb = pbDAO.findPrintedBookById(1);
-        
+
         em.close();
-        assertEquals(1,pb.getIdPrintedBook());
+        assertEquals(1, pb.getIdPrintedBook());
     }
-    
+
     @Test
     public void testFindPrintedBooks() {
         EntityManager em = emf.createEntityManager();
@@ -108,7 +106,7 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
-        
+
         List<PrintedBook> l = pbDAO.findPrintedBooks(b);
         em.close();
         assertEquals(2, l.size());
@@ -121,7 +119,7 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
-        
+
         List<PrintedBook> l = pbDAO.findPrintedBooksByState(b, Boolean.FALSE);
         em.close();
         assertEquals(1, l.size());
@@ -134,11 +132,11 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
-        
+
         Loan l = new Loan();
         l.setIdLoan(1);
-        
-        List<PrintedBook> li = pbDAO.findPrintedBooksByLoan(b,l);
+
+        List<PrintedBook> li = pbDAO.findPrintedBooksByLoan(b, l);
         em.close();
         assertEquals(1, li.size());
     }
@@ -151,11 +149,11 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
 
 
         em.getTransaction().begin();
-        
+
         Book book = new Book();
-	book.setName("Harry Potter");		
-	book.setISBN("123112315");
-	book.setDescription("Book about Wizard!");
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
         book.setId(1);
@@ -165,11 +163,11 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbook.setState(Boolean.FALSE);
         pbook.setCondition(PrintedBook.Condition.Damaged);
         bdao.insert(pbook);
-        
+
         em.getTransaction().commit();
 
         List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
-        
+
         em.close();
         assertEquals(books.size(), 3);
     }
@@ -182,9 +180,9 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         em.getTransaction().begin();
 
         Book book = new Book();
-	book.setName("Harry Potter");		
-	book.setISBN("123112315");
-	book.setDescription("Book about Wizard!");
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
         book.setId(1);
@@ -233,7 +231,7 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
         PrintedBook book = new PrintedBook();
         book.setIdPrintedBook(1);
-        PrintedBook pb = pbDAO.find(book);        
+        PrintedBook pb = pbDAO.find(book);
         em.close();
         assertEquals(1, pb.getIdPrintedBook());
     }
@@ -245,9 +243,9 @@ public class PrintedBookDAOTest  extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
         PrintedBook book = new PrintedBook();
         book.setIdPrintedBook(1);
-        PrintedBook pb = pbDAO.find(book);        
+        PrintedBook pb = pbDAO.find(book);
         em.close();
-        assertEquals(1, pb.getIdPrintedBook());        
+        assertEquals(1, pb.getIdPrintedBook());
     }
 
     @Test

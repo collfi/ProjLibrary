@@ -12,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 /**
  *
@@ -25,7 +24,6 @@ public class PrintedBook {
 
     public PrintedBook() {
     }
-    
     
     @Id
     @GeneratedValue
@@ -42,14 +40,14 @@ public class PrintedBook {
     private Condition condition;
     
     @ManyToOne
-    private Loan isInLoan;
+    private Loan loan;
 
     public PrintedBook(int idPrintedBook, Book book, Boolean state, Condition condition, Loan loan) {
         this.idPrintedBook = idPrintedBook;
         this.book = book;
         this.state = state;
         this.condition = condition;
-        this.isInLoan = loan;
+        this.loan = loan;
     }
 
     public int getIdPrintedBook() {
@@ -84,21 +82,22 @@ public class PrintedBook {
         this.condition = condition;
     }
 
-    public Loan getIsInLoan() {
-        return isInLoan;
+    public Loan getLoan() {
+        return loan;
     }
 
-    public void setIsInLoan(Loan isInLoan) {
-        this.isInLoan = isInLoan;
+    public void setLoan(Loan loan) {
+        this.loan = loan;
     }
 
     @Override
     public String toString() {
-        return "PrintedBook{" + "idPrintedBook=" + idPrintedBook + ", book=" + book + ", state=" + state + ", condition=" + condition + ", isInLoan=" + isInLoan + '}';
+        return "PrintedBook{" + "idPrintedBook=" + idPrintedBook + ", book=" + book + ", state=" + state + ", condition=" + condition + ", isInLoan=" + loan + '}';
     }
 
     @Override
     public int hashCode() {
+        //TODO why isn't just idPrintedBook?
         int hash = 3;
         hash = 67 * hash + this.idPrintedBook;
         return hash;
@@ -113,16 +112,6 @@ public class PrintedBook {
             return false;
         }
         final PrintedBook other = (PrintedBook) obj;
-        if (this.idPrintedBook != other.idPrintedBook) {
-            return false;
-        }
-        return true;
+        return this.idPrintedBook == other.idPrintedBook;
     }
-
-  
-
-   
-    
-    
-    
 }
