@@ -140,7 +140,6 @@ public class PrintedBook {
 
     @Override
     public int hashCode() {
-        //TODO why isn't just idPrintedBook?
         int hash = 3;
         hash = 67 * hash + this.idPrintedBook;
         return hash;

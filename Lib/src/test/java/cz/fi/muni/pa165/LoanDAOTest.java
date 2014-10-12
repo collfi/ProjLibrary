@@ -3,26 +3,20 @@ package cz.fi.muni.pa165;
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.LoanDAO;
 import cz.fi.muni.pa165.dao.MemberDAO;
-import cz.fi.muni.pa165.dao.PrintedBookDAO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
@@ -73,12 +67,9 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
-        l.setWhen(new Date());
+        l.setDateReturned(new Date());
         l.setMember(m);
         pb2.setLoan(l);
-//        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
-//        set.add(pb2);
-//        l.setPbooks(set);
 
         em.persist(book);
         em.persist(l);
@@ -118,9 +109,6 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         MemberDAO mbd = new MemberDAO();
         mbd.setManager(em);
         Member member = mbd.findMemberByEmail("cruel.coder@gmail.com");
-
-        //TODO I need member DAO to get member
-
         List<Loan> loans = ldao.FindAllLoansByMember(member, false);
         assertEquals(1, loans.size());
     }
@@ -167,8 +155,8 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         em.getTransaction().commit();
 
         try {
-            Loan loan2 = ldao.find(l);
-            fail( "My method didn't throw when I expected it to" );
+            ldao.find(l);
+            fail( "Method didn't throw when it had to" );
         }
         catch (NoResultException e){}
 

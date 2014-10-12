@@ -74,7 +74,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
-        l.setWhen(new Date());
+        l.setDateReturned(new Date());
         pb2.setLoan(l);
 
         em.persist(l);
