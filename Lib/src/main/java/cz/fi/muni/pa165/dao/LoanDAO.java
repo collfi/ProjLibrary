@@ -67,7 +67,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     @Override
     public void delete(Loan loan) {
         Loan l = this.em.merge(loan);
-        this.em.remove(loan);
+        this.em.remove(l);
     }
 
     @Override
