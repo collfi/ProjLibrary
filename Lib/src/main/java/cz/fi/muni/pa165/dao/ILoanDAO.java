@@ -1,19 +1,38 @@
 package cz.fi.muni.pa165.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 
-import java.util.Date;
-import java.util.List;
-
 /**
- * Created by sergii on 11.10.14.
+ * @author sergii
  */
-public interface ILoanDAO {
+ public interface ILoanDAO {
 
+    /**
+     * Searches loans from of specific member and loan state
+     * @param m member to search loans by
+     * @param is_returned if loan has been closed
+     * @return list of found loans
+     */
     public List<Loan> FindAllLoansByMember(Member m, boolean is_returned);
+
+    /**
+     * Searches loans that have been created in specified date interval
+     * @param from date from which loan has been created
+     * @param to date until which loan has been created
+     * @return list of found loans
+     */
     public List<Loan> FindAllLoandsFromTo(Date from, Date to);
+
+    /**
+     * Method searches all loans by specific book
+     * @param b book to search by
+     * @return list of found loans
+     */
     public List<Loan> FindAllLoansWithBook(Book b);
 
 }

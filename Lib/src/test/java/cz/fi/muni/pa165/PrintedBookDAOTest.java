@@ -74,7 +74,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
-        l.setWhen(new Date());
+        l.setDateReturned(new Date());
         pb2.setLoan(l);
 
         em.persist(l);
@@ -168,30 +168,6 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testUpdate(PrintedBook printedBook) {
-        EntityManager em = emf.createEntityManager();
-        PrintedBookDAO bdao = new PrintedBookDAO();
-        bdao.setManager(em);
-        em.getTransaction().begin();
-
-        Book book = new Book();
-        book.setName("Harry Potter");
-        book.setISBN("123112315");
-        book.setDescription("Book about Wizard!");
-        book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
-        book.setId(1);
-
-        PrintedBook pbook = new PrintedBook();
-        pbook.setBook(book);
-        pbook.setState(Boolean.FALSE);
-        pbook.setCondition(PrintedBook.Condition.New);
-        bdao.update(printedBook);
-        em.getTransaction().commit();
-        em.close();
-    }
-
-    @Test
     public void testDelete() {
         EntityManager em = emf.createEntityManager();
         PrintedBookDAO bdao = new PrintedBookDAO();
@@ -218,6 +194,34 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         em.close();
         assertEquals(books.size(), 1);
+    }
+
+    @Test
+    public void testUpdate() {
+        EntityManager em = emf.createEntityManager();
+        PrintedBookDAO bdao = new PrintedBookDAO();
+        bdao.setManager(em);
+        em.getTransaction().begin();
+
+        Book book = new Book();
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
+        book.setAuthors("J.K. Rowling");
+        book.setDapertment(Book.Department.Sport);
+        book.setId(1);
+
+        PrintedBook pbook = new PrintedBook();
+        pbook.setBook(book);
+        pbook.setState(Boolean.FALSE);
+        pbook.setCondition(PrintedBook.Condition.New);
+        pbook.setIdPrintedBook(2);
+        bdao.update(pbook);
+        
+        PrintedBook b1 = bdao.find(pbook);
+        em.getTransaction().commit();
+        em.close();
+        assertEquals(b1.getState(), Boolean.FALSE);
     }
 
     @Test

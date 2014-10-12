@@ -20,12 +20,10 @@ public class Loan {
     @GeneratedValue
     private int idLoan;
 
-    //TODO can't be empty
     @ManyToOne
     private Member member;
 
     @OneToMany(mappedBy = "loan")
-//    @OneToMany
     private Set<PrintedBook> pbooks = new HashSet<PrintedBook>();
 
     @Column(nullable=false)
@@ -39,12 +37,11 @@ public class Loan {
 
     private String description;
 
-    //TODO change to dateReturned or smth else
     @Column(nullable=false)
-    private Date when;
+    private Date dateReturned;
 
-    public void setWhen(Date when) {
-        this.when = when;
+    public void setDateReturned(Date when) {
+        this.dateReturned = when;
     }
 
     public void setDescription(String description) {
@@ -83,8 +80,8 @@ public class Loan {
         return description;
     }
 
-    public Date getWhen() {
-        return when;
+    public Date getDateReturned() {
+        return dateReturned;
     }
 
     public Member getMember() {
@@ -106,6 +103,31 @@ public class Loan {
 
     public void setPbooks(Set<PrintedBook> books) {
         this.pbooks = books;
+    }
+
+
+    @Override
+    public String toString() {
+        return this.getClass() + "{" + "idLoan=" + idLoan + ", fromDate=" + fromDate + ", toDate=" + toDate +
+                ", dateReturned=" + dateReturned + ", isReturned=" + isReturned + ", Member=" + member
+                + ", Description=" + description + ", PrintedBooks=" + pbooks + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return this.idLoan;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Loan other = (Loan) obj;
+        return this.idLoan == other.idLoan;
     }
 
 

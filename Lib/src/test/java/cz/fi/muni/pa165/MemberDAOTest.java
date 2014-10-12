@@ -6,16 +6,13 @@
 
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.DaoContext;
 import cz.fi.muni.pa165.dao.MemberDAO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -23,10 +20,7 @@ import javax.persistence.PersistenceUnit;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertEquals;
+
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -246,33 +240,20 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         loan1.setReturned(false);
         loan1.setToDate(new Date());
         loan1.setFromDate(new Date());
-        loan1.setWhen(new Date());
+        loan1.setDateReturned(new Date());
         loan1.setMember(member1);
         
         Loan loan2 = new Loan();
         loan2.setReturned(false);
         loan2.setToDate(new Date());
         loan2.setFromDate(new Date());
-        loan2.setWhen(new Date());
+        loan2.setDateReturned(new Date());
         loan2.setMember(member2);
-        
-        Set<PrintedBook> pbSet1 = new HashSet<PrintedBook>();
-        pbSet1.add(pb1);
-        loan1.setPbooks(pbSet1);
+
         pb1.setLoan(loan1);
-        
-        Set<PrintedBook> pbSet2 = new HashSet<PrintedBook>();
-        pbSet2.add(pb2);
-        loan2.setPbooks(pbSet2);
+
         pb2.setLoan(loan2);
-        
-        Set<Loan> loansOfMember1 = new HashSet<Loan>();
-        loansOfMember1.add(loan1);
-        member1.setLoans(loansOfMember1);
-        
-        Set<Loan> loansOfMember2 = new HashSet<Loan>();
-        loansOfMember2.add(loan2);
-        member2.setLoans(loansOfMember2);
+
         
         em.getTransaction().begin();
         em.persist(member1);

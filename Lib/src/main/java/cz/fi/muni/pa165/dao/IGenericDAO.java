@@ -42,6 +42,5 @@ public interface IGenericDAO<T> {
      * @param t object which we want to find.
      * @return if find return T
      */
-    //TODO why does it have to be only one T? maybe list here?
     public T find(T t);
 }

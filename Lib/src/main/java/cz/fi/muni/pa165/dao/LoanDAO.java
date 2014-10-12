@@ -4,14 +4,11 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
-import org.testng.annotations.Test;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +18,6 @@ import static org.testng.Assert.assertEquals;
  * Created by sergii
  */
 
-//TODO do we need some kind of transaction support here?
 public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
 
     @PersistenceContext(unitName = "loan-unit", type = PersistenceContextType.EXTENDED)
@@ -67,7 +63,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     public void update(Loan loan) {
         Loan l = find(loan);
         l.setReturned(l.isReturned());
-        l.setWhen(l.getWhen());
+        l.setDateReturned(l.getDateReturned());
         l.setFromDate(l.getFromDate());
         l.setToDate(l.getToDate());
         l.setDescription(l.getDescription());
@@ -87,10 +83,8 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
         em.remove(loan);
     }
 
-    //TODO case with no result
     @Override
     public Loan find(Loan loan) {
-//TODO take a look        PrintedBook find
         CriteriaBuilder cb  = em.getCriteriaBuilder();
         CriteriaQuery<Loan> cq = cb.createQuery(Loan.class);
         Root<Loan> root = cq.from(Loan.class);
@@ -98,7 +92,4 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
         TypedQuery<Loan> q = em.createQuery(cq);
         return q.getSingleResult();
     }
-
-
-
 }

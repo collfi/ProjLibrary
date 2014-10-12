@@ -21,7 +21,7 @@ public class PrintedBook {
     
     @Id
     @GeneratedValue
-    private int idPrintedBook;
+    private long idPrintedBook;
     
     @ManyToOne
     private Book book;
@@ -37,10 +37,10 @@ public class PrintedBook {
     private Loan loan;
 
     /**
-     * Constructor for printedbook.
+     * Constructor for printed book.
      * 
      * @param idPrintedBook id of printed book
-     * @param book which book this printedbook belongs
+     * @param book which book this printed book belongs
      * @param state state if is borrowed or not
      * @param condition is it new or used, ...
      * @param loan in which loan it participates
@@ -57,7 +57,7 @@ public class PrintedBook {
      * Returns id
      * @return id
      */
-    public int getIdPrintedBook() {
+    public long getIdPrintedBook() {
         return idPrintedBook;
     }
 
@@ -71,7 +71,7 @@ public class PrintedBook {
 
     /**
      * Returns book
-     * @return the book which printedbook belongs
+     * @return the book which printed book belongs
      */
     public Book getBook() {
         return book;
@@ -131,6 +131,7 @@ public class PrintedBook {
      */
     public void setLoan(Loan loan) {
         this.loan = loan;
+        this.setState(Boolean.TRUE);
     }
 
     @Override
@@ -140,9 +141,8 @@ public class PrintedBook {
 
     @Override
     public int hashCode() {
-        //TODO why isn't just idPrintedBook?
         int hash = 3;
-        hash = 67 * hash + this.idPrintedBook;
+        hash = 67 * hash + (int) this.idPrintedBook;
         return hash;
     }
 

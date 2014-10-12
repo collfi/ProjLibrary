@@ -24,11 +24,17 @@ import javax.persistence.criteria.Root;
  */
 public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook> {
 
+    /**
+     * Persistence context for this class
+     */
     @PersistenceContext(unitName = "pbook-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override
     public List<PrintedBook> findPrintedBooks(Book book) {
+        if (book == null) {
+            throw new IllegalArgumentException("Book null");
+        }
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i");
         query.setParameter("i", book.getId());
         return query.getResultList();
@@ -36,9 +42,29 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public List<PrintedBook> findPrintedBooksByState(Book book, Boolean state) {
+        if (book == null) {
+            throw new IllegalArgumentException("Book null");
+        }
+        if (state == null) {
+            throw new IllegalArgumentException("State null");
+        }
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.state = :s");
         query.setParameter("i", book.getId());
         query.setParameter("s", state);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<PrintedBook> findPrintedBooksByLoan(Book book, Loan loan) {
+        if (book == null) {
+            throw new IllegalArgumentException("Book null");
+        }
+        if (loan == null) {
+            throw new IllegalArgumentException("Loan null");
+        }
+        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.idLoan = :l");
+        query.setParameter("i", book.getId());
+        query.setParameter("l", loan.getIdLoan());
         return query.getResultList();
     }
 
@@ -49,16 +75,24 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void insert(PrintedBook t) {
+        if (t == null) {
+            throw new IllegalArgumentException("Printed Book null");
+        }
         em.persist(t);
     }
 
     @Override
     public void update(PrintedBook printedBook) {
-        //TODO
-        //??? zle?
-        //http://www.java2s.com/Code/Java/JPA/UpdateAnEntity.htm raiseProfessorSalary
-        //need to check for null result btw
+        if (printedBook == null) {
+            throw new IllegalArgumentException("printed book in update is null");
+        }
+
         PrintedBook pb = find(printedBook);
+
+        if (pb == null) {
+            throw new IllegalArgumentException("printed book after find is null");
+        }
+
         pb.setBook(printedBook.getBook());
         pb.setCondition(printedBook.getCondition());
         pb.setState(printedBook.getState());
@@ -67,19 +101,25 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void delete(PrintedBook t) {
+        if (t == null) {
+            throw new IllegalArgumentException("Printed Book null");
+        }
         PrintedBook a = em.merge(t);
         em.remove(a);
     }
 
     @Override
     public PrintedBook find(PrintedBook t) {
+        if (t == null) {
+            throw new IllegalArgumentException("Printed Book null");
+        }
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
         query.setParameter("i", t.getIdPrintedBook());
         return (PrintedBook) query.getSingleResult();
     }
 
     @Override
-    public PrintedBook findPrintedBookById(int id) {
+    public PrintedBook findPrintedBookById(long id) {
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
         query.setParameter("i", id);
         return (PrintedBook) query.getSingleResult();
@@ -94,17 +134,12 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public List<PrintedBook> findAllPrintedBooksByLoan(Loan loan) {
+        if (loan == null) {
+            throw new IllegalArgumentException("Book null");
+        }
         final TypedQuery<PrintedBook> query = em.createQuery(
                 "SELECT m FROM PrintedBook as m WHERE m.loan.idLoan = :lid", PrintedBook.class);
         query.setParameter("lid", loan.getIdLoan());
-        return query.getResultList();
-    }
-
-    @Override
-    public List<PrintedBook> findPrintedBooksByLoan(Book book, Loan loan) {
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.idLoan = :l");
-        query.setParameter("i", book.getId());
-        query.setParameter("l", loan.getIdLoan());
         return query.getResultList();
     }
 
