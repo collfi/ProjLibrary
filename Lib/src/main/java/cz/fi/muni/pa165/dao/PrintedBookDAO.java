@@ -54,7 +54,16 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void update(PrintedBook printedBook) {
+        if (printedBook == null) {
+            throw new IllegalArgumentException("printed book in update is null");
+        }
+
         PrintedBook pb = find(printedBook);
+
+        if (pb == null) {
+            throw new IllegalArgumentException("printed book after find is null");
+        }
+        
         pb.setBook(printedBook.getBook());
         pb.setCondition(printedBook.getCondition());
         pb.setState(printedBook.getState());

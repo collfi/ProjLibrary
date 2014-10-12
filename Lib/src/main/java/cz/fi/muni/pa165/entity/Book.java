@@ -22,11 +22,11 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Book {
-    public enum Department { Science, Hobby, Sport, Autobiografy, Religion}
+    public enum Department { Science, Sport, Autobiografy, Religion}
     
     @Id
     @GeneratedValue
-    private int idBook;
+    private long idBook;
     
     @Column(nullable=false)
     private String name;
@@ -83,7 +83,7 @@ public class Book {
      * Return id of book
      * @return unique integer
      */
-    public int getId() {
+    public long getId() {
         return this.idBook;
     }
     
