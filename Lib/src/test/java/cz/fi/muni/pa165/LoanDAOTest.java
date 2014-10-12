@@ -23,7 +23,7 @@ import static org.testng.Assert.fail;
 
 /**
  * 
- * @author Pylypenko Sergii <430519@mail.muni.cz>
+ * @author Martin Malik<374128@mail.muni.cz>
  */
 @ContextConfiguration(classes = DaoContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
