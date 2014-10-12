@@ -73,6 +73,27 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
     
     @Test
+    public void insertMember(){
+        EntityManager em = emf.createEntityManager();
+        MemberDAO memDAO = new MemberDAO();
+        memDAO.setManager(em);
+
+        Member member = new Member();
+        member.setName("Lucy Red");
+        member.setAddress("1856/12, Cerna Pole, Brno");
+        member.setEmail("lucy.red@mail.muni.cz");
+        
+        em.getTransaction().begin();
+        memDAO.insert(member);
+        em.getTransaction().commit();
+        
+        List<Member> members = em.createQuery("SELECT mem FROM Member mem", Member.class).getResultList();
+        em.close();
+        
+        assertEquals(2, members.size());
+    }
+    
+    @Test
     public void findMember(){
         EntityManager em = emf.createEntityManager();
         MemberDAO memDAO = new MemberDAO();
@@ -83,6 +104,23 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         em.close();
         
         assertEquals(1, member2.getIdMember());
+    }
+    
+    @Test
+    public void deleteMember(){
+        EntityManager em = emf.createEntityManager();
+        MemberDAO memDAO = new MemberDAO();
+        memDAO.setManager(em);
+        
+        em.getTransaction().begin();
+        Member member = memDAO.findMemberByIdMember(1);
+        memDAO.delete(member);
+        em.getTransaction().commit();
+        
+        List<Member> members = em.createQuery("SELECT mem FROM Member mem", Member.class).getResultList();
+        em.close();
+        
+        assertEquals(0, members.size());
     }
     
     @Test
