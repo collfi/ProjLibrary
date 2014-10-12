@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.PrintedBook;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -69,6 +70,14 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
         }
 
         Book a = entityManager.merge(t);
+        
+        PrintedBookDAO bdao = new PrintedBookDAO();
+        bdao.setManager(entityManager);
+        List<PrintedBook> books = bdao.findPrintedBooks(a);
+        for(PrintedBook pb : books)
+        {
+            bdao.delete(pb);
+        }
         entityManager.remove(a);
     }
 
