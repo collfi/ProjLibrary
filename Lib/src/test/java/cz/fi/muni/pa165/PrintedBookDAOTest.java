@@ -72,7 +72,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         Loan l = new Loan();
         HashSet<PrintedBook> set = new HashSet<PrintedBook>();
-        set.add(pb2);
+        set.add(pb1);
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
@@ -256,16 +256,18 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         b.setId(1);
         
         PrintedBook book = pbDAO.findPrintedBookById(1);
+        book.setIdPrintedBook(1);
         HashSet<PrintedBook> set =new HashSet<PrintedBook>();
         
         Loan l = new Loan();
         l.setIdLoan(1);
-        l.setBooks(set);
-        book.setIsInLoan(l);
+        l.setPbooks(set);
+        book.setLoan(l);
         book.setState(Boolean.TRUE);
         pbDAO.update(book);
         
         List<PrintedBook> li = pbDAO.findPrintedBooksByLoan(b, l);
-        em.close();*/
+        em.close();
+        assertEquals(1, li.size());
     }
 }
