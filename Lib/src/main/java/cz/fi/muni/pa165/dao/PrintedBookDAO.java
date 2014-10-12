@@ -63,6 +63,8 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
     @Override
     public void update(PrintedBook printedBook) {
         //??? zle?
+        //http://www.java2s.com/Code/Java/JPA/UpdateAnEntity.htm raiseProfessorSalary
+        //need to check for null result btw
         PrintedBook pb = find(printedBook);
         pb.setBook(printedBook.getBook());
         pb.setCondition(printedBook.getCondition());

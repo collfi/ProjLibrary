@@ -8,6 +8,7 @@ package cz.fi.muni.pa165;
 import cz.fi.muni.pa165.DaoContext;
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.entity.Book;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,12 +30,13 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+
 import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author Boris Valentovic - xvalent2
  */
 @ContextConfiguration(classes = DaoContext.class)
@@ -136,13 +138,13 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         book.setName("Updated!");
         bdao.update(book);
         em.getTransaction().commit();
-        
+
         Book book2 = em.createQuery("SELECT b FROM Book b", Book.class).getSingleResult();
         em.close();
         assertEquals(book2.getName(), "Updated!");
 
     }
-    
+
     @Test
     public void testFindBooksByISBN() {
         EntityManager em = emf.createEntityManager();
@@ -153,7 +155,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
+
     @Test
     public void testFindBooksByAuthor() {
         EntityManager em = emf.createEntityManager();
@@ -164,8 +166,8 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
-     @Test
+
+    @Test
     public void testFindBooksByDepertment() {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
@@ -175,8 +177,8 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
-      @Test
+
+    @Test
     public void testFind() {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();

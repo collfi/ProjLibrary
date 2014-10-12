@@ -25,6 +25,7 @@ public class Loan {
     private Member member;
 
     @OneToMany(mappedBy = "loan")
+//    @OneToMany
     private Set<PrintedBook> pbooks = new HashSet<PrintedBook>();
 
     @Column(nullable=false)

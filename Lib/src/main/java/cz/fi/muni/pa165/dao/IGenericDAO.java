@@ -21,6 +21,7 @@ public interface IGenericDAO<T> {
     public void update(T t);
     
     public void delete(T t);
-    
+
+    //TODO why does it have to be only one T? maybe list here?
     public T find(T t);
 }
