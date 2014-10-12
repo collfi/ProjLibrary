@@ -130,8 +130,14 @@ public class PrintedBook {
      * @param loan in which book is participated
      */
     public void setLoan(Loan loan) {
-        this.loan = loan;
-        this.setState(Boolean.TRUE);
+        if (loan == null) {
+            this.loan = null;
+            this.setState(Boolean.FALSE);
+        }
+        else {
+            this.loan = loan;
+            this.setState(Boolean.TRUE);
+        }
     }
 
     @Override
