@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     @Override
     public List<Loan> FindAllLoansByMember(Member m, boolean is_returned) {
         final TypedQuery<Loan> query = em.createQuery(
-                "SELECT l FROM Loan as l WHERE Loan.member.id = :mid and Loan.isReturned = :r", Loan.class);
+                "SELECT l FROM Loan as l WHERE l.member.id = :mid and l.isReturned = :r", Loan.class);
         query.setParameter("mid", m.getIdMember());
         query.setParameter("r", is_returned);
         return query.getResultList();
@@ -77,19 +78,19 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
 
     @Override
     public void delete(Loan loan) {
-        //TODO what about transactions
-//
-//        em.getTransaction().begin();
-//        em.remove(loan);
-//        em.getTransaction().commit();
-
-        Loan l = this.em.merge(loan);
-        this.em.remove(l);
+        PrintedBookDAO pbd = new PrintedBookDAO();
+        pbd.setManager(em);
+        List<PrintedBook> books = pbd.findAllPrintedBooksByLoan(loan);
+        for (PrintedBook pb : books){
+            pb.setLoan(null);
+        }
+        em.remove(loan);
     }
 
     //TODO case with no result
     @Override
     public Loan find(Loan loan) {
+//TODO take a look        PrintedBook find
         CriteriaBuilder cb  = em.getCriteriaBuilder();
         CriteriaQuery<Loan> cq = cb.createQuery(Loan.class);
         Root<Loan> root = cq.from(Loan.class);

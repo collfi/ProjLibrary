@@ -71,13 +71,10 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pb2.setState(Boolean.TRUE);
 
         Loan l = new Loan();
-        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
-        set.add(pb1);
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
         l.setWhen(new Date());
-        l.setPbooks(set);
         pb2.setLoan(l);
 
         em.persist(l);
@@ -202,9 +199,9 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         em.getTransaction().begin();
 
         Book book = new Book();
-	book.setName("Harry Potter");		
-	book.setISBN("123112315");
-	book.setDescription("Book about Wizard!");
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
         book.setId(1);
@@ -214,11 +211,11 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pbook.setState(Boolean.FALSE);
         pbook.setCondition(PrintedBook.Condition.New);
         pbook.setIdPrintedBook(1);
-          
+
         bdao.delete(pbook);
         em.getTransaction().commit();
         List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
-        
+
         em.close();
         assertEquals(books.size(), 1);
     }
@@ -252,21 +249,21 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         PrintedBookDAO pbDAO = new PrintedBookDAO();
         pbDAO.setManager(em);
-        
+
         Book b = new Book();
         b.setId(1);
-        
+
         PrintedBook book = pbDAO.findPrintedBookById(1);
         book.setIdPrintedBook(1);
-        HashSet<PrintedBook> set =new HashSet<PrintedBook>();
-        
+        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
+
         Loan l = new Loan();
         l.setIdLoan(1);
         l.setPbooks(set);
         book.setLoan(l);
         book.setState(Boolean.TRUE);
         pbDAO.update(book);
-        
+
         List<PrintedBook> li = pbDAO.findPrintedBooksByLoan(b, l);
         em.close();
         assertEquals(1, li.size());
