@@ -18,14 +18,15 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 /**
- *
+ * Class for MemberDAO
+ * 
  * @author Martin Malik <374128@mail.muni.cz>
  */
 public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
 
     @PersistenceContext(unitName = "member-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
-
+    
     @Override
     public Member findMemberByIdMember(long id) {
         final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
@@ -62,7 +63,7 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
         query.setParameter("idBook", book.getId());
         List<Member> members = query.getResultList();
         
-        //vymazat
+        //po otestovani vymazat, vypis clenov
         for(Member mem : members){
             System.out.println(mem);
         }
