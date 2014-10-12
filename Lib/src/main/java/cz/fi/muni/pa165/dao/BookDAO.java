@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.entity.Book;
@@ -13,7 +8,8 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 /**
- *
+ * Dao Implementation of DAO interface for book.
+ * 
  * @author Michal Lukac, xlukac, 430614
  */
 public class BookDAO implements IBookDAO, IGenericDAO<Book> {
@@ -36,6 +32,9 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public void insert(Book t) {
+        if (t == null) {
+            throw new IllegalArgumentException("cannot update null in book");
+        }
         entityManager.persist(t);
     }
 
@@ -45,6 +44,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public void update(Book t) {
+        if (t == null) {
+            throw new IllegalArgumentException("cannot insert null in book");
+        }
+
         //toto mas dobre??
         Book book = (Book)entityManager.find(Book.class ,t.getId());
         book.setName(t.getName());
@@ -61,6 +64,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public void delete(Book t) {
+        if (t == null) {
+            throw new IllegalArgumentException("cannot delete null in book");
+        }
+
         Book a = entityManager.merge(t);
         entityManager.remove(a);
     }
@@ -72,6 +79,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public Book find(Book t) {
+        if (t == null) {
+            throw new IllegalArgumentException("cannot find null in book");
+        }
+
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :book");
         query.setParameter("book", t.getId());
         return (Book) query.getSingleResult();
@@ -84,6 +95,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public List<Book> findBooksByISBN(String Isbn) {
+        if (Isbn == null) {
+            throw new IllegalArgumentException("cannot findisbn null in book");
+        }
+
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.ISBN = :book");
         query.setParameter("book", Isbn);
         return query.getResultList();
@@ -96,7 +111,11 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      * @return List of books
      */
     @Override
-    public List<Book> findBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
+    public List<Book> findBooksByAuthor(String Author) {
+        if (Author == null) {
+            throw new IllegalArgumentException("cannot insert null in book");
+        }
+
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
         query.setParameter("book", "%" + Author + "%");
         return query.getResultList();
@@ -109,6 +128,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public List<Book> findBooksByDepartment(Book.Department en) {
+        if (en == null) {
+            throw new IllegalArgumentException("cannot findbooksdepartment with null in book");
+        }
+
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.department = :book");
         query.setParameter("book", en);
         return query.getResultList();
@@ -121,6 +144,10 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      */
     @Override
     public List<Book> findBooksByName(String Name) {
+        if (Name == null) {
+            throw new IllegalArgumentException("cannot findBooksByName with null in book");
+        }
+
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
         return query.getResultList();
     }
