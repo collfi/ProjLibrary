@@ -82,7 +82,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      * @return List of books
      */
     @Override
-    public List<Book> FindBooksByISBN(String Isbn) {
+    public List<Book> findBooksByISBN(String Isbn) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.ISBN = :book");
         query.setParameter("book", Isbn);
         return query.getResultList();
@@ -95,7 +95,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      * @return List of books
      */
     @Override
-    public List<Book> FindBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
+    public List<Book> findBooksByAuthor(String Author) {//is it case sensitive? it shouldn't
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
         query.setParameter("book", "%" + Author + "%");
         return query.getResultList();
@@ -107,7 +107,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      * @return List of books
      */
     @Override
-    public List<Book> FindBooksByDepartment(Book.Department en) {
+    public List<Book> findBooksByDepartment(Book.Department en) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.department = :book");
         query.setParameter("book", en);
         return query.getResultList();
@@ -119,7 +119,7 @@ public class BookDAO implements IBookDAO, IGenericDAO<Book> {
      * @return List of books
      */
     @Override
-    public List<Book> FindBooksByName(String Name) {
+    public List<Book> findBooksByName(String Name) {
         final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
         return query.getResultList();
     }

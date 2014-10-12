@@ -21,27 +21,27 @@ public interface IBookDAO {
      * @param Isbn the unique number of book
      * @return List of books
      */
-    public List<Book> FindBooksByISBN(String Isbn);
+    public List<Book> findBooksByISBN(String Isbn);
     
     /**
      * Find all books with name of the author
      * @param Author the name of author
      * @return List of books
      */
-    public List<Book> FindBooksByAuthor(String Author);
+    public List<Book> findBooksByAuthor(String Author);
     
     /**
      * Find all Books with specified Department
      * @param Department which belongs the book
      * @return List of books
      */
-    public List<Book> FindBooksByDepartment(Department en);
+    public List<Book> findBooksByDepartment(Department en);
     
     /**
      * Find all Books with specified name.
      * @param Name name of book
      * @return List of books
      */
-    public List<Book> FindBooksByName(String Name);
+    public List<Book> findBooksByName(String Name);
     
 }

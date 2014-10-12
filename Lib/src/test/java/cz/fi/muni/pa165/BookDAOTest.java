@@ -73,7 +73,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByName("Harry");
+        List<Book> books = bdao.findBooksByName("Harry");
         System.out.println("Books size: " + books.size());
 
         assertEquals(1, books.size());
@@ -148,7 +148,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByISBN("123112315");
+        List<Book> books = bdao.findBooksByISBN("123112315");
         System.out.println("Books size: " + books.size());
 
         assertEquals(1, books.size());
@@ -159,7 +159,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByAuthor("J.K. Rowling");
+        List<Book> books = bdao.findBooksByAuthor("J.K. Rowling");
         System.out.println("Books size: " + books.size());
 
         assertEquals(1, books.size());
@@ -170,7 +170,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByDepartment(Book.Department.Sport);
+        List<Book> books = bdao.findBooksByDepartment(Book.Department.Sport);
         System.out.println("Books size: " + books.size());
 
         assertEquals(1, books.size());
