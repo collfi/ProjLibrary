@@ -38,7 +38,8 @@ public class PrintedBook {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Condition condition;
-    
+
+    //TODO printed book doesn't have to know is it in the loan? I guess so.
     @ManyToOne
     private Loan loan;
 

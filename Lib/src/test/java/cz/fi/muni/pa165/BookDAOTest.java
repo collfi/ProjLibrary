@@ -8,6 +8,7 @@ package cz.fi.muni.pa165;
 import cz.fi.muni.pa165.DaoContext;
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.entity.Book;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,12 +30,13 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+
 import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author Boris Valentovic - xvalent2
  */
 @ContextConfiguration(classes = DaoContext.class)
@@ -109,7 +111,6 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDelete() {
-        //nemalo by insert, delete mat parameter iba id. aj find...zbytocne vytvaram novu book, ked to hlada iba podla id??
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
@@ -119,7 +120,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         b = bdao.find(b);
         bdao.delete(b);
         em.getTransaction().commit();
-        // final Query query = em.createQuery("SELECT idBook FROM Book");
+
         List<Book> books = em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
         em.close();
         assertEquals(books.size(), 0);
@@ -136,13 +137,13 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         book.setName("Updated!");
         bdao.update(book);
         em.getTransaction().commit();
-        
+
         Book book2 = em.createQuery("SELECT b FROM Book b", Book.class).getSingleResult();
         em.close();
         assertEquals(book2.getName(), "Updated!");
 
     }
-    
+
     @Test
     public void testFindBooksByISBN() {
         EntityManager em = emf.createEntityManager();
@@ -153,7 +154,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
+
     @Test
     public void testFindBooksByAuthor() {
         EntityManager em = emf.createEntityManager();
@@ -164,8 +165,8 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
-     @Test
+
+    @Test
     public void testFindBooksByDepertment() {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
@@ -175,8 +176,8 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         assertEquals(1, books.size());
     }
-    
-      @Test
+
+    @Test
     public void testFind() {
         EntityManager em = emf.createEntityManager();
         BookDAO bdao = new BookDAO();
@@ -186,7 +187,5 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         Book books = bdao.find(b);
 
         assertEquals(b, books);
-        //pridat ine porovnania
     }
-
 }

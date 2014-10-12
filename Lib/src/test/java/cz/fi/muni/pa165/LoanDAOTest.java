@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165;
 
+import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.LoanDAO;
 import cz.fi.muni.pa165.dao.PrintedBookDAO;
 import cz.fi.muni.pa165.entity.Book;
@@ -7,21 +8,23 @@ import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 /**
  * Created by sergii on 12.10.14.
@@ -37,10 +40,11 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
 
     SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 
+
     @DirtiesContext
     @BeforeMethod
     public void setup() {
-        em = emf.createEntityManager();
+        em  = emf.createEntityManager();
         em.getTransaction().begin();
         ///???toto tu ma byt?
         //TODO +1 maybe put it somewhere to call it from other tests. this code is duplicated n-times
@@ -71,9 +75,10 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         l.setToDate(new Date());
         l.setFromDate(new Date());
         l.setWhen(new Date());
-        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
-        set.add(pb2);
-        l.setPbooks(set);
+        l.setMember(m);
+//        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
+//        set.add(pb2);
+//        l.setPbooks(set);
         pb2.setLoan(l);
 
         em.persist(book);
@@ -85,6 +90,13 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         em.close();
 
     }
+//
+//    @DirtiesContext
+//    @BeforeMethod
+//    public void tearDown() {
+//        em.getTransaction().rollback();
+//    }
+
 
     @Test
     public void testFindAllLoandsFromTo() throws ParseException{
@@ -113,16 +125,46 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         ldao.setManager(em);
 
         //TODO not so unit..
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
-        pbDAO.setManager(em);
-        PrintedBook book = new PrintedBook();
-        book.setIdPrintedBook(1);
-        PrintedBook pb = pbDAO.find(book);
+        BookDAO bdao = new BookDAO();
+        bdao.setManager(em);
+        List<Book> books = bdao.findBooksByISBN("123112315");
 
-
-//        List<Loan> loans = ldao.FindAllLoansWithBook(pb);
-//        Sys
-//        assertEquals(1, loans.size());
+        List<Loan> loans = ldao.FindAllLoansWithBook(books.get(0));
+        assertEquals(1, loans.size());
     }
 
+    @Test
+    public void testFind() {
+        EntityManager em = emf.createEntityManager();
+        LoanDAO ldao = new LoanDAO();
+        ldao.setManager(em);
+        Loan l = new Loan();
+        l.setIdLoan(1);
+        Loan found = ldao.find(l);
+        assertEquals(1, found.getIdLoan());
+    }
+
+//    @Test
+//    public void testDelete() {
+//
+//        EntityManager em = emf.createEntityManager();
+//        LoanDAO ldao = new LoanDAO();
+//        ldao.setManager(em);
+//        Loan l = new Loan();
+//        l.setIdLoan(1);
+//        Loan found = ldao.find(l);
+//        assertEquals(1, found.getIdLoan());
+//
+//        ldao.delete(found);
+//
+//        try {
+//            Loan loan2 = ldao.find(l);
+//            fail( "My method didn't throw when I expected it to" );
+//        }
+//        catch (NoResultException e){
+//
+//        }
+//
+//
+//    }
 }
