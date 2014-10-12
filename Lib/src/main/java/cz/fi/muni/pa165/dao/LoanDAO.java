@@ -56,7 +56,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
 
     @Override
     public void insert(Loan loan) {
-
+        this.em.persist(loan);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
 
     @Override
     public void delete(Loan loan) {
-
+        this.em.remove(loan);
     }
 
     @Override

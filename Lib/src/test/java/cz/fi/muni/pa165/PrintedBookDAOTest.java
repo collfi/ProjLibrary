@@ -47,8 +47,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         em = emf.createEntityManager();
         em.getTransaction().begin();
-        ///???toto tu ma byt?
-        //TODO +1 maybe put it somewhere to call it from other tests. this code is duplicated n-times
+
         Book book = new Book();
         book.setName("Harry Potter");
         book.setISBN("123112315");
@@ -146,7 +145,6 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         PrintedBookDAO bdao = new PrintedBookDAO();
         bdao.setManager(em);
-
 
         em.getTransaction().begin();
 
@@ -250,7 +248,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindAllPrintedBooksByLoan() {
-        /*EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         PrintedBookDAO pbDAO = new PrintedBookDAO();
         pbDAO.setManager(em);
         
