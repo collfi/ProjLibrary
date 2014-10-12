@@ -8,8 +8,14 @@ package cz.fi.muni.pa165;
 
 import cz.fi.muni.pa165.DaoContext;
 import cz.fi.muni.pa165.dao.MemberDAO;
+import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
+import cz.fi.muni.pa165.entity.PrintedBook;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -17,6 +23,9 @@ import javax.persistence.PersistenceUnit;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.BeforeMethod;
@@ -49,7 +58,6 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         em.persist(member1);
 	em.getTransaction().commit();
 	em.close();
-        
     }
     
     @Test
@@ -59,7 +67,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         memDAO.setManager(em);
         Member member = memDAO.findMemberByEmail("john.black@muni.mail.cz");
         em.close();
-        assertEquals(member.getEmail(), "john.black@muni.mail.cz");
+        
+        assertEquals("john.black@muni.mail.cz", member.getEmail());
     }
     
     @Test
@@ -71,6 +80,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         member.setIdMember(1);
         Member member2 = memDAO.find(member);
         em.close();
+        
         assertEquals(1, member2.getIdMember());
     }
     
@@ -111,7 +121,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
     
     @Test
-    public void findMemberByName(){
+    public void findMembersByName(){
         EntityManager em = emf.createEntityManager();
         MemberDAO memDAO = new MemberDAO();
         memDAO.setManager(em);
@@ -131,11 +141,114 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         em.persist(member3);
         em.getTransaction().commit();
         
-        List<Member> members = memDAO.findMemberByName("John");
+        List<Member> members = memDAO.findMembersByName("John");
         
         em.close();
         
         //John Black from method setUp and 2 others
         assertEquals(3, members.size());
+    }
+    
+    @Test 
+    public void findMembersByAddress(){
+        EntityManager em = emf.createEntityManager();
+        MemberDAO memDAO = new MemberDAO();
+        memDAO.setManager(em);
+        
+        Member member1 = new Member();
+        member1.setName("John White");
+        member1.setEmail("john.white@mail.muni.cz");
+        member1.setAddress("Hrncirska 123/8, Kralovo Pole, Brno");
+        
+        em.getTransaction().begin();
+        em.persist(member1);
+        em.getTransaction().commit();
+
+        List<Member> members = memDAO.findMembersByAddress("Brno");
+        
+        em.close();
+        
+        //John Black Brno from method setUp
+        assertEquals(members.size(), 2);
+    }
+    
+    @Test
+    public void findMembersByBook(){
+        EntityManager em = emf.createEntityManager();
+        MemberDAO memDAO = new MemberDAO();
+        memDAO.setManager(em);
+        
+        Member member1 = new Member();
+        member1.setName("John White");
+        member1.setEmail("john.white@mail.muni.cz");
+        member1.setAddress("Hrncirska 123/8, Kralovo Pole, Brno");
+        
+        Member member2 = new Member();
+        member2.setName("John Green");
+        member2.setEmail("john.green@mail.muni.cz");
+        member2.setAddress("123/56, Cerna Pole, Brno");
+        
+        Book book = new Book();
+        book.setName("Harry Potter");
+        book.setISBN("123112315");
+        book.setDescription("Book about Wizard!");
+        book.setAuthors("J.K. Rowling");
+        book.setDapertment(Book.Department.Sport);
+        
+        PrintedBook pb1 = new PrintedBook();
+        pb1.setBook(book);
+        pb1.setCondition(PrintedBook.Condition.Used);
+        
+        PrintedBook pb2 = new PrintedBook();
+        pb2.setBook(book);
+        pb2.setCondition(PrintedBook.Condition.Used);
+        
+        Loan loan1 = new Loan();
+        loan1.setReturned(false);
+        loan1.setToDate(new Date());
+        loan1.setFromDate(new Date());
+        loan1.setWhen(new Date());
+        loan1.setMember(member1);
+        
+        Loan loan2 = new Loan();
+        loan2.setReturned(false);
+        loan2.setToDate(new Date());
+        loan2.setFromDate(new Date());
+        loan2.setWhen(new Date());
+        loan2.setMember(member2);
+        
+        Set<PrintedBook> pbSet1 = new HashSet<PrintedBook>();
+        pbSet1.add(pb1);
+        loan1.setPbooks(pbSet1);
+        pb1.setLoan(loan1);
+        
+        Set<PrintedBook> pbSet2 = new HashSet<PrintedBook>();
+        pbSet2.add(pb2);
+        loan2.setPbooks(pbSet2);
+        pb2.setLoan(loan2);
+        
+        Set<Loan> loansOfMember1 = new HashSet<Loan>();
+        loansOfMember1.add(loan1);
+        member1.setLoans(loansOfMember1);
+        
+        Set<Loan> loansOfMember2 = new HashSet<Loan>();
+        loansOfMember2.add(loan2);
+        member2.setLoans(loansOfMember2);
+        
+        em.getTransaction().begin();
+        em.persist(member1);
+        em.persist(member2);
+        em.persist(book);
+        em.persist(pb1);
+        em.persist(pb2);
+        em.persist(loan1);
+        em.persist(loan2);
+        em.getTransaction().commit();
+        
+        List<Member> mems = memDAO.findMembersByBook(book);
+        
+        em.close();
+        
+        assertEquals(2, mems.size());
     }
 }

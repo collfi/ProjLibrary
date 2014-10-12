@@ -7,7 +7,10 @@
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.dao.IGenericDAO;
+import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,7 +34,7 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
     }
 
     @Override
-    public List<Member> findMemberByName(String name) {
+    public List<Member> findMembersByName(String name) {
         final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.name like :name");
         query.setParameter("name","%" + name + "%");
         return query.getResultList();
@@ -45,8 +48,25 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
     }
     
     @Override
-    public List<Member> findMemberByAddress(String adress) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Member> findMembersByAddress(String address) {
+        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.address like :address");
+        query.setParameter("address","%" + address + "%");
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<Member> findMembersByBook(Book book) {
+        final Query query = entityManager.createQuery(
+                "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
+        );                  
+        query.setParameter("idBook", book.getId());
+        List<Member> members = query.getResultList();
+        
+        //vymazat
+        for(Member mem : members){
+            System.out.println(mem);
+        }
+        return members;
     }
     
     @Override
@@ -71,7 +91,8 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
 
     @Override
     public void delete(Member t) {
-        entityManager.remove(t);
+        Member mem = entityManager.merge(t);
+        entityManager.remove(mem);
     }
 
     @Override
