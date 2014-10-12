@@ -58,8 +58,8 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
     }
 
     @Override
-    public void insert(Loan t) {
-        em.persist(t);
+    public void insert(Loan l) {
+        this.em.persist(l);
     }
 
     @Override
@@ -77,12 +77,14 @@ public class LoanDAO implements ILoanDAO, IGenericDAO<Loan> {
 
     @Override
     public void delete(Loan loan) {
-        System.out.println("YA TUT MAN!");
+        //TODO what about transactions
+//
+//        em.getTransaction().begin();
+//        em.remove(loan);
+//        em.getTransaction().commit();
 
-        em.getTransaction().begin();
-        em.remove(loan);
-        em.getTransaction().commit();
-
+        Loan l = this.em.merge(loan);
+        this.em.remove(l);
     }
 
     //TODO case with no result

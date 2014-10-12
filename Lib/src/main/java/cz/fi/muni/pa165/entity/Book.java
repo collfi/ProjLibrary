@@ -44,9 +44,22 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Department department;
     
+    /**
+     * The constructor.
+     */
     public Book() {
     }
 
+    /**
+     * The constructor 2.
+     * @param IdBook id of book
+     * @param Name name of book
+     * @param authors string represents authors
+     * @param Description description of book
+     * @param Isbn isbn of book
+     * @param Books set of printed books
+     * @param Department the department which book belongs
+     */
     public Book(int IdBook, String Name, String authors, String Description,
             String Isbn, Set<PrintedBook> Books, Department Department) {
         this.idBook = IdBook;
@@ -58,58 +71,114 @@ public class Book {
         this.department = Department;
     }
     
+    /**
+     * Set id of book
+     * @param IdBook unique integer
+     */
     public void setId(int IdBook) {
         this.idBook = IdBook;
     }
     
+    /**
+     * Return id of book
+     * @return unique integer
+     */
     public int getId() {
         return this.idBook;
     }
     
+    /**
+     * Set name of book
+     * @param Name name of book
+     */
     public void setName(String Name) {
         this.name = Name;
     }
     
+    /**
+     * Get name of book
+     * @return name of book
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Get authors of book
+     * @return string represented authors
+     */
     public String getAuthors() {
         return authors;
     }
 
+    /**
+     * Set authors of book
+     * @param authors 
+     */
     public void setAuthors(String authors) {
         this.authors = authors;
     }
     
+    /**
+     * Set description of book
+     * @param Description small description text 
+     */
     public void setDescription(String Description) {
         this.description = Description;
     }
     
+    /**
+     * Return description of book
+     * @return description
+     */
     public String getDescription() {
         return this.description;
     }
     
+    /**
+     * Set unique isbn number
+     * @param Isbn unique number of book
+     */
     public void setISBN(String Isbn) {
         this.ISBN = Isbn;
     }
     
+    /**
+     * Return isbn number
+     * @return unique number of book
+     */
     public String getISBN() {
         return this.ISBN;
     }
     
+    /**
+     * Set list pbook, this is the list which represents printed books
+     * @param Books list of books
+     */
     public void setPrintedBooks(Set<PrintedBook> Books) {
         this.Books = Books;
     }
     
+    /**
+     * Return printed books list of specified book.
+     * @return 
+     */
     public Set<PrintedBook> getPrintedBooks() {
         return this.Books;
     }
     
+    /**
+     * Return department.
+     * @return specified department of book.
+     */
     public Department getDepartment() {
         return this.department;
     }
        
+    /**
+     * Set department of book.
+     * @param Department 
+     */
     public void setDapertment(Department Department) {
         this.department = Department;
     }

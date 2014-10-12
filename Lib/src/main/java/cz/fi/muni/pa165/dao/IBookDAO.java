@@ -16,12 +16,32 @@ import cz.fi.muni.pa165.entity.Book.Department;
  */
 public interface IBookDAO {
     
-    public List<Book> FindBooksByISBN(String Isbn);
+    /**
+     * Find all books with specified ISBN number.
+     * @param Isbn the unique number of book
+     * @return List of books
+     */
+    public List<Book> findBooksByISBN(String Isbn);
     
-    public List<Book> FindBooksByAuthor(String Author);
+    /**
+     * Find all books with name of the author
+     * @param Author the name of author
+     * @return List of books
+     */
+    public List<Book> findBooksByAuthor(String Author);
     
-    public List<Book> FindBooksByDepartment(Department en);
+    /**
+     * Find all Books with specified Department
+     * @param Department which belongs the book
+     * @return List of books
+     */
+    public List<Book> findBooksByDepartment(Department en);
     
-    public List<Book> FindBooksByName(String Name);
+    /**
+     * Find all Books with specified name.
+     * @param Name name of book
+     * @return List of books
+     */
+    public List<Book> findBooksByName(String Name);
     
 }

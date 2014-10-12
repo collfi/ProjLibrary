@@ -47,8 +47,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         em = emf.createEntityManager();
         em.getTransaction().begin();
-        ///???toto tu ma byt?
-        //TODO +1 maybe put it somewhere to call it from other tests. this code is duplicated n-times
+
         Book book = new Book();
         book.setName("Harry Potter");
         book.setISBN("123112315");
@@ -73,7 +72,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         Loan l = new Loan();
         HashSet<PrintedBook> set = new HashSet<PrintedBook>();
-        set.add(pb2);
+        set.add(pb1);
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
@@ -147,7 +146,6 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         PrintedBookDAO bdao = new PrintedBookDAO();
         bdao.setManager(em);
 
-
         em.getTransaction().begin();
 
         Book book = new Book();
@@ -198,7 +196,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDelete() {
-        /*EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         PrintedBookDAO bdao = new PrintedBookDAO();
         bdao.setManager(em);
         em.getTransaction().begin();
@@ -218,10 +216,11 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pbook.setIdPrintedBook(1);
           
         bdao.delete(pbook);
-        List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
         em.getTransaction().commit();
+        List<PrintedBook> books = em.createQuery("SELECT b FROM PrintedBook b", PrintedBook.class).getResultList();
+        
         em.close();
-        assertEquals(books.size(), 1);*/
+        assertEquals(books.size(), 1);
     }
 
     @Test
@@ -250,7 +249,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindAllPrintedBooksByLoan() {
-        /*EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         PrintedBookDAO pbDAO = new PrintedBookDAO();
         pbDAO.setManager(em);
         
@@ -258,16 +257,18 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         b.setId(1);
         
         PrintedBook book = pbDAO.findPrintedBookById(1);
+        book.setIdPrintedBook(1);
         HashSet<PrintedBook> set =new HashSet<PrintedBook>();
         
         Loan l = new Loan();
         l.setIdLoan(1);
-        l.setBooks(set);
-        book.setIsInLoan(l);
+        l.setPbooks(set);
+        book.setLoan(l);
         book.setState(Boolean.TRUE);
         pbDAO.update(book);
         
         List<PrintedBook> li = pbDAO.findPrintedBooksByLoan(b, l);
-        em.close();*/
+        em.close();
+        assertEquals(1, li.size());
     }
 }

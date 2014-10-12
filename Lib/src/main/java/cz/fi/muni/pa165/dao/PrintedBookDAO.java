@@ -62,6 +62,7 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void update(PrintedBook printedBook) {
+        //TODO
         //??? zle?
         //http://www.java2s.com/Code/Java/JPA/UpdateAnEntity.htm raiseProfessorSalary
         //need to check for null result btw
@@ -74,16 +75,12 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public void delete(PrintedBook t) {
-        em.remove(t);
+        PrintedBook a = em.merge(t);
+        em.remove(a);
     }
 
     @Override
     public PrintedBook find(PrintedBook t) {
-
-        /*  Query q = em.createQuery(
-         "SELECT e FROM " + ss.getName() + " e WHERE date >= :date_since");
-         q.setParameter("date_since", date);
-         return (PrintedBook) q.getSingleResult();*/
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
         query.setParameter("i", t.getIdPrintedBook());
         return (PrintedBook) query.getSingleResult();
@@ -91,15 +88,6 @@ public class PrintedBookDAO implements IPrintedBookDAO, IGenericDAO<PrintedBook>
 
     @Override
     public PrintedBook findPrintedBookById(int id) {
-        /*
-         toto je taky zaujimavy sposob....funguje dobre, ale neviem ci ho chcem pouzivat
-         CriteriaBuilder cb  = em.getCriteriaBuilder();
-         CriteriaQuery<PrintedBook> cq = cb.createQuery(PrintedBook.class);
-         Root<PrintedBook> root = cq.from(PrintedBook.class);
-         cq.select(root);
-         TypedQuery<PrintedBook> q = em.createQuery(cq);
-        
-         return q.getSingleResult();*/
         final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
         query.setParameter("i", id);
         return (PrintedBook) query.getSingleResult();

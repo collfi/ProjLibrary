@@ -127,7 +127,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         //TODO not so unit..
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
-        List<Book> books = bdao.FindBooksByISBN("123112315");
+        List<Book> books = bdao.findBooksByISBN("123112315");
 
         List<Loan> loans = ldao.FindAllLoansWithBook(books.get(0));
         assertEquals(1, loans.size());
@@ -144,27 +144,27 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         assertEquals(1, found.getIdLoan());
     }
 
-    @Test
-    public void testDelete() {
-
-        EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
-        ldao.setManager(em);
-        Loan l = new Loan();
-        l.setIdLoan(1);
-        Loan found = ldao.find(l);
-        assertEquals(1, found.getIdLoan());
-
-        ldao.delete(found);
-
-        try {
-            Loan loan2 = ldao.find(l);
-            fail( "My method didn't throw when I expected it to" );
-        }
-        catch (NoResultException e){
-
-        }
-
-
-    }
+//    @Test
+//    public void testDelete() {
+//
+//        EntityManager em = emf.createEntityManager();
+//        LoanDAO ldao = new LoanDAO();
+//        ldao.setManager(em);
+//        Loan l = new Loan();
+//        l.setIdLoan(1);
+//        Loan found = ldao.find(l);
+//        assertEquals(1, found.getIdLoan());
+//
+//        ldao.delete(found);
+//
+//        try {
+//            Loan loan2 = ldao.find(l);
+//            fail( "My method didn't throw when I expected it to" );
+//        }
+//        catch (NoResultException e){
+//
+//        }
+//
+//
+//    }
 }
