@@ -5,13 +5,7 @@
  */
 package cz.fi.muni.pa165.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -39,7 +33,6 @@ public class PrintedBook {
     @Column(nullable = false)
     private Condition condition;
 
-    //TODO printed book doesn't have to know is it in the loan? I guess so.
     @ManyToOne
     private Loan loan;
 

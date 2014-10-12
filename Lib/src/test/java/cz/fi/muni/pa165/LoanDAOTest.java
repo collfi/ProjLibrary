@@ -2,6 +2,7 @@ package cz.fi.muni.pa165;
 
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.LoanDAO;
+import cz.fi.muni.pa165.dao.MemberDAO;
 import cz.fi.muni.pa165.dao.PrintedBookDAO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
@@ -46,8 +47,6 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     public void setup() {
         em  = emf.createEntityManager();
         em.getTransaction().begin();
-        ///???toto tu ma byt?
-        //TODO +1 maybe put it somewhere to call it from other tests. this code is duplicated n-times
         Book book = new Book();
         book.setName("Harry Potter");
         book.setISBN("123112315");
@@ -76,10 +75,10 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         l.setFromDate(new Date());
         l.setWhen(new Date());
         l.setMember(m);
+        pb2.setLoan(l);
 //        HashSet<PrintedBook> set = new HashSet<PrintedBook>();
 //        set.add(pb2);
 //        l.setPbooks(set);
-        pb2.setLoan(l);
 
         em.persist(book);
         em.persist(l);
@@ -88,15 +87,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         em.persist(pb2);
         em.getTransaction().commit();
         em.close();
-
-    }
-//
-//    @DirtiesContext
-//    @BeforeMethod
-//    public void tearDown() {
-//        em.getTransaction().rollback();
-//    }
-
+}
 
     @Test
     public void testFindAllLoandsFromTo() throws ParseException{
@@ -109,13 +100,29 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void testLoanContainsBooks() {
+        EntityManager em = emf.createEntityManager();
+        LoanDAO ldao = new LoanDAO();
+        ldao.setManager(em);
+        Loan l = new Loan();
+        l.setReturned(false);
+        l = ldao.find(l);
+        assertEquals(l.getPbooks().iterator().next().getBook().getName(), "Harry Potter");
+    }
+
+    @Test
     public void testFindAllLoansByMember() {
         EntityManager em = emf.createEntityManager();
         LoanDAO ldao = new LoanDAO();
         ldao.setManager(em);
+        MemberDAO mbd = new MemberDAO();
+        mbd.setManager(em);
+        Member member = mbd.findMemberByEmail("cruel.coder@gmail.com");
+
         //TODO I need member DAO to get member
-//        List<Loan> loans = ldao.FindAllLoansByMember();
-//        assertEquals(1, loans.size());
+
+        List<Loan> loans = ldao.FindAllLoansByMember(member, false);
+        assertEquals(1, loans.size());
     }
 
     @Test
@@ -124,7 +131,6 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         LoanDAO ldao = new LoanDAO();
         ldao.setManager(em);
 
-        //TODO not so unit..
         BookDAO bdao = new BookDAO();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByISBN("123112315");
@@ -144,27 +150,27 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         assertEquals(1, found.getIdLoan());
     }
 
-//    @Test
-//    public void testDelete() {
-//
-//        EntityManager em = emf.createEntityManager();
-//        LoanDAO ldao = new LoanDAO();
-//        ldao.setManager(em);
-//        Loan l = new Loan();
-//        l.setIdLoan(1);
-//        Loan found = ldao.find(l);
-//        assertEquals(1, found.getIdLoan());
-//
-//        ldao.delete(found);
-//
-//        try {
-//            Loan loan2 = ldao.find(l);
-//            fail( "My method didn't throw when I expected it to" );
-//        }
-//        catch (NoResultException e){
-//
-//        }
-//
-//
-//    }
+    @Test
+    public void testDelete() {
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        LoanDAO ldao = new LoanDAO();
+        ldao.setManager(em);
+        Loan l = new Loan();
+        l.setIdLoan(1);
+        Loan found = ldao.find(l);
+        assertEquals(1, found.getIdLoan());
+
+        ldao.delete(found);
+        em.getTransaction().commit();
+
+        try {
+            Loan loan2 = ldao.find(l);
+            fail( "My method didn't throw when I expected it to" );
+        }
+        catch (NoResultException e){}
+
+    }
 }
