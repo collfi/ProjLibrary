@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.dao.IGenericDAO;
@@ -29,6 +23,8 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
     
     @Override
     public Member findMemberByIdMember(long id) {
+        if(id < 0) throw new IllegalArgumentException("id is not possitive");
+        
         final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
         query.setParameter("id", id);
         return (Member) query.getSingleResult();
@@ -57,6 +53,8 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
     
     @Override
     public List<Member> findMembersByBook(Book book) {
+        if(book == null) throw new NullPointerException("book is null");
+        
         final Query query = entityManager.createQuery(
                 "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
         );                  
@@ -77,11 +75,15 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
 
     @Override
     public void insert(Member t) {
+        if(t == null) throw new NullPointerException("member is null");
+        
         entityManager.persist(t);
     }
 
     @Override
     public void update(Member t) {
+        if(t == null) throw new NullPointerException("member is null");
+        
         final Query query = entityManager.createQuery("UPDATE Member SET name = :name," +
                                 "email = :email, adress = :address WHERE idMember = :id");
         query.setParameter("id", t.getIdMember());
@@ -92,12 +94,16 @@ public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
 
     @Override
     public void delete(Member t) {
+        if(t == null) throw new NullPointerException("member is null");
+        
         Member mem = entityManager.merge(t);
         entityManager.remove(mem);
     }
 
     @Override
     public Member find(Member t) {
+        if(t == null) throw new NullPointerException("member is null");
+        
         final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
         query.setParameter("id", t.getIdMember());
         return (Member) query.getSingleResult();
