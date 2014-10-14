@@ -6,7 +6,7 @@
 package cz.fi.muni.pa165;
 
 import cz.fi.muni.pa165.DaoContext;
-import cz.fi.muni.pa165.dao.BookDAO;
+import cz.fi.muni.pa165.dao.BookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 
 import java.util.Arrays;
@@ -72,7 +72,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     public void testFindBooksByName() {
         System.out.println("TEST");
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByName("Harry");
         System.out.println("Books size: " + books.size());
@@ -84,7 +84,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     public void testInsert() {
 
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
 
         Book book = new Book();
@@ -111,7 +111,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDelete() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         Book b = new Book();
         b.setId(1);
@@ -128,7 +128,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testUpdate() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         Book book = new Book();
         book = em.createQuery("SELECT b FROM Book b", Book.class).getSingleResult();
@@ -146,7 +146,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindBooksByISBN() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByISBN("123112315");
         System.out.println("Books size: " + books.size());
@@ -157,7 +157,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindBooksByAuthor() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByAuthor("J.K. Rowling");
         System.out.println("Books size: " + books.size());
@@ -168,7 +168,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindBooksByDepertment() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByDepartment(Book.Department.Sport);
         System.out.println("Books size: " + books.size());
@@ -179,7 +179,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFind() {
         EntityManager em = emf.createEntityManager();
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         Book b = new Book();
         b.setId(1);
         bdao.setManager(em);

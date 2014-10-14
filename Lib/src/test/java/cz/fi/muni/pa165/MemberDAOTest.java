@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.dao.MemberDAO;
+import cz.fi.muni.pa165.dao.MemberDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
@@ -20,7 +20,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * Test for method of class MemberDAO 
+ * Test for method of class MemberDAOImpl 
  *
  * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
@@ -52,7 +52,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findMemberByEmail(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
         Member member = memDAO.findMemberByEmail("john.black@muni.mail.cz");
         em.close();
@@ -63,7 +63,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void insertMember(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         Member member = new Member();
@@ -84,7 +84,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findMember(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
         Member member = new Member();
         member.setIdMember(1);
@@ -97,7 +97,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void deleteMember(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         em.getTransaction().begin();
@@ -114,7 +114,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void updateMember(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         Member member = new Member();
@@ -150,7 +150,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findMembersByName(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         Member member2 = new Member();
@@ -179,7 +179,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findMembersByAddress(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         Member member1 = new Member();
@@ -202,7 +202,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findMembersByBook(){
         EntityManager em = emf.createEntityManager();
-        MemberDAO memDAO = new MemberDAO();
+        MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
 
         Member member1 = new Member();

@@ -34,7 +34,6 @@ public class Member {
     @Column(name="ADDRESS", nullable=false)
     private String address;
     
-    @Transient
     @OneToMany(mappedBy = "member")
     private Set<Loan> loans = new HashSet<Loan>();
     

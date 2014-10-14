@@ -1,111 +1,58 @@
 package cz.fi.muni.pa165.dao;
 
-import cz.fi.muni.pa165.dao.IGenericDAO;
 import cz.fi.muni.pa165.entity.Book;
-import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.Query;
 
 /**
- * Class for MemberDAO
+ * Class for interface of MemberDAO
  * 
  * @author Martin Malik <374128@mail.muni.cz>
  */
-public class MemberDAO implements IMemberDAO, IGenericDAO<Member>{
-
-    @PersistenceContext(unitName = "member-unit", type = PersistenceContextType.EXTENDED)
-    private EntityManager entityManager;
+public interface MemberDAO {
     
-    @Override
-    public Member findMemberByIdMember(long id) {
-        if(id < 0) throw new IllegalArgumentException("id is not possitive");
-        
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
-        query.setParameter("id", id);
-        return (Member) query.getSingleResult();
-    }
-
-    @Override
-    public List<Member> findMembersByName(String name) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.name like :name");
-        query.setParameter("name","%" + name + "%");
-        return query.getResultList();
-    }
-
-    @Override
-    public Member findMemberByEmail(String email) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
-        query.setParameter("email", email);
-        return (Member) query.getSingleResult();
-    }
+    /**
+     * Method finds member by unique identifier.
+     * 
+     * @param id    identifier
+     * @return      member 
+     */
+    public Member findMemberByIdMember(long id); 
     
-    @Override
-    public List<Member> findMembersByAddress(String address) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.address like :address");
-        query.setParameter("address","%" + address + "%");
-        return query.getResultList();
-    }
+    /**
+     * Method finds members by name.
+     * 
+     * E.g. John Brown, Jesse John, Lee Brown
+     * Method returns John Brown and Jesse John wih parameter value John.
+     * 
+     * @param name  name of member
+     * @return      list of members 
+     */
+    public List<Member> findMembersByName(String name);
     
-    @Override
-    public List<Member> findMembersByBook(Book book) {
-        if(book == null) throw new NullPointerException("book is null");
-        
-        final Query query = entityManager.createQuery(
-                "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
-        );                  
-        query.setParameter("idBook", book.getId());
-        List<Member> members = query.getResultList();
-        
-        //po otestovani vymazat, vypis clenov
-        for(Member mem : members){
-            System.out.println(mem);
-        }
-        return members;
-    }
+    /**
+     * Method returns member by email. Every member has unique email.
+     * 
+     * @param email     email of member
+     * @return          member
+     */
+    public Member findMemberByEmail(String email);
     
-    @Override
-    public void setManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    @Override
-    public void insert(Member t) {
-        if(t == null) throw new NullPointerException("member is null");
-        
-        entityManager.persist(t);
-    }
-
-    @Override
-    public void update(Member t) {
-        if(t == null) throw new NullPointerException("member is null");
-        
-        final Query query = entityManager.createQuery("UPDATE Member SET name = :name," +
-                                "email = :email, adress = :address WHERE idMember = :id");
-        query.setParameter("id", t.getIdMember());
-        query.setParameter("name", t.getName());
-        query.setParameter("email", t.getEmail());
-        query.setParameter("address", t.getAddress());
-    }
-
-    @Override
-    public void delete(Member t) {
-        if(t == null) throw new NullPointerException("member is null");
-        
-        Member mem = entityManager.merge(t);
-        entityManager.remove(mem);
-    }
-
-    @Override
-    public Member find(Member t) {
-        if(t == null) throw new NullPointerException("member is null");
-        
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
-        query.setParameter("id", t.getIdMember());
-        return (Member) query.getSingleResult();
-    }   
+    /**
+     * Method returns list of members by address.
+     * E.g. John Brown - Brno 156/2, Jesse John - Tererova 123/5 Brno  
+     * Method returns John Brown and Jesse John wih parameter value Brno.
+     * 
+     * @param address   address of member   
+     * @return          list of members
+     */
+    public List<Member> findMembersByAddress(String address);
+    
+    /**
+     * Method returns list of members, that they have borrowed printed books.
+     * 
+     * @param book  book  
+     * @return      list of members
+     */
+    public List<Member> findMembersByBook(Book book);
 }

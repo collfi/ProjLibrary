@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
  *
  * @author michal.lukac, xlukac, 430614
  */
-public interface IGenericDAO<T> {
+public interface GenericDAO<T> {
 
     /**
      * Sets the entity manager.

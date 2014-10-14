@@ -1,8 +1,8 @@
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.dao.BookDAO;
-import cz.fi.muni.pa165.dao.LoanDAO;
-import cz.fi.muni.pa165.dao.MemberDAO;
+import cz.fi.muni.pa165.dao.BookDAOImpl;
+import cz.fi.muni.pa165.dao.LoanDAOImpl;
+import cz.fi.muni.pa165.dao.MemberDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
@@ -84,7 +84,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAllLoandsFromTo() throws ParseException{
         EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
         System.out.println(ft.parse("2018-11-11"));
         List<Loan> loans = ldao.findAllLoandsFromTo(ft.parse("1818-11-11"), ft.parse("2018-11-11"));
@@ -94,7 +94,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testLoanContainsBooks() {
         EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
         Loan l = new Loan();
         l.setReturned(false);
@@ -105,9 +105,9 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAllLoansByMember() {
         EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
-        MemberDAO mbd = new MemberDAO();
+        MemberDAOImpl mbd = new MemberDAOImpl();
         mbd.setManager(em);
         Member member = mbd.findMemberByEmail("cruel.coder@gmail.com");
         List<Loan> loans = ldao.findAllLoansByMember(member, false);
@@ -117,10 +117,10 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAllLoansWithBook() {
         EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
 
-        BookDAO bdao = new BookDAO();
+        BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         List<Book> books = bdao.findBooksByISBN("123112315");
 
@@ -131,7 +131,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFind() {
         EntityManager em = emf.createEntityManager();
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
         Loan l = new Loan();
         l.setIdLoan(1);
@@ -145,7 +145,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        LoanDAO ldao = new LoanDAO();
+        LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
         Loan l = new Loan();
         l.setIdLoan(1);

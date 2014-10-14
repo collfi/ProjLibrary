@@ -5,7 +5,7 @@
  */
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.dao.PrintedBookDAO;
+import cz.fi.muni.pa165.dao.PrintedBookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;
@@ -87,7 +87,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindprintedBookById() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         PrintedBook pb = pbDAO.findPrintedBookById(1);
 
@@ -98,7 +98,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindPrintedBooks() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
@@ -111,7 +111,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindPrintedBooksByState() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
@@ -124,7 +124,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindPrintedBooksByLoan() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
         b.setId(1);
@@ -140,7 +140,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testInsert() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO bdao = new PrintedBookDAO();
+        PrintedBookDAOImpl bdao = new PrintedBookDAOImpl();
         bdao.setManager(em);
 
         em.getTransaction().begin();
@@ -170,7 +170,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDelete() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO bdao = new PrintedBookDAO();
+        PrintedBookDAOImpl bdao = new PrintedBookDAOImpl();
         bdao.setManager(em);
         em.getTransaction().begin();
 
@@ -199,7 +199,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testUpdate() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO bdao = new PrintedBookDAO();
+        PrintedBookDAOImpl bdao = new PrintedBookDAOImpl();
         bdao.setManager(em);
         em.getTransaction().begin();
 
@@ -227,7 +227,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFind() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         PrintedBook book = new PrintedBook();
         book.setIdPrintedBook(1);
@@ -239,7 +239,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAllBorrowedPrintedBooks() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         PrintedBook book = new PrintedBook();
         book.setIdPrintedBook(1);
@@ -251,7 +251,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAllPrintedBooksByLoan() {
         EntityManager em = emf.createEntityManager();
-        PrintedBookDAO pbDAO = new PrintedBookDAO();
+        PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
 
         Book b = new Book();
