@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.dao;
 
+import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.dao.GenericDAO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
@@ -25,47 +26,63 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
     public Member findMemberByIdMember(long id) {
         if(id < 0) throw new IllegalArgumentException("id is not possitive");
         
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
-        query.setParameter("id", id);
-        return (Member) query.getSingleResult();
+        try {
+            final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
+            query.setParameter("id", id);
+            return (Member) query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public List<Member> findMembersByName(String name) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.name like :name");
-        query.setParameter("name","%" + name + "%");
-        return query.getResultList();
+        try {
+            final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.name like :name");
+            query.setParameter("name","%" + name + "%");
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public Member findMemberByEmail(String email) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
-        query.setParameter("email", email);
-        return (Member) query.getSingleResult();
+        try {
+            final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
+            query.setParameter("email", email);
+            return (Member) query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
     
     @Override
     public List<Member> findMembersByAddress(String address) {
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.address like :address");
-        query.setParameter("address","%" + address + "%");
-        return query.getResultList();
+        try {
+            final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.address like :address");
+            query.setParameter("address","%" + address + "%");
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
     
     @Override
     public List<Member> findMembersByBook(Book book) {
         if(book == null) throw new NullPointerException("book is null");
         
-        final Query query = entityManager.createQuery(
-                "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
-        );                  
-        query.setParameter("idBook", book.getId());
-        List<Member> members = query.getResultList();
+        try {
+            final Query query = entityManager.createQuery(
+                    "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
+            );                  
+            query.setParameter("idBook", book.getId());
+            List<Member> members = query.getResultList();
         
-        //po otestovani vymazat, vypisanie clenov
-        for(Member mem : members){
-            System.out.println(mem);
+            return members;
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
         }
-        return members;
     }
     
     @Override
@@ -77,35 +94,51 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
     public void insert(Member t) {
         if(t == null) throw new NullPointerException("member is null");
         
-        entityManager.persist(t);
+        try {
+            entityManager.persist(t);
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public void update(Member t) {
         if(t == null) throw new NullPointerException("member is null");
         
-        final Query query = entityManager.createQuery("UPDATE Member SET name = :name," +
+        try {
+            final Query query = entityManager.createQuery("UPDATE Member SET name = :name," +
                                 "email = :email, adress = :address WHERE idMember = :id");
-        query.setParameter("id", t.getIdMember());
-        query.setParameter("name", t.getName());
-        query.setParameter("email", t.getEmail());
-        query.setParameter("address", t.getAddress());
+            query.setParameter("id", t.getIdMember());
+            query.setParameter("name", t.getName());
+            query.setParameter("email", t.getEmail());
+            query.setParameter("address", t.getAddress());
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public void delete(Member t) {
         if(t == null) throw new NullPointerException("member is null");
         
-        Member mem = entityManager.merge(t);
-        entityManager.remove(mem);
+        try {
+            Member mem = entityManager.merge(t);
+            entityManager.remove(mem);
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public Member find(Member t) {
         if(t == null) throw new NullPointerException("member is null");
         
-        final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
-        query.setParameter("id", t.getIdMember());
-        return (Member) query.getSingleResult();
+        try {
+            final Query query = entityManager.createQuery("SELECT mem FROM Member as mem WHERE mem.idMember = :id");
+            query.setParameter("id", t.getIdMember());
+            return (Member) query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }   
 }
