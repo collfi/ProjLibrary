@@ -5,6 +5,7 @@
  */
 package cz.fi.muni.pa165.dao;
 
+import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;
@@ -32,9 +33,14 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (book == null) {
             throw new IllegalArgumentException("Book null");
         }
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i");
-        query.setParameter("i", book.getId());
-        return query.getResultList();
+        
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i");
+            query.setParameter("i", book.getId());
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
@@ -45,10 +51,15 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (state == null) {
             throw new IllegalArgumentException("State null");
         }
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.state = :s");
-        query.setParameter("i", book.getId());
-        query.setParameter("s", state);
-        return query.getResultList();
+        
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.state = :s");
+            query.setParameter("i", book.getId());
+            query.setParameter("s", state);
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }   
     }
 
     @Override
@@ -59,10 +70,15 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (loan == null) {
             throw new IllegalArgumentException("Loan null");
         }
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.idLoan = :l");
-        query.setParameter("i", book.getId());
-        query.setParameter("l", loan.getIdLoan());
-        return query.getResultList();
+        
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.idLoan = :l");
+            query.setParameter("i", book.getId());
+            query.setParameter("l", loan.getIdLoan());
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
@@ -75,7 +91,12 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (t == null) {
             throw new IllegalArgumentException("Printed Book null");
         }
-        em.persist(t);
+        
+        try {
+            em.persist(t);
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
@@ -84,16 +105,20 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
             throw new IllegalArgumentException("printed book in update is null");
         }
 
-        PrintedBook pb = find(printedBook);
+        try {
+            PrintedBook pb = find(printedBook);
 
-        if (pb == null) {
-            throw new IllegalArgumentException("printed book after find is null");
+            if (pb == null) {
+                throw new IllegalArgumentException("printed book after find is null");
+            }
+
+            pb.setBook(printedBook.getBook());
+            pb.setCondition(printedBook.getCondition());
+            pb.setState(printedBook.getState());
+            em.persist(pb);
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
         }
-
-        pb.setBook(printedBook.getBook());
-        pb.setCondition(printedBook.getCondition());
-        pb.setState(printedBook.getState());
-        em.persist(pb);
     }
 
     @Override
@@ -101,8 +126,13 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (t == null) {
             throw new IllegalArgumentException("Printed Book null");
         }
-        PrintedBook a = em.merge(t);
-        em.remove(a);
+        
+        try {
+           PrintedBook a = em.merge(t);
+            em.remove(a);
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
@@ -110,23 +140,36 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (t == null) {
             throw new IllegalArgumentException("Printed Book null");
         }
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
-        query.setParameter("i", t.getIdPrintedBook());
-        return (PrintedBook) query.getSingleResult();
+        
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
+            query.setParameter("i", t.getIdPrintedBook());
+            return (PrintedBook) query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public PrintedBook findPrintedBookById(long id) {
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
-        query.setParameter("i", id);
-        return (PrintedBook) query.getSingleResult();
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.idPrintedBook = :i");
+            query.setParameter("i", id);
+            return (PrintedBook) query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
     public List<PrintedBook> findAllBorrowedPrintedBooks() {
-        final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.state = :i");
-        query.setParameter("i", Boolean.TRUE);
-        return query.getResultList();
+        try {
+            final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.state = :i");
+            query.setParameter("i", Boolean.TRUE);
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     @Override
@@ -134,10 +177,15 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         if (loan == null) {
             throw new IllegalArgumentException("Book null");
         }
-        final TypedQuery<PrintedBook> query = em.createQuery(
-                "SELECT m FROM PrintedBook as m WHERE m.loan.idLoan = :lid", PrintedBook.class);
-        query.setParameter("lid", loan.getIdLoan());
-        return query.getResultList();
+        
+        try {
+            final TypedQuery<PrintedBook> query = em.createQuery(
+                    "SELECT m FROM PrintedBook as m WHERE m.loan.idLoan = :lid", PrintedBook.class);
+            query.setParameter("lid", loan.getIdLoan());
+            return query.getResultList();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
 }
