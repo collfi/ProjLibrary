@@ -57,7 +57,7 @@ public class PrintedBook {
         return idPrintedBook;
     }
 
-    public void setIdPrintedBook(int idPrintedBook) {
+    public void setIdPrintedBook(long idPrintedBook) {
         this.idPrintedBook = idPrintedBook;
     }
 
