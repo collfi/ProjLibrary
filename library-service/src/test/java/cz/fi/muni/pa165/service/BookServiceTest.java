@@ -11,8 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
  
 
@@ -26,10 +28,13 @@ public class BookServiceTest {
     private static BookServiceImpl mockBookService;
     private BookDTO book1;
     private BookDTO book2;
-    
-    @BeforeMethod
+    //@Mock
+    /*
+    @Before
     public void setUp(){
+        MockitoAnnotations.initMocks( this );
         mockBookService = mock(BookServiceImpl.class);
+
         book1 = new BookDTO();
         book1.setIdBook(1);
         book1.setISBN("123");
@@ -41,5 +46,5 @@ public class BookServiceTest {
         BookDTO myBook = mockBookService.findBook(book1);
         assertNotNull(myBook);
 
-    }
+    }*/
 }
