@@ -8,10 +8,12 @@ package cz.fi.muni.pa165.service;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.service.api.BookService;
 import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.testng.annotations.BeforeMethod;
  
 
 /**
@@ -22,19 +24,22 @@ import static org.mockito.Mockito.when;
 public class BookServiceTest {
 
     private static BookServiceImpl mockBookService;
-    private static BookDTO book1;
-    private static BookDTO book2;
+    private BookDTO book1;
+    private BookDTO book2;
     
-    @BeforeClass
-    public static void setUp(){
+    @BeforeMethod
+    public void setUp(){
         mockBookService = mock(BookServiceImpl.class);
+        book1 = new BookDTO();
+        book1.setIdBook(1);
+        book1.setISBN("123");
     }
     
     @Test
-    public static void testInsert(){
-        mockBookService.insertPrintedBook(book1);
-        //Book myBook = mockedBookDAL.getBook(isbn);
-        //assertNotNull(myBook);
+    public void testInsert(){
+        mockBookService.insertBook(book1);
+        BookDTO myBook = mockBookService.findBook(book1);
+        assertNotNull(myBook);
 
     }
 }

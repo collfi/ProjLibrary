@@ -85,7 +85,6 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
         }
     }
     
-    @Override
     public void setManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

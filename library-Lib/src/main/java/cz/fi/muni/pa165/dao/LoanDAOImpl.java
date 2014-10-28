@@ -62,7 +62,6 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
         }
     }
 
-    @Override
     public void setManager(EntityManager entityManager) {
         this.em = entityManager;
     }

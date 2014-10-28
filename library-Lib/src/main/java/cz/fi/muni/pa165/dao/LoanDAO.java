@@ -10,7 +10,7 @@ import cz.fi.muni.pa165.entity.Member;
 /**
  * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
- public interface LoanDAO {
+ public interface LoanDAO extends GenericDAO<Loan>{
 
     /**
      * Searches loans from of specific member and loan state

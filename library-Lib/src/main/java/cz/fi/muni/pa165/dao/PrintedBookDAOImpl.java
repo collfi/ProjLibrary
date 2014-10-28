@@ -81,7 +81,6 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         }
     }
 
-    @Override
     public void setManager(EntityManager entityManager) {
         this.em = entityManager;
     }

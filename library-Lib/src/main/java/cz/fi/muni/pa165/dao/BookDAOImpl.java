@@ -14,7 +14,7 @@ import javax.persistence.Query;
  * 
  * @author Michal Lukac, xlukac, 430614
  */
-public class BookDAOImpl implements BookDAO, GenericDAO<Book> {
+public class BookDAOImpl implements BookDAO {
     
     @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
@@ -23,7 +23,6 @@ public class BookDAOImpl implements BookDAO, GenericDAO<Book> {
      * Sets the entity manager
      * @param entityManager 
      */
-    @Override
     public void setManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

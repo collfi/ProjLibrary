@@ -10,7 +10,7 @@ import cz.fi.muni.pa165.entity.Book.Department;
  * 
  * @author michal.lukac, xlukac, 430614
  */
-public interface BookDAO {
+public interface BookDAO extends GenericDAO<Book> {
     
     /**
      * Find all books with specified ISBN number.
