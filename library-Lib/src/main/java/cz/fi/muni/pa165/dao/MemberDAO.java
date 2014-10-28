@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Martin Malik <374128@mail.muni.cz>
  */
-public interface MemberDAO {
+public interface MemberDAO extends GenericDAO<Member>{
     
     /**
      * Method finds member by unique identifier.

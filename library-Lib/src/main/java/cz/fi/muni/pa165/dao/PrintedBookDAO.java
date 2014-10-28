@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Boris Valentovic - xvalent2
  */
-public interface PrintedBookDAO {
+public interface PrintedBookDAO extends GenericDAO<PrintedBook>{
     
     /**
      * Find printed book by id
