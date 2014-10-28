@@ -8,9 +8,9 @@ package cz.fi.muni.pa165.service.api;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.PrintedBook.Condition;
 
-import cz.fi.muni.pa165.transferobject.BookTO;
-import cz.fi.muni.pa165.transferobject.LoanTO;
-import cz.fi.muni.pa165.transferobject.PrintedBookTO;
+import cz.fi.muni.pa165.datatransferobject.BookDTO;
+import cz.fi.muni.pa165.datatransferobject.LoanDTO;
+import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import java.util.List;
 
 
@@ -19,25 +19,25 @@ import java.util.List;
  * @author Boris Valentovic - xvalent2
  */
 public interface PrintedBookService {
-    public PrintedBookTO insertPrintedBook(PrintedBookTO pbookto);
+    public PrintedBookDTO insertPrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookTO updatePrintedBook(PrintedBookTO pbookto);
+    public PrintedBookDTO updatePrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookTO deletePrintedBook(PrintedBookTO pbookto);
+    public PrintedBookDTO deletePrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookTO findPrintedBookByBook(BookTO bookto);
+    public PrintedBookDTO findPrintedBookByBook(BookDTO bookto);
     
-    public PrintedBookTO findPrintedBookByCondition(BookTO bookto, Condition con);
+    public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);
     
-    public PrintedBookTO findPrintedBookByState(BookTO bookto, Boolean state);
+    public PrintedBookDTO findPrintedBookByState(BookDTO bookto, Boolean state);
     
-    public PrintedBookTO findPrintedBookById(Long id);
+    public PrintedBookDTO findPrintedBookById(Long id);
     
-    public List<PrintedBookTO> findAllPrintedBooksByLoan(LoanTO loanto);
+    public List<PrintedBookDTO> findAllPrintedBooksByLoan(LoanDTO loanto);
     
-    public List<PrintedBookTO> findAllBorrowedPrintedBooks();
+    public List<PrintedBookDTO> findAllBorrowedPrintedBooks();
     
-    public List<PrintedBookTO> findPrintedBooksByLoan(BookTO bookto, LoanTO loanto);
+    public List<PrintedBookDTO> findPrintedBooksByLoan(BookDTO bookto, LoanDTO loanto);
     
     
 }
