@@ -19,15 +19,15 @@ import java.util.List;
  * @author Boris Valentovic - xvalent2
  */
 public interface PrintedBookService {
-    public PrintedBookDTO insertPrintedBook(PrintedBookDTO pbookto);
+    public void insertPrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookDTO updatePrintedBook(PrintedBookDTO pbookto);
+    public void updatePrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookDTO deletePrintedBook(PrintedBookDTO pbookto);
+    public void deletePrintedBook(PrintedBookDTO pbookto);
     
-    public PrintedBookDTO findPrintedBookByBook(BookDTO bookto);
+    public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto);
     
-    public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);
+    //public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);
     
     public PrintedBookDTO findPrintedBookByState(BookDTO bookto, Boolean state);
     

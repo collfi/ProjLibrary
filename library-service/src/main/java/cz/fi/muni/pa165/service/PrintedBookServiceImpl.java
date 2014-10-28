@@ -8,11 +8,14 @@ package cz.fi.muni.pa165.service;
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.LoanDAO;
 import cz.fi.muni.pa165.dao.PrintedBookDAO;
+import cz.fi.muni.pa165.dao.PrintedBookDAOImpl;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
+import cz.fi.muni.pa165.entity.Book;
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ import org.springframework.stereotype.Service;
 public class PrintedBookServiceImpl implements PrintedBookService {
     
     @Autowired
-    private PrintedBookDAO pbookDao;
+    private PrintedBookDAOImpl pbookDao;
     
     @Autowired
     private BookDAO bookDao;
@@ -35,7 +38,7 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     @Autowired
     private LoanDAO loanDao;
     
-    public void setPrintedBookDao(PrintedBookDAO pbookDao) {
+    public void setPrintedBookDao(PrintedBookDAOImpl pbookDao) {
         this.pbookDao = pbookDao;
     }
     
@@ -48,33 +51,40 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     }
 
     @Override
-    public PrintedBookDTO insertPrintedBook(PrintedBookDTO pbookto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void insertPrintedBook(PrintedBookDTO pbookto) {
+        PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
+        pbookDao.insert(pbook);
     }
 
     @Override
-    public PrintedBookDTO updatePrintedBook(PrintedBookDTO pbookto) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+    public void updatePrintedBook(PrintedBookDTO pbookto) {
+        PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
+        pbookDao.update(pbook);
     }
 
     @Override
-    public PrintedBookDTO deletePrintedBook(PrintedBookDTO pbookto) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+    public void deletePrintedBook(PrintedBookDTO pbookto) {
+        PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
+        pbookDao.delete(pbook);
     }
 
     @Override
-    public PrintedBookDTO findPrintedBookByBook(BookDTO bookto) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+    public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto) {
+        List<PrintedBook> pbooks;
+        List<PrintedBookDTO> pbooksdto = new ArrayList<>();
+        Book book = DTOEntityManager.bookDTOtoEntity(bookto); //bookdao.findBookByid(bookto.getId()) ??
+        pbooks = pbookDao.findPrintedBooks(book);
+        for (PrintedBook pb: pbooks) {
+            pbooksdto.add(DTOEntityManager.printedBookEntitytoDTO(pb));
+        }
+        return pbooksdto;
     }
 
-    @Override
+    /*@Override
     public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, PrintedBook.Condition con) {
         throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
 
     @Override
     public PrintedBookDTO findPrintedBookByState(BookDTO bookto, Boolean state) {
