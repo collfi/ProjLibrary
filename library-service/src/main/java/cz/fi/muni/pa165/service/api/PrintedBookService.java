@@ -29,7 +29,7 @@ public interface PrintedBookService {
     
     //public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);
     
-    public PrintedBookDTO findPrintedBookByState(BookDTO bookto, Boolean state);
+    public List<PrintedBookDTO> findPrintedBookByState(BookDTO bookto, Boolean state);
     
     public PrintedBookDTO findPrintedBookById(Long id);
     
