@@ -117,7 +117,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             cq.select(root);
             TypedQuery<Loan> q = em.createQuery(cq);
             return q.getSingleResult();
-        } catch(RuntimeException E) {
+        } catch(Exception E) {
             throw new DAException(E.getMessage());
         }
     }

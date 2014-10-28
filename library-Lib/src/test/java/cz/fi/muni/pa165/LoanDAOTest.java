@@ -159,7 +159,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
             ldao.find(l);
             fail( "Method didn't throw when it had to" );
         }
-        catch (NoResultException e){}
+        catch (Exception e){}
 
     }
 }
