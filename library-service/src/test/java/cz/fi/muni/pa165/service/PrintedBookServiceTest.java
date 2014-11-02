@@ -41,8 +41,11 @@ import org.testng.annotations.Test;
 public class PrintedBookServiceTest {
 
     private PrintedBookServiceImpl pbookService;
+    @Mock
     private PrintedBookDAOImpl mockpBookDao;
+    @Mock
     private BookDAOImpl mockBookDao;
+    @Mock
     private LoanDAOImpl mockLoanDao;
 
     private PrintedBookDTO pbookdto1;
