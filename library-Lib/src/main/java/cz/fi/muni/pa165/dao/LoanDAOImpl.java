@@ -13,7 +13,6 @@ import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
 
 /**
 * @author Pylypenko Sergii <430519@mail.muni.cz>
