@@ -25,12 +25,18 @@ public class DTOEntityManager {
     private static Mapper mapper = new DozerBeanMapper();
 
     public static PrintedBook printedBookDTOtoEntity(PrintedBookDTO pbookDto) {
+        if (pbookDto == null) {
+            return null;
+        }
         PrintedBook pbook = mapper.map(pbookDto, PrintedBook.class);
         return pbook;
         // dozer bean mapper
     }
 
     public static PrintedBookDTO printedBookEntitytoDTO(PrintedBook pbook) {
+        if (pbook == null) {
+            return null;
+        }
         PrintedBookDTO pbookDto = mapper.map(pbook, PrintedBookDTO.class);
         return pbookDto;/*
         /*PrintedBookDTO pb = new PrintedBookDTO();
@@ -39,56 +45,50 @@ public class DTOEntityManager {
     }
 
     public static BookDTO bookEntitytoDTO(Book book) {
+        if (book == null) {
+            return null;
+        }
         BookDTO bookDto = mapper.map(book, BookDTO.class);
         return bookDto;
     }
 
     public static Book bookDTOtoEntity(BookDTO bookDto) {
+        if (bookDto == null) {
+            return null;
+        }
         Book book = mapper.map(bookDto, Book.class);
         return book;
     }
 
     public static Member memberDTOtoEntity(MemberDTO memberDto) {
+        if (memberDto == null) {
+            return null;
+        }
         Member member = mapper.map(memberDto, Member.class);
         return member;
     }
 
     public static MemberDTO memberEntitytoDTO(Member member) {
+        if (member == null) {
+            return null;
+        }
         MemberDTO memberDto = mapper.map(member, MemberDTO.class);
         return memberDto;
     }
 
     public static Loan loanDTOtoEntity(LoanDTO loanDto) {
+        if (loanDto == null) {
+            return null;
+        }
         Loan loan = mapper.map(loanDto, Loan.class);
         return loan;
     }
 
     public static LoanDTO loanEntitytoDTO(Loan loan) {
+        if (loan == null) {
+            return null;
+        }
         LoanDTO loanDto = mapper.map(loan, LoanDTO.class);
         return loanDto;
     }
-
-    /*     if (pbookDto == null) {
-     return null;
-     }
-     PrintedBook pbook = new PrintedBook();
-     pbook.setBook(pbookDto.getBook());
-     pbook.setCondition(pbookDto.getCondition());
-     pbook.setIdPrintedBook(pbookDto.getId());
-     pbook.setLoan(pbookDto.getLoan());
-     pbook.setState(pbookDto.getState());
-     return pbook;*/
-    /*  public static PrintedBookDTO printedBookEntitytoDTO(PrintedBook pbook) {
-     /*      if (pbook == null) {
-     return null;
-     }
-     PrintedBookDTO pbookDto = new PrintedBookDTO();
-     pbookDto.setBook(pbook.getBook());
-     pbookDto.setCondition(pbook.getCondition());
-     pbookDto.setId(pbook.getIdPrintedBook());
-     pbookDto.setLoan(pbook.getLoan());
-     pbookDto.setState(pbook.getState());
-     return pbookDto;
-     }
-     */
 }

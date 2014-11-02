@@ -81,7 +81,6 @@ public class PrintedBookServiceTest {
 
     }
 
-    //otestovat null + with id??!
     @Test
     public void findPBByIdTest() {
         Long id = 11l;
@@ -117,25 +116,59 @@ public class PrintedBookServiceTest {
 
      }*/
     @Test
+    public void insertTest() {
+        doThrow(new RuntimeException()).when(mockpBookDao).insert(pbook1);
+        try {
+            pbookService.insertPrintedBook(pbookdto1);
+        } catch (RuntimeException re) {
+        }
+    }
+
+    @Test
+    public void updateTest() {
+        doThrow(new RuntimeException()).when(mockpBookDao).update(pbook1);
+        try {
+            pbookService.updatePrintedBook(pbookdto1);
+        } catch (RuntimeException re) {
+        }
+    }
+
+    @Test
+    public void deleteTest() {
+        doThrow(new RuntimeException()).when(mockpBookDao).delete(pbook1);
+        try {
+            pbookService.deletePrintedBook(pbookdto1);
+        } catch (RuntimeException re) {
+        }
+    }
+
+    @Test
     public void findPrintetBookTest() {
+        /* when(mockpBookDao.find(null)).thenThrow(new IllegalArgumentException());
+         try {
+         PrintedBookDTO result = pbookService.findPrintedBook(null);
+         fail("Null bookTO passed. Should throw Exception");
+         } catch (IllegalArgumentException ex) {
+         }*/
+
         pbook1.setIdPrintedBook(11l);
         pbookdto1.setIdPrintedBook(11l);
         when(mockpBookDao.find(pbook1)).thenReturn(pbook1);
         PrintedBookDTO result = pbookService.findPrintedBook(pbookdto1);
         //System.out.println(pbookdto1.getIdPrintedBook() + "------------" + result.getIdPrintedBook());
         assertEquals(pbookdto1, result);
+
     }
 
     @Test
     public void findPBByBookTest() {
-        /*
-        when(mockpBookDao.findPrintedBooks(null)).thenThrow(new IllegalArgumentException());
-        try {
-            List<PrintedBookDTO> result1 = pbookService.findPrintedBooksByBook(null);
-            fail("Null bookTO passed. Should throw ServiceDataAccessException");
-        } catch (IllegalArgumentException ex) {
-        }*/
 
+        /*when(mockpBookDao.findPrintedBooks(null)).thenThrow(new IllegalArgumentException());
+         try {
+         List<PrintedBookDTO> result = pbookService.findPrintedBooksByBook(null);
+         fail("Null bookTO passed. Should throw Exception");
+         } catch (IllegalArgumentException ex) {
+         }*/
         List<PrintedBookDTO> expDTO = new ArrayList<>();
         List<PrintedBook> res = new ArrayList<>();
         pbook1.setIdPrintedBook(11l);

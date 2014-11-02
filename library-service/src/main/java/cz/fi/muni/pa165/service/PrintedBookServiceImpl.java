@@ -39,6 +39,7 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     @Autowired
     private LoanDAO loanDao;
 
+    
     public void setPrintedBookDao(PrintedBookDAO pbookDao) {
         this.pbookDao = pbookDao;
     }
@@ -72,7 +73,8 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     @Override
     public PrintedBookDTO findPrintedBook(PrintedBookDTO pbookto) {
         PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
-        return DTOEntityManager.printedBookEntitytoDTO(pbook);
+        PrintedBookDTO pbdto = DTOEntityManager.printedBookEntitytoDTO(pbookDao.find(pbook));
+        return pbdto;
     }
 
     @Override
