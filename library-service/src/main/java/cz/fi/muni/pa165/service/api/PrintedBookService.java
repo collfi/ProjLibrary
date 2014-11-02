@@ -25,6 +25,8 @@ public interface PrintedBookService {
     
     public void deletePrintedBook(PrintedBookDTO pbookto);
     
+    public PrintedBookDTO findPrintedBook(PrintedBookDTO pbookto);
+    
     public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto);
     
     //public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);

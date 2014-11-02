@@ -32,7 +32,10 @@ public class DTOEntityManager {
 
     public static PrintedBookDTO printedBookEntitytoDTO(PrintedBook pbook) {
         PrintedBookDTO pbookDto = mapper.map(pbook, PrintedBookDTO.class);
-        return pbookDto;
+        return pbookDto;/*
+        /*PrintedBookDTO pb = new PrintedBookDTO();
+        pb.setId(pbook.getIdPrintedBook());
+        return  pb;*/
     }
 
     public static BookDTO bookEntitytoDTO(Book book) {

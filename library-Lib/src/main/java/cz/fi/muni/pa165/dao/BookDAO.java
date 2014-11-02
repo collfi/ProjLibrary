@@ -40,4 +40,6 @@ public interface BookDAO extends GenericDAO<Book> {
      */
     public List<Book> findBooksByName(String Name);
     
+    public Book findBookById(long id);
+    
 }

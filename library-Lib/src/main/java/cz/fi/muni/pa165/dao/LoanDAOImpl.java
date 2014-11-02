@@ -55,7 +55,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
         try {
             final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id IN " +
                     "(SELECT pb.loan.id from PrintedBook as pb where pb.book.id = :bid)", Loan.class);
-            query.setParameter("bid", b.getId());
+            query.setParameter("bid", b.getIdBook());
             return query.getResultList();
         } catch(RuntimeException E) {
             throw new DAException(E.getMessage());

@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 public class PrintedBookServiceImpl implements PrintedBookService {
 
     @Autowired
-    private PrintedBookDAOImpl pbookDao;
+    private PrintedBookDAO pbookDao;
 
     @Autowired
     private BookDAO bookDao;
@@ -39,7 +39,7 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     @Autowired
     private LoanDAO loanDao;
 
-    public void setPrintedBookDao(PrintedBookDAOImpl pbookDao) {
+    public void setPrintedBookDao(PrintedBookDAO pbookDao) {
         this.pbookDao = pbookDao;
     }
 
@@ -68,10 +68,17 @@ public class PrintedBookServiceImpl implements PrintedBookService {
         PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
         pbookDao.delete(pbook);
     }
+    
+    @Override
+    public PrintedBookDTO findPrintedBook(PrintedBookDTO pbookto) {
+        PrintedBook pbook = DTOEntityManager.printedBookDTOtoEntity(pbookto);
+        return DTOEntityManager.printedBookEntitytoDTO(pbook);
+    }
 
     @Override
     public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto) {
-        Book book = DTOEntityManager.bookDTOtoEntity(bookto); //bookdao.findBookByid(bookto.getId()) ??
+        Book book = bookDao.find(DTOEntityManager.bookDTOtoEntity(bookto));
+               // DTOEntityManager.bookDTOtoEntity(bookto); //bookdao.findBookByid(bookto.getId()) ??
         List<PrintedBook> pbooks = pbookDao.findPrintedBooks(book);
         List<PrintedBookDTO> pbooksdto = new ArrayList<>();
         for (PrintedBook pb : pbooks) {
@@ -105,7 +112,7 @@ public class PrintedBookServiceImpl implements PrintedBookService {
 
     @Override
     public List<PrintedBookDTO> findAllPrintedBooksByLoan(LoanDTO loanto) {
-        Loan l = DTOEntityManager.loanDTOtoEntity(loanto);
+        Loan l = loanDao.find(DTOEntityManager.loanDTOtoEntity(loanto));
         List<PrintedBookDTO> pbooksdto = new ArrayList<>();
         for (PrintedBook pb : pbookDao.findAllPrintedBooksByLoan(l)) {
             pbooksdto.add(DTOEntityManager.printedBookEntitytoDTO(pb));
@@ -124,8 +131,8 @@ public class PrintedBookServiceImpl implements PrintedBookService {
 
     @Override
     public List<PrintedBookDTO> findPrintedBooksByLoan(BookDTO bookto, LoanDTO loanto) {
-        Loan l = DTOEntityManager.loanDTOtoEntity(loanto);
-        Book b = DTOEntityManager.bookDTOtoEntity(bookto);
+        Loan l = loanDao.find(DTOEntityManager.loanDTOtoEntity(loanto));
+        Book b = bookDao.find(DTOEntityManager.bookDTOtoEntity(bookto));
         List<PrintedBookDTO> result = new ArrayList<>();
         for (PrintedBook pbook: pbookDao.findPrintedBooksByLoan(b, l)) {
             result.add(DTOEntityManager.printedBookEntitytoDTO(pbook));

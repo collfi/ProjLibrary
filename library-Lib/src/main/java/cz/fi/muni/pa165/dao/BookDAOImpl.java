@@ -11,17 +11,18 @@ import javax.persistence.Query;
 
 /**
  * Dao Implementation of DAO interface for book.
- * 
+ *
  * @author Michal Lukac, xlukac, 430614
  */
 public class BookDAOImpl implements BookDAO {
-    
+
     @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
-    
+
     /**
      * Sets the entity manager
-     * @param entityManager 
+     *
+     * @param entityManager
      */
     public void setManager(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -29,6 +30,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * Insert book to the book table.
+     *
      * @param t book
      */
     @Override
@@ -36,16 +38,17 @@ public class BookDAOImpl implements BookDAO {
         if (t == null) {
             throw new IllegalArgumentException("cannot update null in book");
         }
-        
+
         try {
             entityManager.persist(t);
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Update book in table.
+     *
      * @param t book
      */
     @Override
@@ -53,22 +56,23 @@ public class BookDAOImpl implements BookDAO {
         if (t == null) {
             throw new IllegalArgumentException("cannot insert null in book");
         }
-        
+
         try {
-            Book book = (Book)entityManager.find(Book.class ,t.getId());
+            Book book = (Book) entityManager.find(Book.class, t.getIdBook());
             book.setName(t.getName());
             book.setAuthors(t.getAuthors());
             book.setDescription(t.getDescription());
             book.setISBN(t.getISBN());
             book.setPrintedBooks(t.getPrintedBooks());
             entityManager.persist(book);
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Delete book in table.
+     *
      * @param t book
      */
     @Override
@@ -79,22 +83,22 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             Book a = entityManager.merge(t);
-        
+
             PrintedBookDAOImpl bdao = new PrintedBookDAOImpl();
             bdao.setManager(entityManager);
             List<PrintedBook> books = bdao.findPrintedBooks(a);
-            for(PrintedBook pb : books)
-            {
+            for (PrintedBook pb : books) {
                 bdao.delete(pb);
             }
             entityManager.remove(a);
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Find book in table.
+     *
      * @param t book
      * @return returned book.
      */
@@ -106,15 +110,16 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :book");
-            query.setParameter("book", t.getId());
+            query.setParameter("book", t.getIdBook());
             return (Book) query.getSingleResult();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Find all books with specified ISBN number.
+     *
      * @param Isbn the unique number of book
      * @return List of books
      */
@@ -128,13 +133,14 @@ public class BookDAOImpl implements BookDAO {
             final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.ISBN = :book");
             query.setParameter("book", Isbn);
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Find all books with name of the author
+     *
      * @param Author the name of author
      * @return List of books
      */
@@ -148,13 +154,14 @@ public class BookDAOImpl implements BookDAO {
             final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.authors like :book");
             query.setParameter("book", "%" + Author + "%");
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Find all Books with specified Department
+     *
      * @param Department which belongs the book
      * @return List of books
      */
@@ -168,13 +175,14 @@ public class BookDAOImpl implements BookDAO {
             final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.department = :book");
             query.setParameter("book", en);
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
 
     /**
      * Find all Books with specified name.
+     *
      * @param Name name of book
      * @return List of books
      */
@@ -187,9 +195,20 @@ public class BookDAOImpl implements BookDAO {
         try {
             final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.name like :name").setParameter("name", "%" + Name + "%");
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
-    
+
+    @Override
+    public Book findBookById(long id) {
+        try {
+            final Query query = entityManager.createQuery("SELECT m FROM Book as m WHERE m.idBook = :i");
+            query.setParameter("i", id);
+            return (Book) query.getSingleResult();
+        } catch (RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
+    }
+
 }

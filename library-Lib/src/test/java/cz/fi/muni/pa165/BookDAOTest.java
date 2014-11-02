@@ -5,26 +5,15 @@
  */
 package cz.fi.muni.pa165;
 
-import cz.fi.muni.pa165.DaoContext;
 import cz.fi.muni.pa165.dao.BookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
-import javax.persistence.spi.LoadState;
-
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.jpa.internal.util.PersistenceUtilHelper;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -114,7 +103,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         BookDAOImpl bdao = new BookDAOImpl();
         bdao.setManager(em);
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
         em.getTransaction().begin();
         b = bdao.find(b);
         bdao.delete(b);
@@ -181,7 +170,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         BookDAOImpl bdao = new BookDAOImpl();
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
         bdao.setManager(em);
         Book books = bdao.find(b);
 

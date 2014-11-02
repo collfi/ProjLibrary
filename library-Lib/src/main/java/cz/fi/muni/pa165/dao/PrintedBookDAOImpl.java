@@ -36,7 +36,7 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         
         try {
             final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i");
-            query.setParameter("i", book.getId());
+            query.setParameter("i", book.getIdBook());
             return query.getResultList();
         } catch(RuntimeException E) {
             throw new DAException(E.getMessage());
@@ -54,7 +54,7 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         
         try {
             final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.state = :s");
-            query.setParameter("i", book.getId());
+            query.setParameter("i", book.getIdBook());
             query.setParameter("s", state);
             return query.getResultList();
         } catch(RuntimeException E) {
@@ -73,7 +73,7 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
         
         try {
             final Query query = em.createQuery("SELECT m FROM PrintedBook as m WHERE m.book.idBook = :i AND m.loan.idLoan = :l");
-            query.setParameter("i", book.getId());
+            query.setParameter("i", book.getIdBook());
             query.setParameter("l", loan.getIdLoan());
             return query.getResultList();
         } catch(RuntimeException E) {

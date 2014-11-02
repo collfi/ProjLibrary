@@ -101,7 +101,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
 
         List<PrintedBook> l = pbDAO.findPrintedBooks(b);
         em.close();
@@ -114,7 +114,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
 
         List<PrintedBook> l = pbDAO.findPrintedBooksByState(b, Boolean.FALSE);
         em.close();
@@ -127,7 +127,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         PrintedBookDAOImpl pbDAO = new PrintedBookDAOImpl();
         pbDAO.setManager(em);
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
 
         Loan l = new Loan();
         l.setIdLoan(1);
@@ -151,7 +151,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
-        book.setId(1);
+        book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();
         pbook.setBook(book);
@@ -180,7 +180,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
-        book.setId(1);
+        book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();
         pbook.setBook(book);
@@ -209,7 +209,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
         book.setDapertment(Book.Department.Sport);
-        book.setId(1);
+        book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();
         pbook.setBook(book);
@@ -255,7 +255,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pbDAO.setManager(em);
 
         Book b = new Book();
-        b.setId(1);
+        b.setIdBook(1);
 
         PrintedBook book = pbDAO.findPrintedBookById(1);
         book.setIdPrintedBook(1);

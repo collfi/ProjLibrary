@@ -89,4 +89,27 @@ public class BookDTO {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (int) (this.idBook ^ (this.idBook >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BookDTO other = (BookDTO) obj;
+        if (this.idBook != other.idBook) {
+            return false;
+        }
+        return true;
+    }
+    
 }

@@ -76,7 +76,7 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
             final Query query = entityManager.createQuery(
                     "SELECT pb.loan.member FROM PrintedBook AS pb WHERE pb.book.idBook = :idBook"
             );                  
-            query.setParameter("idBook", book.getId());
+            query.setParameter("idBook", book.getIdBook());
             List<Member> members = query.getResultList();
         
             return members;

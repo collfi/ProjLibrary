@@ -40,4 +40,10 @@ public class BookServiceImpl implements BookService {
         Book b = DTOEntityManager.bookDTOtoEntity(pbookto);
         return DTOEntityManager.bookEntitytoDTO(bookDao.find(b));
     }
+
+    @Override
+    public BookDTO findBookById(long id) {
+        Book b = bookDao.findBookById(id);
+        return DTOEntityManager.bookEntitytoDTO(b);
+    }
 }

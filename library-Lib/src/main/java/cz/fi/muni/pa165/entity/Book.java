@@ -68,11 +68,11 @@ public class Book {
         this.department = Department;
     }
     
-    public void setId(int IdBook) {
+    public void setIdBook(long IdBook) {
         this.idBook = IdBook;
     }
 
-    public long getId() {
+    public long getIdBook() {
         return this.idBook;
     }
 

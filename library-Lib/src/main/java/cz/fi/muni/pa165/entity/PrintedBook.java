@@ -45,13 +45,21 @@ public class PrintedBook {
      * @param condition is it new or used, ...
      * @param loan in which loan it participates
      */
-    public PrintedBook(int idPrintedBook, Book book, Boolean state, Condition condition, Loan loan) {
+    public PrintedBook(Long idPrintedBook, Book book, Boolean state, Condition condition, Loan loan) {
         this.idPrintedBook = idPrintedBook;
         this.book = book;
         this.state = state;
         this.condition = condition;
         this.loan = loan;
     }
+
+    public PrintedBook(Book book, Boolean state, Condition condition, Loan loan) {
+        this.book = book;
+        this.state = state;
+        this.condition = condition;
+        this.loan = loan;
+    }
+    
 
     public long getIdPrintedBook() {
         return idPrintedBook;

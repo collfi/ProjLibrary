@@ -13,6 +13,7 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
  */
 public interface BookService {
     public void insertBook(BookDTO pbookto);
-    public BookDTO findBook(BookDTO pbookto);       
+    public BookDTO findBook(BookDTO pbookto);  
+    public BookDTO findBookById(long id);
 
 }
