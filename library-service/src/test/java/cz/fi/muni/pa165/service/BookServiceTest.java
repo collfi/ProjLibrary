@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.dao.BookDAOImpl;
@@ -20,7 +15,11 @@ import cz.fi.muni.pa165.service.api.BookService;
 import java.util.ArrayList;
 import java.util.List;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import static org.testng.Assert.assertEquals;
@@ -44,8 +43,9 @@ public class BookServiceTest {
     private BookDAOImpl mockBookDao;
 
     private Book book;
+    private Book book2;
     private BookDTO bookdto;
-    
+    private BookDTO bookdto2;
     @BeforeMethod
     public void setUp(){
         mockBookService = new BookServiceImpl();
@@ -60,6 +60,14 @@ public class BookServiceTest {
         book.setName("Born to run");
         bookdto = DTOEntityManager.bookEntitytoDTO(book);
         mockBookService.insertBook(bookdto);
+        
+        book2 = new Book();
+        book2.setIdBook((9l));
+        book2.setName("Harry Potter");
+        book2.setDapertment(Department.Religion);
+        book2.setAuthors("Author1");
+        book2.setDescription("Story about young wizard with brave heart!");
+        book2.setISBN("12341234");
     }
     
     @Test
@@ -76,7 +84,7 @@ public class BookServiceTest {
         expected.add(book);
         when(mockBookDao.findBooksByISBN(bookdto.getISBN())).thenReturn(expected);
         List<BookDTO> result = mockBookService.findBooksByISBN(bookdto.getISBN());
-        assertEquals(expected.size(), result.size());
+        assertEquals(1, result.size());
     }
 
     @Test
@@ -94,7 +102,7 @@ public class BookServiceTest {
         expected.add(book);
         when(mockBookDao.findBooksByDepartment(Department.Sport)).thenReturn(expected);
         List<BookDTO> result = mockBookService.findBooksByDepartment(Department.Sport);
-        assertEquals(expected.size(), result.size());
+        assertEquals(1, result.size());
     }
 
     @Test
@@ -103,21 +111,60 @@ public class BookServiceTest {
         expected.add(book);
         when(mockBookDao.findBooksByAuthor("Author1")).thenReturn(expected);
         List<BookDTO> result = mockBookService.findBooksByAuthor("Author1");
-        assertEquals(expected.size(), result.size());
+        assertEquals(1, result.size());
     }
     
+    @Test
     public void insertBook()
     {
+        List<Book> expected =  new ArrayList<Book>();
+        expected.add(book);
+        expected.add(book2);
+
+        doNothing().when(mockBookDao).insert(book2);
         
+        bookdto2 = DTOEntityManager.bookEntitytoDTO(book2);
+
+        mockBookService.insertBook(bookdto2);
+        
+        when(mockBookDao.findBooksByAuthor("Author1")).thenReturn(expected);
+        List<BookDTO> result = mockBookService.findBooksByAuthor("Author1");
+        assertEquals(2, result.size());
     }
     
+    @Test
     public void updateBook()
     {
+        List<Book> expected =  new ArrayList<Book>();
+        expected.add(book2);
+
+        doNothing().when(mockBookDao).update(book2);
         
+        bookdto2 = DTOEntityManager.bookEntitytoDTO(book2);
+        bookdto2.setName("Author2");
+        
+        mockBookService.updateBook(bookdto2);
+        
+        when(mockBookDao.findBooksByAuthor("Author2")).thenReturn(expected);
+        List<BookDTO> result = mockBookService.findBooksByAuthor("Author2");
+        assertEquals(1, result.size());        
     }
     
+    @Test
     public void deleteBook()
     {
+        List<Book> expected =  new ArrayList<Book>();
+        
+        doNothing().when(mockBookDao).delete(book2);
+        
+        bookdto2 = DTOEntityManager.bookEntitytoDTO(book2);
+        bookdto2.setName("Author2");
+        
+        mockBookService.deleteBook(bookdto2);
+        
+        when(mockBookDao.findBooksByAuthor("Author2")).thenReturn(expected);
+        List<BookDTO> result = mockBookService.findBooksByAuthor("Author2");
+        assertEquals(0, result.size());        
         
     }
 }

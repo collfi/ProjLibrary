@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 /**
- * Dao Implementation of DAO interface for book.
+ * DAO Implementation of BookDAO interface.
  *
  * @author Michal Lukac, xlukac, 430614
  */
@@ -200,6 +200,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    /**
+     * Find book by unique id.
+     * @param id unique identification
+     * @return finded book
+     */
     @Override
     public Book findBookById(long id) {
         try {
@@ -210,5 +215,4 @@ public class BookDAOImpl implements BookDAO {
             throw new DAException(E.getMessage());
         }
     }
-
 }
