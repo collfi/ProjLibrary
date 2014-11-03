@@ -5,9 +5,6 @@
  */
 package cz.fi.muni.pa165.service.api;
 
-import cz.fi.muni.pa165.entity.Book;
-import cz.fi.muni.pa165.entity.PrintedBook.Condition;
-
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
@@ -28,8 +25,6 @@ public interface PrintedBookService {
     public PrintedBookDTO findPrintedBook(PrintedBookDTO pbookto);
     
     public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto);
-    
-    //public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, Condition con);
     
     public List<PrintedBookDTO> findPrintedBookByState(BookDTO bookto, Boolean state);
     
