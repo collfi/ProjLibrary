@@ -5,13 +5,11 @@
  */
 package cz.fi.muni.pa165.datatransferobject;
 
-import cz.fi.muni.pa165.entity.Book;
-import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook.Condition;
 import java.util.Objects;
 
 /**
- *
+ * Data Transfer Object of Printed Book
  * @author Boris Valentovic - xvalent2
  */
 public class PrintedBookDTO {
@@ -23,13 +21,13 @@ public class PrintedBookDTO {
     
     private Condition condition;
     
-    private Loan loan;
+    private LoanDTO loan;
     
     public PrintedBookDTO () {
         
     }
 
-    public PrintedBookDTO(Long id, BookDTO book, Boolean state, Condition condition, Loan loan) {
+    public PrintedBookDTO(Long id, BookDTO book, Boolean state, Condition condition, LoanDTO loan) {
         this.idPrintedBook = id;
         this.book = book;
         this.state = state;
@@ -37,7 +35,7 @@ public class PrintedBookDTO {
         this.loan = loan;
     }
 
-    public PrintedBookDTO(BookDTO book, Boolean state, Condition condition, Loan loan) {
+    public PrintedBookDTO(BookDTO book, Boolean state, Condition condition, LoanDTO loan) {
         this.book = book;
         this.state = state;
         this.condition = condition;
@@ -50,13 +48,7 @@ public class PrintedBookDTO {
 
     public void setIdPrintedBook(Long idPrintedBook) {
         this.idPrintedBook = idPrintedBook;
-    }
-    
-    
-
-
-
-    
+    } 
 
     public BookDTO getBook() {
         return book;
@@ -82,11 +74,11 @@ public class PrintedBookDTO {
         this.condition = condition;
     }
 
-    public Loan getLoan() {
+    public LoanDTO getLoan() {
         return loan;
     }
 
-    public void setLoan(Loan loan) {
+    public void setLoan(LoanDTO loan) {
         this.loan = loan;
     }
 
@@ -110,9 +102,5 @@ public class PrintedBookDTO {
             return false;
         }
         return true;
-    }
-    
-    
-    
-    
+    }   
 }

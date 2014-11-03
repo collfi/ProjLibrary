@@ -17,7 +17,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 /**
- *
+ *Mapper that maps data transfer objects to entities and vice versa
  * @author Boris Valentovic - xvalent2
  */
 public class DTOEntityManager {
@@ -30,7 +30,6 @@ public class DTOEntityManager {
         }
         PrintedBook pbook = mapper.map(pbookDto, PrintedBook.class);
         return pbook;
-        // dozer bean mapper
     }
 
     public static PrintedBookDTO printedBookEntitytoDTO(PrintedBook pbook) {
@@ -38,10 +37,7 @@ public class DTOEntityManager {
             return null;
         }
         PrintedBookDTO pbookDto = mapper.map(pbook, PrintedBookDTO.class);
-        return pbookDto;/*
-        /*PrintedBookDTO pb = new PrintedBookDTO();
-        pb.setId(pbook.getIdPrintedBook());
-        return  pb;*/
+        return pbookDto;
     }
 
     public static BookDTO bookEntitytoDTO(Book book) {

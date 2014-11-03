@@ -11,8 +11,9 @@ import cz.fi.muni.pa165.entity.PrintedBook;
 import java.util.List;
 
 /**
- *
+ *DAO object of Printed Book
  * @author Boris Valentovic - xvalent2
+ * 
  */
 public interface PrintedBookDAO extends GenericDAO<PrintedBook>{
     

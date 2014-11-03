@@ -8,7 +8,6 @@ package cz.fi.muni.pa165.service;
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.LoanDAO;
 import cz.fi.muni.pa165.dao.PrintedBookDAO;
-import cz.fi.muni.pa165.dao.PrintedBookDAOImpl;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
@@ -23,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ *Service layer class of Printed Book implementation
  * @author Boris Valentovic - xvalent2
  */
 @Service
@@ -80,7 +79,6 @@ public class PrintedBookServiceImpl implements PrintedBookService {
     @Override
     public List<PrintedBookDTO> findPrintedBooksByBook(BookDTO bookto) {
         Book book = bookDao.find(DTOEntityManager.bookDTOtoEntity(bookto));
-               // DTOEntityManager.bookDTOtoEntity(bookto); //bookdao.findBookByid(bookto.getId()) ??
         List<PrintedBook> pbooks = pbookDao.findPrintedBooks(book);
         List<PrintedBookDTO> pbooksdto = new ArrayList<>();
         for (PrintedBook pb : pbooks) {
@@ -89,11 +87,6 @@ public class PrintedBookServiceImpl implements PrintedBookService {
         return pbooksdto;
     }
 
-    /*@Override
-     public PrintedBookDTO findPrintedBookByCondition(BookDTO bookto, PrintedBook.Condition con) {
-     throw new UnsupportedOperationException("Not supported yet.");
-     //To change body of generated methods, choose Tools | Templates.
-     }*/
     @Override
     public List<PrintedBookDTO> findPrintedBookByState(BookDTO bookto, Boolean state) {
         Book book = DTOEntityManager.bookDTOtoEntity(bookto);
@@ -141,13 +134,6 @@ public class PrintedBookServiceImpl implements PrintedBookService {
         }
         return result;
     }
-            
-        
-        //????
-       /* for (PrintedBook pb : pbookDao.findAllPrintedBooksByLoan(l)) {
-            if (pb.getBook().equals(DTOEntityManager.bookDTOtoEntity(bookto))) {
-                result.add(DTOEntityManager.printedBookEntitytoDTO(pb));
-            }
-        }*/
+
 
 }
