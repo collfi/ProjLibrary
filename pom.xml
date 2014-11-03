@@ -12,9 +12,7 @@
     <packaging>pom</packaging>
     
     <!-- Library modules -->
-    <modules>
-        <module>library-Lib</module> <!-- zmenit nazov na vhodnejsi-->
-        <module>library-service</module>
+    <modules> <!-- zmenit nazov na vhodnejsi-->
     </modules>
     
     <properties>

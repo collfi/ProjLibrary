@@ -5,19 +5,15 @@
  */
 package cz.fi.muni.pa165.datatransferobject;
 
+import cz.fi.muni.pa165.entity.Book.Department;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  *
- * @author Boris Valentovic - xvalent2
+ * @author michal.lukac - xlukac, 430614
  */
 public class BookDTO {
-
-    public enum Department {
-
-        Science, Sport, Autobiografy, Religion
-    }
 
     private long idBook;
 
@@ -111,5 +107,4 @@ public class BookDTO {
         }
         return true;
     }
-    
 }

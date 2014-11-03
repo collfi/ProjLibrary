@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 
 
 /**
- *
+ * Generic DAO which should extend every DAO interface.
  * @author michal.lukac, xlukac, 430614
  */
 public interface GenericDAO<T> {
