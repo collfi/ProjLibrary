@@ -6,8 +6,7 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Book.Department;
 
 /**
- * Dao interface for Book
- * 
+ * DAO interface for Book
  * @author michal.lukac, xlukac, 430614
  */
 public interface BookDAO extends GenericDAO<Book> {
@@ -40,6 +39,11 @@ public interface BookDAO extends GenericDAO<Book> {
      */
     public List<Book> findBooksByName(String Name);
     
+    /**
+     * Find book by specified id.
+     * @param id of book
+     * @return book if find
+     */
     public Book findBookById(long id);
     
 }
