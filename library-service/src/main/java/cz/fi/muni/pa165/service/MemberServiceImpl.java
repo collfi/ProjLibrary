@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO find(MemberDTO memberDTO) {
+    public MemberDTO findMember(MemberDTO memberDTO) {
         Member member = memberDAO.find(DTOEntityManager.memberDTOtoEntity(memberDTO));
         return DTOEntityManager.memberEntitytoDTO(member);
     }

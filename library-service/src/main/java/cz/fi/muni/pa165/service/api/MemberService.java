@@ -16,7 +16,7 @@ public interface MemberService {
     
     public void deleteMember(MemberDTO memberDTO);
     
-    public MemberDTO find(MemberDTO memberDTO);
+    public MemberDTO findMember(MemberDTO memberDTO);
     
     public MemberDTO findMemberByIdMember(long id); 
     
