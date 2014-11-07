@@ -35,4 +35,11 @@ import cz.fi.muni.pa165.entity.Member;
      */
     public List<Loan> findAllLoansWithBook(Book b);
 
+    /**
+     * Find loan by specified id.
+     * @param id of book
+     * @return loan if find
+     */
+    public Loan findLoanById(long id);
+
 }

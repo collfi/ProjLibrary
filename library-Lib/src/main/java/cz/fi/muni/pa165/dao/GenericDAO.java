@@ -43,4 +43,6 @@ public interface GenericDAO<T> {
      * @return if find return T
      */
     public T find(T t);
+
+    //TODO what about find by id here?
 }

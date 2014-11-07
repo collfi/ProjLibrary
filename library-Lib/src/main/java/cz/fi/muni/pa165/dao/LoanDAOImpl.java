@@ -61,6 +61,17 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
         }
     }
 
+    @Override
+    public Loan findLoanById(long id) {
+        try {
+            final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id = :lid)", Loan.class);
+            query.setParameter("lid", id);
+            return query.getSingleResult();
+        } catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
+    }
+
     public void setManager(EntityManager entityManager) {
         this.em = entityManager;
     }
