@@ -7,6 +7,6 @@
 <html>
 <body>
 	<h1>Message : ${message}</h1>	
-        <a href="book.jsp">book</a>
+        <a href="book">book</a>
 </body>
 </html>
