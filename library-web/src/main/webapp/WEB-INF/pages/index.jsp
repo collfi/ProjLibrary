@@ -8,5 +8,6 @@
 <body>
 	<h1>Message : ${message}</h1>	
         <a href="book">book</a>
+        <a href="pbook">pbook</a>
 </body>
 </html>
