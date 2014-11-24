@@ -11,6 +11,8 @@
     <!-- Library modules -->
     <modules> <!-- zmenit nazov na vhodnejsi-->
     <module>library-web</module>
+    <module>library-service</module>
+    <module>library-Lib</module>
   </modules>
     
     <properties>
