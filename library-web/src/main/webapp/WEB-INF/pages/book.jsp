@@ -14,6 +14,19 @@
     <body>
         <h1>Hello World!</h1>
         
-        <a href="book">book</a>
+<form:form method="POST" action="/book/add">
+   <table>
+    <tr>
+        <td><form:label path="name">Name</form:label></td>
+        <td><form:input path="name" /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Submit"/>
+        </td>
+    </tr>
+</table>    
+</form:form>
+        
     </body>
 </html>
