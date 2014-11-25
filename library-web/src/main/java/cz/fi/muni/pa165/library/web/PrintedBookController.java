@@ -48,7 +48,7 @@ public class PrintedBookController {
         model.addAttribute("book", pbook.getBook().getIdBook());
         
         
-        pbookService.insertPrintedBook(pbook);
+        //pbookService.insertPrintedBook(pbook);
         
         model.addAttribute("state", pbook.getState());
         model.addAttribute("condition", String.valueOf(pbook.getCondition()));
