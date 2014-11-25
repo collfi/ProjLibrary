@@ -7,9 +7,9 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
  
-	<context:component-scan base-package="cz.fi.muni.pa165.library.web" />
-	<context:component-scan base-package="cz.fi.muni.pa165.service" />
-	<context:component-scan base-package="cz.fi.muni.pa165.dao" />
+        <context:component-scan base-package="cz.fi.muni.pa165" />
+<!--	<context:component-scan base-package="cz.fi.muni.pa165.service" />
++	<context:component-scan base-package="cz.fi.muni.pa165.dao" />-->
         
 
 	<bean

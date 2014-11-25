@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookDAOImpl implements BookDAO {
 
-    @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     /**

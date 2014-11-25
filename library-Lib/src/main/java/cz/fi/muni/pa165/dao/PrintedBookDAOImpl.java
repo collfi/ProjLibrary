@@ -27,7 +27,7 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
     /**
      * Persistence context for this class
      */
-    @PersistenceContext(unitName = "pbook-unit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override

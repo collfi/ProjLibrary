@@ -11,15 +11,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 
 /**
  * Class for MemberDAOImpl
  * 
  * @author Martin Malik <374128@mail.muni.cz>
  */
+@Component
 public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
 
-    @PersistenceContext(unitName = "member-unit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
     
     @Override
