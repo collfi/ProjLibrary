@@ -15,11 +15,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Boris Valentovic - xvalent2
  */
+@Component
 public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBook> {
 
     /**

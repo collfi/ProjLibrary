@@ -8,9 +8,9 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
  
 	<context:component-scan base-package="cz.fi.muni.pa165.library.web" />
+	<context:component-scan base-package="cz.fi.muni.pa165.service" />
+	<context:component-scan base-package="cz.fi.muni.pa165.dao" />
         
-        <!-- toto tu asi netreba -->
-        <bean id="printedBookDTO" class="cz.fi.muni.pa165.datatransferobject.PrintedBookDTO"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

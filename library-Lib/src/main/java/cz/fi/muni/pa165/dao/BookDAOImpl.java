@@ -8,12 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 
 /**
  * DAO Implementation of BookDAO interface.
  *
  * @author Michal Lukac, xlukac, 430614
  */
+@Component
 public class BookDAOImpl implements BookDAO {
 
     @PersistenceContext(unitName = "book-unit", type = PersistenceContextType.EXTENDED)

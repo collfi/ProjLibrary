@@ -9,6 +9,7 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.service.PrintedBookServiceImpl;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class PrintedBookController {
-    PrintedBookServiceImpl pbookService;
+    @Autowired
+    PrintedBookService pbookService;
 
     @RequestMapping(value = "/pbook", method = RequestMethod.GET)
     public ModelAndView pbook() {

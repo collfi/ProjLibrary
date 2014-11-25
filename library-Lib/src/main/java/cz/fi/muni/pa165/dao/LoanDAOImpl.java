@@ -12,12 +12,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 
 /**
 * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
-
+@Component
 public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
 
     @PersistenceContext(unitName = "loan-unit", type = PersistenceContextType.EXTENDED)
