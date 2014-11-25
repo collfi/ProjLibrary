@@ -9,6 +9,8 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.service.PrintedBookServiceImpl;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PrintedBookController {
     @Autowired
-    PrintedBookService pbookService;
+    public PrintedBookService pbookService;
 
     @RequestMapping(value = "/pbook", method = RequestMethod.GET)
     public ModelAndView pbook() {
@@ -36,7 +38,7 @@ public class PrintedBookController {
     public String add(@ModelAttribute("library-web") PrintedBookDTO pbook,
             ModelMap model,
              @RequestParam(value="aaa", required=true) long idBook) {
-        model.addAttribute("idPrintedBook", pbook.getIdPrintedBook());
+        //model.addAttribute("idPrintedBook", pbook.getIdPrintedBook());
         
         //bd.setName(idBook);
         //FIND ID IN DB, SET BOOK
@@ -44,14 +46,19 @@ public class PrintedBookController {
         //test
         BookDTO bd = new BookDTO();
         bd.setIdBook(idBook);
-        pbook.setBook(bd);
-        model.addAttribute("book", pbook.getBook().getIdBook());
-        
-        
-        //pbookService.insertPrintedBook(pbook);
-        
+        //pbook.setBook(bd);
+        //model.addAttribute("book", pbook.getBook().getIdBook());
         model.addAttribute("state", pbook.getState());
-        model.addAttribute("condition", String.valueOf(pbook.getCondition()));
+        
+        
+        pbookService.insertPrintedBook(pbook);
+        pbookService.insertPrintedBook(pbook);
+        List<PrintedBookDTO> l = null;
+        l = pbookService.findAllBorrowedPrintedBooks();
+        if (l.size() == 2) model.addAttribute("condition", pbook);
+        else model.addAttribute("condition", "SME KOKOTI");
+        //model.addAttribute("state", pbook);
+        //
         //model.addAttribute("idLoan", pbook.getLoan().getIdLoan());
 
         return "result";

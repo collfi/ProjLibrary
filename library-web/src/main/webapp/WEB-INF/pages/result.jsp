@@ -15,7 +15,7 @@
    <table>
     <tr>
         <td>Info:</td>
-        <td>${idPrintedBook}</td>
+        
         <td>${book}</td>
         <td>${condition}</td>
         <td>${state}</td>

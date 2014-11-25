@@ -103,4 +103,11 @@ public class PrintedBookDTO {
         }
         return true;
     }   
+
+    @Override
+    public String toString() {
+        return "PrintedBookDTO{" + "idPrintedBook=" + idPrintedBook + ", book=" + book + ", state=" + state + ", condition=" + condition + ", loan=" + loan + '}';
+    }
+    
+    
 }

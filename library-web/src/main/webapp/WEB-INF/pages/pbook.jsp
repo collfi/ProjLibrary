@@ -17,7 +17,7 @@
    <table>
     <tr>
         <td><form path="idPrintedBook">Id</form></td>
-        <td><input path="idPrintedBook" id="idPrintedBook"name="idPrintedBook"type="number" value="32"/></td>
+  <!--      <td><input path="idPrintedBook" id="idPrintedBook"name="idPrintedBook"type="number" value="32"/></td>-->
         
         <td><input id="aaa"name="aaa" value="432"/></td>
         
