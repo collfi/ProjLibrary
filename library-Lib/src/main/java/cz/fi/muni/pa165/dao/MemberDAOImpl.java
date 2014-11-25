@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
 
-    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit")
     private EntityManager entityManager;
     
     @Override

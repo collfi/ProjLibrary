@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
 
-    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit")
     private EntityManager em;
 
     @Override

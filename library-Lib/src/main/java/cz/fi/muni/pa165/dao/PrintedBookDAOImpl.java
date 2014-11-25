@@ -27,7 +27,7 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
     /**
      * Persistence context for this class
      */
-    @PersistenceContext(unitName = "myUnit", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "myUnit")
     private EntityManager em;
 
     @Override
@@ -93,11 +93,11 @@ public class PrintedBookDAOImpl implements PrintedBookDAO, GenericDAO<PrintedBoo
             throw new IllegalArgumentException("Printed Book null");
         }
         
-        try {
+       // try {
             em.persist(t);
-        } catch(RuntimeException E) {
-            throw new DAException(E.getMessage());
-        }
+       // } catch(RuntimeException E) {
+       //     throw new DAException(E.getMessage());
+       // }
     }
 
     @Override
