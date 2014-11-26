@@ -42,7 +42,7 @@ public class BookController{
             List<BookDTO> list =bookService.findAllBooks();
             model.addAttribute("list", list);
                     
-            return "showbooks";
+            return "redirect:/book/showbooks";
         }
         
        	@RequestMapping(value = "/book/showbooks",method = RequestMethod.GET)
@@ -74,6 +74,16 @@ public class BookController{
             return "editbook";
         }
         
+        @RequestMapping("/book/delete/{number}")
+        public String deletepost(ModelMap model, @PathVariable("number") int number)
+        {
+            bookService.deleteBook(bookService.findBookById(number));
+            List<BookDTO> list = bookService.findAllBooks();
+            model.addAttribute("list", list);
+                    
+            return "redirect:/book/showbooks";
+        }
+        
         @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
         public String editpost(@ModelAttribute("library-web")BookDTO book, ModelMap model) {
 //            BookDTO bookNew = bookService.findBookById(book.getIdBook());
@@ -81,7 +91,15 @@ public class BookController{
             List<BookDTO> list = bookService.findAllBooks();
             model.addAttribute("list", list);
                     
-            return "showbooks";
+            return "redirect:/book/id/" + String.valueOf(book.getIdBook());
         }
 
+        @RequestMapping("/book/findbooks")
+        public String findbooks(ModelMap model)
+        {
+            List<BookDTO> list = bookService.findAllBooks();
+            model.addAttribute("list", list);
+                    
+            return "findbooks";
+        }
 }

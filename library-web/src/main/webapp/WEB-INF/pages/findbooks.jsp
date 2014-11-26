@@ -50,7 +50,7 @@ $('#nav li:first ul').show();
           <li><a href="#"><spring:message code="label.bookmanagement"/></a>
             <ul>
             <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="#"><spring:message code="label.findbook"/></a></li>
+            <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
@@ -72,7 +72,19 @@ $('#nav li:first ul').show();
         </ul>
       </header>
       <section>
-        <h1><spring:message code="label.allbooks"/></h1>
+        <h1><spring:message code="label.findbooks"/></h1>
+        <br>
+        <div id="search">
+            <input type="text" name="search" />
+            <select name="condition">
+                <option value="Name"><spring:message code="label.name"/></option>
+                <option value="Author"><spring:message code="label.authors"/></option>
+                <option value="ISBN">ISBN</option>
+                <option value="Genre"><spring:message code="label.genre"/></option>
+            </select>
+            <input type="submit" id="searchbtn" value="search"/>
+        </div>
+        <br>
         <table>
             <tbody>
             <tr>
@@ -84,7 +96,7 @@ $('#nav li:first ul').show();
                 </tr>
             </c:forEach>
             </tbody>
-        </table>       
+        </table>
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
