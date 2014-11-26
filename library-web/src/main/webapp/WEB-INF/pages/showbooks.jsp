@@ -14,7 +14,7 @@
     <body>
         <h1>Show books!</h1>
             <c:forEach var="listValue" items="${list}">
-                <li>${listValue}</li>
+                <li>${listValue.name}</li>
             </c:forEach>
     </body>
 </html>

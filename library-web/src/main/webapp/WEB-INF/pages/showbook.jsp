@@ -10,7 +10,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>All books!</h1>
+        <h1>One book!</h1>
         
         <p>${name}</p>
     </body>

@@ -21,7 +21,7 @@
     </TR>
     <TR>
         <TD>Isbn:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="isbn" SIZE="25"></TD>
+        <TD><INPUT TYPE="TEXT" NAME="ISBN" SIZE="25"></TD>
     </TR>
     <TR>
         <TD>Authors:</TD>

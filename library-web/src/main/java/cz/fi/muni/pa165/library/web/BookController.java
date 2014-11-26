@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,20 +35,28 @@ public class BookController{
         public String addpost(@ModelAttribute("library-web")BookDTO book, ModelMap model) {
             model.addAttribute("name", book.getName());
 
+            bookService.insertBook(book);
+            List<BookDTO> list =bookService.findAllBooks();
+            model.addAttribute("list", list);
                     
-            return "showbook";
+            return "showbooks";
         }
         
        	@RequestMapping(value = "/book/showbooks",method = RequestMethod.GET)
 	public String showbook(ModelMap model) {
             
             List<BookDTO> list =bookService.findAllBooks();
-            
-            List<String> l = new ArrayList<String>();
-            l.add("ahoj");
-            l.add("collfi");
-            model.addAttribute("list", l);
+            model.addAttribute("list", list);
             
             return "showbooks";
 	}
+        
+        @RequestMapping("/book/id/{number}")
+        public String printIndex(ModelMap model, @PathVariable("number") int number)
+        {
+            BookDTO book = bookService.findBookById(number);
+            model.addAttribute("name", book.getName());
+            
+            return "showbook";
+        }
 }
