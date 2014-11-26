@@ -70,11 +70,10 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/pbook/editpost", method = RequestMethod.POST)
-    public String editpost(@RequestParam("condition") String con, ModelMap model,
+    public String editpost(@RequestParam("condition") PrintedBook.Condition con, ModelMap model,
             @RequestParam("idPrintedBook") long idpbook) {
         PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
-        PrintedBook.Condition a = PrintedBook.Condition.valueOf(con);
-        pb.setCondition(PrintedBook.Condition.valueOf(con));
+        pb.setCondition(con);
         pbookService.updatePrintedBook(pb);
         return "redirect:/book/id/" + String.valueOf(pb.getBook().getIdBook());
     }
@@ -94,7 +93,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("library-web") PrintedBookDTO pbook,
+    public String add(@ModelAttribute("pa165") PrintedBookDTO pbook,
             ModelMap model,
             @RequestParam(value = "idBook", required = true) long idBook,
             @RequestParam(value = "idLoan", required = true) long idLoan) {
