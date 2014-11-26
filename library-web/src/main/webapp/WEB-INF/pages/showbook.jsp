@@ -86,11 +86,15 @@ $('#nav li:first ul').show();
       </header>
       <section>
         <h1><spring:message code="label.book"/></h1>
-        
+        <p><a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> | <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a></p>
+        <br/>
         <p><spring:message code="label.name"/> : ${book.name}</p>
         <p>ISBN : ${book.ISBN}</p>
         <p><spring:message code="label.authors"/> : ${book.authors}</p>
         <p><spring:message code="label.description"/> : ${book.description}</p>
+        <p><spring:message code="label.genre"/> : ${book.department}</p>
+        
+        <h3></h3>
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>

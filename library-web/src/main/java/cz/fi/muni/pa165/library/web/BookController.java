@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.library.web;
 
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
+import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class BookController{
- 
+        @Autowired
+        public PrintedBookService pbookService;
+    
         @Autowired
         public BookService bookService;
 
@@ -55,7 +58,9 @@ public class BookController{
         public String showbook(ModelMap model, @PathVariable("number") int number)
         {
             BookDTO book = bookService.findBookById(number);
+            //List<PrintedBookDTO> list = pbookService.findPrintedBooksByBook(book);
             model.addAttribute("book", book);
+            //model.addAttribute()
             
             return "showbook";
         }

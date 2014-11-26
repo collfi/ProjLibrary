@@ -1,12 +1,4 @@
 <%-- 
-    Document   : editbook
-    Created on : Nov 26, 2014, 4:23:19 AM
-    Author     : michal
---%>
-
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-
-<%-- 
     Document   : book
     Created on : Nov 23, 2014, 11:18:36 PM
     Author     : michal
@@ -104,7 +96,17 @@ $('#nav li:first ul').show();
         <TD><spring:message code="label.description"/>:</TD>
         <TD><INPUT TYPE="TEXT" NAME="description" value="${book.description}" SIZE="25"></TD>
     </TR>
-
+    <Tr>
+        <TD><spring:message code="label.genre"/>:</TD>
+        <td>
+            <select name="department">
+              <option>Science</option>
+              <option>Sport</option>
+              <option>Autobiografy</option>
+              <option>Religion</option>
+            </select>
+        </td>    
+    </Tr>
   </table>    
   <input type="submit" value="Submit"/>
 </form>
