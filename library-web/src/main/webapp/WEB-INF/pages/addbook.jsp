@@ -96,6 +96,17 @@ $('#nav li:first ul').show();
         <TD><spring:message code="label.description"/>:</TD>
         <TD><INPUT TYPE="TEXT" NAME="description" SIZE="25"></TD>
     </TR>
+    <Tr>
+        <TD><spring:message code="label.genre"/>:</TD>
+        <td>
+            <select name="department">
+              <option>Science</option>
+              <option>Sport</option>
+              <option>Autobiografy</option>
+              <option>Religion</option>
+            </select>
+        </td>    
+    </Tr>
 
   </table>    
   <input type="submit" value="Submit"/>
