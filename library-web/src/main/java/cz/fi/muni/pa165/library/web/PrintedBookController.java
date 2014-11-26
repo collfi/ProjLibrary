@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,16 @@ public class PrintedBookController {
     @Autowired
     public BookService bookService;
 
+    @RequestMapping(value = "/pbook/management", method = RequestMethod.GET)
+    public String pbookmanagement(ModelMap model) {
+        return "pbookmanagement";
+    }
+
+    @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.GET)
+    public String addformular(ModelMap model, @PathVariable("number") int number) {
+        return "addpbook";
+    }
+
     @RequestMapping(value = "/pbook", method = RequestMethod.GET)
     public ModelAndView pbook() {
         return new ModelAndView("pbook", "command", new PrintedBookDTO());
@@ -45,14 +56,13 @@ public class PrintedBookController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("library-web") PrintedBookDTO pbook,
             ModelMap model,
-            @RequestParam(value = "aaa", required = true) long idBook) {
-        //model.addAttribute("idPrintedBook", pbook.getIdPrintedBook());
+            @RequestParam(value = "idBook", required = true) long idBook,
+            @RequestParam(value = "idLoan", required = true) long idLoan) {
 
         //bd.setName(idBook);
         //FIND ID IN DB, SET BOOK
         //pbook.setBook(bookServiceImpl.findBookById(idBook));
         //test
-        
         //model.addAttribute("book", pbook.getBook().getIdBook());
         model.addAttribute("state", pbook.getState());
 
@@ -63,34 +73,25 @@ public class PrintedBookController {
         l = pbookService.findAllBorrowedPrintedBooks();
         model.addAttribute("condition", q);
 
-        //model.addAttribute("state", pbook);
-        //
         //model.addAttribute("idLoan", pbook.getLoan().getIdLoan());
         /*BookDTO bd = new BookDTO();
-        //bd.setIdBook(idBook);
-        pbook.setBook(bd);
-        Set<PrintedBookDTO> h = new HashSet<>();
-        //h.add(pbookService.findPrintedBookById(1l));
-        bd.setBooks(h);
-        bd.setAuthors("author");
-        bd.setDepartment(Book.Department.Sport);
-        bd.setDescription("ADS");
-        bd.setISBN("324432");
-        bd.setName("NAME");
-        bookService.insertBook(bd);*/
-        
+         //bd.setIdBook(idBook);
+         pbook.setBook(bd);
+         Set<PrintedBookDTO> h = new HashSet<>();
+         //h.add(pbookService.findPrintedBookById(1l));
+         bd.setBooks(h);
+         bd.setAuthors("author");
+         bd.setDepartment(Book.Department.Sport);
+         bd.setDescription("ADS");
+         bd.setISBN("324432");
+         bd.setName("NAME");
+         bookService.insertBook(bd);*/
         return "result";
     }
-    
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String showAll(ModelMap model){
-        //for (PrintedBookDTO pb: pbookService.findAllBorrowedPrintedBooks()) {
-            model.addAttribute("list", pbookService.findAllBorrowedPrintedBooks());
-            
-        //}
-        
 
-       
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public String showAllBorrowed(ModelMap model) {
+        model.addAttribute("list", pbookService.findAllBorrowedPrintedBooks());
         return "show";
     }
 
