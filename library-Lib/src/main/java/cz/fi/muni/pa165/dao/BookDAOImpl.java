@@ -60,13 +60,7 @@ public class BookDAOImpl implements BookDAO {
         }
 
         try {
-            Book book = (Book) entityManager.find(Book.class, t.getIdBook());
-            book.setName(t.getName());
-            book.setAuthors(t.getAuthors());
-            book.setDescription(t.getDescription());
-            book.setISBN(t.getISBN());
-            book.setPrintedBooks(t.getPrintedBooks());
-            entityManager.persist(book);
+            Book book = (Book) entityManager.merge(t);
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }

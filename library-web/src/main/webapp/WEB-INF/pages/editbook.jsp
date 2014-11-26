@@ -72,8 +72,12 @@ $('#nav li:first ul').show();
       </header>
       <section>
         <h1><spring:message code="label.editbook"/></h1>
-<form method="POST" action="addpost">
+<form method="POST" action="${contextPath}/book/editpost">
   <table>
+    <TR style="display: none;">
+        <TD>Id:</TD>
+        <TD><INPUT  TYPE="TEXT" NAME="idBook" value="${book.idBook}" SIZE="25"></TD>
+    </TR>
     <TR>
         <TD><spring:message code="label.name"/>:</TD>
         <TD><INPUT TYPE="TEXT" NAME="name" value="${book.name}" SIZE="25"></TD>
@@ -101,9 +105,9 @@ $('#nav li:first ul').show();
             </select>
         </td>    
     </Tr>
-  </table>    
-  <input type="submit" value="Submit"/>
-</form>
+    </table>    
+    <input type="submit" value="Submit"/>
+    </form>
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
