@@ -50,19 +50,44 @@ public class PrintedBookController {
         PrintedBookDTO pb = new PrintedBookDTO();
         pb.setCondition(PrintedBook.Condition.New);
         pb.setState(Boolean.FALSE);
-        
+
         BookDTO b = bookService.findBookById(number);
         pb.setBook(b);
         pbookService.insertPrintedBook(pb);
-       
+
         Set<PrintedBookDTO> set = b.getBooks();
         set.add(pb);
-        b.setBooks(set);    
+        b.setBooks(set);
         bookService.updateBook(b);
-     
+
         return "redirect:/book/id/" + s;
     }
 
+    @RequestMapping("/pbook/edit/{number}")
+    public String editbook(ModelMap model, @PathVariable("number") long number) {
+        PrintedBookDTO pbook = pbookService.findPrintedBookById(number);
+        model.addAttribute("pbook", pbook);
+        return "editpbook";
+    }
+
+    @RequestMapping(value = "/pbook/editpost", method = RequestMethod.POST)
+    public String editpost(@RequestParam("condition") PrintedBook.Condition con, ModelMap model,
+            @RequestParam("idPrintedBook") long idpbook) {
+        PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
+        pb.setCondition(con);
+        pbookService.updatePrintedBook(pb);
+        //model.addAttribute("condition", pbook.getCondition());
+        
+        /*bookService.updateBook(book);
+        List<BookDTO> list = bookService.findAllBooks();
+        model.addAttribute("list", list);
+
+        return "redirect:/book/id/" + String.valueO;*/
+        return "redirect:/book/id/" + String.valueOf(pb.getBook().getIdBook());
+    }
+
+    
+    //OLD!!
     @RequestMapping(value = "/pbook", method = RequestMethod.GET)
     public ModelAndView pbook() {
         return new ModelAndView("pbook", "command", new PrintedBookDTO());

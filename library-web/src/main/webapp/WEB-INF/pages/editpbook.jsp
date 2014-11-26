@@ -1,8 +1,9 @@
 <%-- 
-    Document   : pbook
-    Created on : Nov 24, 2014,  15:01:21 PM 
-    Author     : Boris Valentovic, xvalent2
+    Document   : editpbook
+    Created on : Nov 26, 2014, 4:36:30 PM
+    Author     : Boris Valentovic - xvalent2
 --%>
+
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -71,21 +72,22 @@ $('#nav li:first ul').show();
         </ul>
       </header>
       <section>
- <h1><spring:message code="label.addpbook"/></h1>
-<form method="POST" action="addpost">
+        <h1><spring:message code="label.editpbookcondition"/></h1>
+<form method="POST" action="${contextPath}/pbook/editpost">
   <table>
     <TR>
-        <select name="condition">
+        <TD><INPUT TYPE="TEXT" NAME="idPrintedBook" value="${pbook.idPrintedBook}" hidden="true"></TD>
+    </TR>
+    <TR>
+         <select name="condition">
             <option value="New"><spring:message code="label.new"/></option>
             <option value="Used"><spring:message code="label.used"/></option>
             <option value="Damaged"><spring:message code="label.damaged"/></option>
         </select>
-
-
+    </TR>
   </table>    
   <input type="submit" value="Submit"/>
 </form>
-       
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
@@ -96,3 +98,4 @@ $('#nav li:first ul').show();
     <script src="<c:url value="/resources/js/scale.fix.js" />"></script>
 </body>
 </html>
+
