@@ -18,10 +18,12 @@
         
         <td>${book}</td>
         <td>${condition}</td>
+        <td><%request.getParameter("state"); %>
         <td>${state}</td>
 
     </tr>
     
-</table>  
+</table>
+        <a href="show">Show </a>
 </body>
 </html>
