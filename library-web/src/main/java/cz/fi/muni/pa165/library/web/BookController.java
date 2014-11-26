@@ -37,7 +37,7 @@ public class BookController{
         @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
         public String addpost(@ModelAttribute("library-web")BookDTO book, ModelMap model) {
             model.addAttribute("name", book.getName());
-
+            book.setBooks(new HashSet<PrintedBookDTO>());
             bookService.insertBook(book);
             List<BookDTO> list =bookService.findAllBooks();
             model.addAttribute("list", list);
@@ -58,9 +58,9 @@ public class BookController{
         public String showbook(ModelMap model, @PathVariable("number") int number)
         {
             BookDTO book = bookService.findBookById(number);
-            //List<PrintedBookDTO> list = pbookService.findPrintedBooksByBook(book);
+            List<PrintedBookDTO> list = pbookService.findPrintedBooksByBook(book);
             model.addAttribute("book", book);
-            //model.addAttribute()
+            model.addAttribute("list", list);
             
             return "showbook";
         }

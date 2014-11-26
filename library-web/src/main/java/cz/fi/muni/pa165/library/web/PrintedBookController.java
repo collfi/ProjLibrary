@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.library.web;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.service.PrintedBookServiceImpl;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
@@ -43,9 +44,23 @@ public class PrintedBookController {
         return "pbookmanagement";
     }
 
-    @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.POST)
     public String addformular(ModelMap model, @PathVariable("number") int number) {
-        return "addpbook";
+        String s = String.valueOf(number);
+        PrintedBookDTO pb = new PrintedBookDTO();
+        pb.setCondition(PrintedBook.Condition.New);
+        pb.setState(Boolean.FALSE);
+        
+        BookDTO b = bookService.findBookById(number);
+        pb.setBook(b);
+        pbookService.insertPrintedBook(pb);
+       
+        Set<PrintedBookDTO> set = b.getBooks();
+        set.add(pb);
+        b.setBooks(set);    
+        bookService.updateBook(b);
+     
+        return "redirect:/book/id/" + s;
     }
 
     @RequestMapping(value = "/pbook", method = RequestMethod.GET)

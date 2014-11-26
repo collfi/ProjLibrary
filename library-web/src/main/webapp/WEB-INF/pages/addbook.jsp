@@ -53,12 +53,6 @@ $('#nav li:first ul').show();
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
-          <li><a href="#"><spring:message code="label.pbookmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 2 a</a></li>
-                <li><a href="#">Sub-Item 2 b</a></li>
-            </ul>
-          </li>
           <li><a href="#"><spring:message code="label.loanmanagement"/></a>
             <ul>
                 <li><a href="#">Sub-Item 3 a</a></li>

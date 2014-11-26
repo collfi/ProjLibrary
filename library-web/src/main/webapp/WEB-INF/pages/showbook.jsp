@@ -61,12 +61,6 @@ $('#nav li:first ul').show();
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
-          <li><a href="#"><spring:message code="label.pbookmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 2 a</a></li>
-                <li><a href="#">Sub-Item 2 b</a></li>
-            </ul>
-          </li>
           <li><a href="#"><spring:message code="label.loanmanagement"/></a>
             <ul>
                 <li><a href="#">Sub-Item 3 a</a></li>
@@ -85,16 +79,32 @@ $('#nav li:first ul').show();
         </ul>
       </header>
       <section>
-        <h1><spring:message code="label.book"/></h1>
-        <p><a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> | <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a></p>
-        <br/>
+          <h1><spring:message code="label.book"/></h1></br>
+        <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
+            <form action="${contextPath}/pbook/addformular/${book.idBook}" method="post">
+                <a href="javascript:;" onclick="parentNode.submit();"><spring:message code="label.addpbook"/></a>
+                <input type="hidden" name="mess" value="<spring:message code="label.addpbook"/>"/>
+            </form>
+        
         <p><spring:message code="label.name"/> : ${book.name}</p>
         <p>ISBN : ${book.ISBN}</p>
         <p><spring:message code="label.authors"/> : ${book.authors}</p>
         <p><spring:message code="label.description"/> : ${book.description}</p>
         <p><spring:message code="label.genre"/> : ${book.department}</p>
         
-        <h3></h3>
+        <h3><spring:message code="label.printedbooks"/>:</h3>
+        <table>
+         <tbody>
+            <tr>
+                <th>ID</th><th><spring:message code="label.condition"/></th><th><spring:message code="label.state"/></th><th><spring:message code="label.action"/></>
+            </tr>
+         <c:forEach var="listValue" items="${list}">
+                <tr>
+                    <td>${listValue.idPrintedBook}</td><td>${listValue.condition}</td><td>${listValue.state}</td><td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}"><spring:message code="label.delete"/></a></td>
+                </tr>
+         </c:forEach><a href="edit/${listValue.idPrintedBook}">
+         </tbody>
+        </table>
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>

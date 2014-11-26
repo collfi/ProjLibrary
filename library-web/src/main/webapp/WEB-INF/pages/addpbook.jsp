@@ -53,12 +53,6 @@ $('#nav li:first ul').show();
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
-          <li><a href="#"><spring:message code="label.pbookmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 2 a</a></li>
-                <li><a href="#">Sub-Item 2 b</a></li>
-            </ul>
-          </li>
           <li><a href="#"><spring:message code="label.loanmanagement"/></a>
             <ul>
                 <li><a href="#">Sub-Item 3 a</a></li>
@@ -86,11 +80,7 @@ $('#nav li:first ul').show();
             <option value="Used"><spring:message code="label.used"/></option>
             <option value="Damaged"><spring:message code="label.damaged"/></option>
         </select>
-        <select name="state">
-            <option value="New"><spring:message code="label.new"/></option>
-            <option value="Used"><spring:message code="label.used"/></option>
-            <option value="Damaged"><spring:message code="label.damaged"/></option>
-        </select>
+
 
   </table>    
   <input type="submit" value="Submit"/>
