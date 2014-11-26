@@ -76,8 +76,7 @@ public class BookController{
         
         @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
         public String editpost(@ModelAttribute("library-web")BookDTO book, ModelMap model) {
-            model.addAttribute("name", book.getName());
-
+//            BookDTO bookNew = bookService.findBookById(book.getIdBook());
             bookService.updateBook(book);
             List<BookDTO> list = bookService.findAllBooks();
             model.addAttribute("list", list);
