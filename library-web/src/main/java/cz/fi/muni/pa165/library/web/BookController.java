@@ -68,4 +68,16 @@ public class BookController{
             
             return "editbook";
         }
+        
+        @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
+        public String editpost(@ModelAttribute("library-web")BookDTO book, ModelMap model) {
+            model.addAttribute("name", book.getName());
+
+            bookService.updateBook(book);
+            List<BookDTO> list = bookService.findAllBooks();
+            model.addAttribute("list", list);
+                    
+            return "showbooks";
+        }
+
 }
