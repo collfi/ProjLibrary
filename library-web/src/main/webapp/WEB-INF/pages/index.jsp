@@ -48,7 +48,7 @@
           <li><a href="#"><spring:message code="label.bookmanagement"/></a>
             <ul>
             <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="#"><spring:message code="label.findbook"/></a></li>
+            <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>

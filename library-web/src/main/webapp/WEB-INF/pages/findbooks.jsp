@@ -50,7 +50,7 @@ $('#nav li:first ul').show();
           <li><a href="#"><spring:message code="label.bookmanagement"/></a>
             <ul>
             <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="#"><spring:message code="label.findbook"/></a></li>
+            <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
             <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
@@ -72,7 +72,7 @@ $('#nav li:first ul').show();
         </ul>
       </header>
       <section>
-        <h1><spring:message code="label.allbooks"/></h1>
+        <h1>Find books</h1>
         <table>
             <tbody>
             <tr>
