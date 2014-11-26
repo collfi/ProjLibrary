@@ -1,5 +1,13 @@
+<%-- 
+    Document   : book
+    Created on : Nov 23, 2014, 11:18:36 PM
+    Author     : michal
+--%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+
 <!doctype html>
 <html>
   <head>
@@ -27,7 +35,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1><a href=""><spring:message code="label.appname"/></a></h1>
+        <h1><a href="${contextPath}"><spring:message code="label.appname"/></a></h1>
         <p><spring:message code="label.appdescription"/></p>
         <span >
         <a href="?lang=en">en</a> 
@@ -39,9 +47,9 @@
         <ul id="nav">
           <li><a href="#"><spring:message code="label.bookmanagement"/></a>
             <ul>
-            <li><a href="book/addformular"><spring:message code="label.addbook"/></a></li>
+            <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
             <li><a href="#"><spring:message code="label.findbook"/></a></li>
-            <li><a href="book/showbooks"><spring:message code="label.allbooks"/></a></li>
+            <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
             </ul>
           </li>
           <li><a href="#"><spring:message code="label.pbookmanagement"/></a>
@@ -68,7 +76,7 @@
         </ul>
       </header>
       <section>
-	<h1><spring:message code="label.appname"/></h1>
+	<h1><spring:message code="label.welcome"/></h1>
         <table>
           <tbody><tr>
             <th>ID</th><th>Name</th><th>Rank</th>
@@ -81,6 +89,11 @@
           </tr>
         </tbody></table>
       </section>
+      <footer>
+        <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
+        <p><small>Hosted on GitHub Pages &mdash;<a href="https://github.com/Cospel/ProjLibrary">ProjLibrary</a></small></p>
+        <p><small>Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
     <script src="<c:url value="/resources/js/scale.fix.js" />"></script>
 </body>
