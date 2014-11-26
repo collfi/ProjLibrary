@@ -43,7 +43,7 @@ public class BookController{
         }
         
        	@RequestMapping(value = "/book/showbooks",method = RequestMethod.GET)
-	public String showbook(ModelMap model) {
+	public String showbooks(ModelMap model) {
             
             List<BookDTO> list =bookService.findAllBooks();
             model.addAttribute("list", list);
@@ -52,11 +52,20 @@ public class BookController{
 	}
         
         @RequestMapping("/book/id/{number}")
-        public String printIndex(ModelMap model, @PathVariable("number") int number)
+        public String showbook(ModelMap model, @PathVariable("number") int number)
         {
             BookDTO book = bookService.findBookById(number);
-            model.addAttribute("name", book.getName());
+            model.addAttribute("book", book);
             
             return "showbook";
+        }
+        
+        @RequestMapping("/book/edit/{number}")
+        public String editbook(ModelMap model, @PathVariable("number") int number)
+        {
+            BookDTO book = bookService.findBookById(number);
+            model.addAttribute("book", book);
+            
+            return "editbook";
         }
 }

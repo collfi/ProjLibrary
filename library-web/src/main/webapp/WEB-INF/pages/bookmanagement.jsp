@@ -15,9 +15,9 @@
     <body>
         <h2><spring:message code="label.bookmanagement"/></h2>
         <ul>
-            <li><a href="addformular">Add book</a></li>
-            <li><a href="">Find books</a></li>
-            <li><a href="showbooks">Show books</a></li>
+            <li><a href="addformular"><spring:message code="label.addbook"/></a></li>
+            <li><a href=""><spring:message code="label.editbook"/></a></li>
+            <li><a href="showbooks"><spring:message code="label.allbooks"/></a></li>
         </ul>
     </body>
 </html>

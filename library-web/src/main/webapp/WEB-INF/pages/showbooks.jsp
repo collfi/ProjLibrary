@@ -3,6 +3,7 @@
     Created on : Nov 26, 2014, 1:50:29 AM
     Author     : michal
 --%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,9 +13,16 @@
         <title>Pa165 Library</title>
     </head>
     <body>
-        <h1>Show books!</h1>
+        <h1>All books!</h1>
+        <table>
+            <tr>
+                <td><spring:message code="label.name"/></td><td>ISBN</td><td><spring:message code="label.authors"/></td><td><spring:message code="label.show"/>/<spring:message code="label.edit"/></td>
+            </tr>
             <c:forEach var="listValue" items="${list}">
-                <li>${listValue.name}</li>
+                <tr>
+                    <td>${listValue.name}</td><td>${listValue.ISBN}</td><td>${listValue.authors}</td><td><a href="id/${listValue.idBook}">Show</a>/<a href="edit/${listValue.idBook}">Edit</a></td>
+                </tr>
             </c:forEach>
+        </table>
     </body>
 </html>

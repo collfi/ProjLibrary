@@ -4,14 +4,20 @@
     Author     : michal
 --%>
 <!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>One book!</h1>
+        <h1><spring:message code="label.book"/></h1>
         
-        <p>${name}</p>
+        <p><spring:message code="label.name"/> : ${book.name}</p>
+        <p>ISBN : ${book.ISBN}</p>
+        <p><spring:message code="label.authors"/> : ${book.authors}</p>
+        <p><spring:message code="label.description"/> : ${book.description}</p>
+
     </body>
 </html>
