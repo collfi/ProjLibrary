@@ -39,11 +39,14 @@ public interface BookDAO extends GenericDAO<Book> {
      */
     public List<Book> findBooksByName(String Name);
     
+    public List<Book> findAllBooks();
+    
     /**
      * Find book by specified id.
      * @param id of book
      * @return book if find
      */
     public Book findBookById(long id);
+    
     
 }

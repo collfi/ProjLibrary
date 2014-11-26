@@ -69,4 +69,7 @@ public interface BookService {
      * @return List of books
      */
     public List<BookDTO> findBooksByName(String Name);
+    
+    public List<BookDTO> findAllBooks();
+
 }

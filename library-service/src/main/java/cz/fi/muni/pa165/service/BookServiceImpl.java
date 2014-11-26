@@ -106,4 +106,15 @@ public class BookServiceImpl implements BookService {
         }
         return booksdto;
     }
+
+    @Override
+    public List<BookDTO> findAllBooks() {
+        List<Book> books = bookDao.findAllBooks();
+        List<BookDTO> booksdto = new ArrayList<BookDTO>();
+        for(Book b : books)
+        {
+            booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
+        }
+        return booksdto;
+    }
 }

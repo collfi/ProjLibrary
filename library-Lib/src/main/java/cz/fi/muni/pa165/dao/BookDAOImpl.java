@@ -217,4 +217,14 @@ public class BookDAOImpl implements BookDAO {
             throw new DAException(E.getMessage());
         }
     }
+
+    @Override
+    public List<Book> findAllBooks() {
+        try {
+            final Query query = entityManager.createQuery("SELECT m FROM Book as m");
+            return query.getResultList();
+        } catch (RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
+    }
 }
