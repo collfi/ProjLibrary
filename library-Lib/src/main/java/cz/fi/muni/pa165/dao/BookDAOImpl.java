@@ -58,7 +58,7 @@ public class BookDAOImpl implements BookDAO {
         if (t == null) {
             throw new IllegalArgumentException("cannot insert null in book");
         }
-        try {
+       /* try {
             Book b = find(t);
 
             if (b == null) {
@@ -72,12 +72,12 @@ public class BookDAOImpl implements BookDAO {
             entityManager.persist(b);
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
-        }
-        /*try {
+        }*/
+        try {
          Book book = (Book) entityManager.merge(t);
          } catch (RuntimeException E) {
          throw new DAException(E.getMessage());
-         }*/
+         }
     }
 
     /**
