@@ -28,14 +28,14 @@ public class Book {
     @GeneratedValue
     private long idBook;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique = true)
     private String name;
     
     private String authors;
     
     private String description;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique = true)
     private String ISBN;
     
     @OneToMany(mappedBy="book")

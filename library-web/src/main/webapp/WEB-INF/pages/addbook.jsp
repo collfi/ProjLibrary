@@ -71,7 +71,19 @@ $('#nav li:first ul').show();
         </ul>
       </header>
       <section>
+        
  <h1><spring:message code="label.addbook"/></h1>
+    <c:choose>
+        <c:when test="${error == 'missing'}">
+            <p><font color="red"><spring:message code="label.validationmissing"/></font></p>
+        </c:when>
+    </c:choose>
+    <c:choose>
+        <c:when test="${error == 'duplicate'}">
+            <p><font color="red"><spring:message code="label.validationduplicate"/></font></p>
+        </c:when>
+    </c:choose>
+ 
 <form method="POST" action="addpost">
   <table>
     <TR>
