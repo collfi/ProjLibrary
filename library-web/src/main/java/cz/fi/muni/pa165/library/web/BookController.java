@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -32,12 +33,12 @@ public class BookController{
 	}
         
     	@RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
-	public String addformular(ModelMap model) {
-		return "addbook";
+	public ModelAndView addformular() {
+            return new ModelAndView("addbook", "book", new BookDTO()); 
 	}
         
         @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
-        public String addpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
+        public String addpost(@ModelAttribute("book") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
                 RedirectAttributes redirectAttributes) {
             if (bindingResult.hasErrors()) {
                 
@@ -48,6 +49,7 @@ public class BookController{
                 
                 return "redirect:/book/addformular";
             }
+            
             model.addAttribute("name", book.getName());
             book.setBooks(new HashSet<PrintedBookDTO>());
             bookService.insertBook(book);
@@ -107,11 +109,19 @@ public class BookController{
         }
 
         @RequestMapping("/book/findbooks")
-        public String findbooks(ModelMap model)
+        public ModelAndView findbooks(ModelMap model)
         {
-            List<BookDTO> list = bookService.findAllBooks();
-            model.addAttribute("list", list);
-                    
-            return "findbooks";
+           // List<BookDTO> list = bookService.findAllBooks();
+           // model.addAttribute("list", list);
+            
+            return new ModelAndView("phone-option-form", "smartphone", new SearchModel());
         }
+        
+        @RequestMapping(value="/book/findbooks/result")
+	private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+		ModelAndView mav = new ModelAndView("search-result");
+		mav.addObject("search", search);		
+		return mav;
+	}
+
 }
