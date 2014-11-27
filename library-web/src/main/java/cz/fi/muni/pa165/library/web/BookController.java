@@ -4,16 +4,18 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -29,13 +31,23 @@ public class BookController{
 		return "bookmanagement";
 	}
         
-    	@RequestMapping(value = "/book/addformular",method = RequestMethod.GET)
+    	@RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
 	public String addformular(ModelMap model) {
 		return "addbook";
 	}
         
         @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
-        public String addpost(@ModelAttribute("pa165")BookDTO book, ModelMap model) {
+        public String addpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
+                RedirectAttributes redirectAttributes) {
+            if (bindingResult.hasErrors()) {
+                
+                redirectAttributes.addFlashAttribute("name", book.getName());
+                redirectAttributes.addFlashAttribute("isbn", book.getISBN());
+                redirectAttributes.addFlashAttribute("authors", book.getAuthors());
+                redirectAttributes.addFlashAttribute("description", book.getDescription());
+                
+                return "redirect:/book/addformular";
+            }
             model.addAttribute("name", book.getName());
             book.setBooks(new HashSet<PrintedBookDTO>());
             bookService.insertBook(book);

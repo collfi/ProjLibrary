@@ -76,19 +76,19 @@ $('#nav li:first ul').show();
   <table>
     <TR>
         <TD><spring:message code="label.name"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25"></TD>
+        <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="${name}"></TD>
     </TR>
     <TR>
-        <TD>Isbn:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="ISBN" SIZE="25"></TD>
+        <TD>ISBN:</TD>
+        <TD><INPUT TYPE="TEXT" NAME="ISBN" SIZE="25" value="${isbn}"></TD>
     </TR>
     <TR>
         <TD><spring:message code="label.authors"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="authors" SIZE="25"></TD>
+        <TD><INPUT TYPE="TEXT" NAME="authors" SIZE="25" value="${authors}"></TD>
     </TR>
     <TR>
         <TD><spring:message code="label.description"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="description" SIZE="25"></TD>
+        <TD><INPUT TYPE="TEXT" NAME="description" SIZE="25" value="${description}"></TD>
     </TR>
     <Tr>
         <TD><spring:message code="label.genre"/>:</TD>

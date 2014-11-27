@@ -80,7 +80,7 @@ $('#nav li:first ul').show();
             </tr>
             <c:forEach var="listValue" items="${list}">
                 <tr>
-                    <td>${listValue.name}</td><td>${listValue.ISBN}</td><td>${listValue.authors}</td><td><a href="${contextPath}/book/id/${listValue.idBook}">Show</a>/<a href="${contextPath}/book/edit/${listValue.idBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/book/delete/${listValue.idBook}"><spring:message code="label.delete"/></a></td>
+                    <td>${listValue.name}</td><td>${listValue.ISBN}</td><td>${listValue.authors}</td><td><a href="${contextPath}/book/id/${listValue.idBook}"><spring:message code="label.show"/></a>/<a href="${contextPath}/book/edit/${listValue.idBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/book/delete/${listValue.idBook}"><spring:message code="label.delete"/></a></td>
                 </tr>
             </c:forEach>
             </tbody>
