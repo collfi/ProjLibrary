@@ -3,11 +3,14 @@ package cz.fi.muni.pa165.library.web;
 import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
+import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -28,19 +32,16 @@ public class BookController{
     
         @Autowired
         public BookService bookService;
-
-        @RequestMapping(value = "/book/management",method = RequestMethod.GET)
-	public String bookmanagement(ModelMap model) {
-		return "bookmanagement";
-	}
         
     	@RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
-	public String addformular(ModelMap model) {
-		return "addbook";
+	public ModelAndView addformular() {
+            BookDTO book = new BookDTO();
+            book.setDepartment(Book.Department.Sport);
+            return new ModelAndView("addbook", "book", book); 
 	}
         
         @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
-        public String addpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
+        public String addpost(@ModelAttribute("book") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
                 RedirectAttributes redirectAttributes) {
             if (bindingResult.hasErrors()) {
                 
@@ -51,6 +52,7 @@ public class BookController{
                 redirectAttributes.addFlashAttribute("error", "missing");
                 return "redirect:/book/addformular";
             }
+            
             model.addAttribute("name", book.getName());
             book.setBooks(new HashSet<PrintedBookDTO>());
             try {
@@ -137,11 +139,34 @@ public class BookController{
         }
 
         @RequestMapping("/book/findbooks")
-        public String findbooks(ModelMap model)
+        public ModelAndView findbooks(ModelMap model)
         {
-            List<BookDTO> list = bookService.findAllBooks();
-            model.addAttribute("list", list);
-                    
-            return "findbooks";
+                ModelAndView mav = new ModelAndView("findbooks");
+
+		mav.addObject("search", new SearchModel());
+
+		return mav;
         }
+        
+        @RequestMapping(value="/book/findbooks/result")
+	private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+		ModelAndView mav = new ModelAndView("findbooks");
+                
+                mav.addObject("search", search);
+                
+                if(search.getSearch().equals("ISBN"))
+                {
+                    mav.addObject("list", bookService.findBooksByISBN(search.getInput()));
+                }
+                else if(search.getSearch().equals("Name") || search.getSearch().equals("Názov"))
+                {
+                    mav.addObject("list", bookService.findBooksByName(search.getInput()));
+                }
+                else if(search.getSearch().equals("Authors") || search.getSearch().equals("Autori"))
+                {
+                    mav.addObject("list", bookService.findBooksByAuthor(search.getInput()));                    
+                }
+                
+		return mav;
+	}
 }

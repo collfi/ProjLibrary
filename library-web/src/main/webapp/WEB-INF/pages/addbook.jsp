@@ -5,6 +5,7 @@
 --%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 
@@ -73,6 +74,7 @@ $('#nav li:first ul').show();
       <section>
         
  <h1><spring:message code="label.addbook"/></h1>
+
     <c:choose>
         <c:when test="${error == 'missing'}">
             <p><font color="red"><spring:message code="label.validationmissing"/></font></p>
@@ -83,40 +85,40 @@ $('#nav li:first ul').show();
             <p><font color="red"><spring:message code="label.validationduplicate"/></font></p>
         </c:when>
     </c:choose>
- 
-<form method="POST" action="addpost">
-  <table>
-    <TR>
-        <TD><spring:message code="label.name"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="${name}"></TD>
-    </TR>
-    <TR>
-        <TD>ISBN:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="ISBN" SIZE="25" value="${isbn}"></TD>
-    </TR>
-    <TR>
-        <TD><spring:message code="label.authors"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="authors" SIZE="25" value="${authors}"></TD>
-    </TR>
-    <TR>
-        <TD><spring:message code="label.description"/>:</TD>
-        <TD><INPUT TYPE="TEXT" NAME="description" SIZE="25" value="${description}"></TD>
-    </TR>
-    <Tr>
-        <TD><spring:message code="label.genre"/>:</TD>
+<form:form method="POST" action="addpost" modelAttribute="book">
+    <table>
+    <tbody>
+    <tr>
+        <td><spring:message code="label.name"/></td>
+        <td><form:input path="name"/></td>
+    </tr>
+    <tr>
+        <td>ISBN:</td>
+        <td><form:input path="ISBN"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.authors"/>:</td>
+        <td><form:input path="authors"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.description"/>:</td>
+        <td><form:input path="description"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.genre"/>:</td>
         <td>
-            <select name="department">
-              <option>Science</option>
-              <option>Sport</option>
-              <option>Autobiografy</option>
-              <option>Religion</option>
-            </select>
-        </td>    
-    </Tr>
-
-  </table>    
-  <input type="submit" value="Submit"/>
-</form>
+            <form:select path="department">
+                <form:option value="Science">Science</form:option>
+                <form:option value="Sport">Sport</form:option>
+                <form:option value="Autobiografy">Autobiografy</form:option>
+                <form:option value="Religion">Religion</form:option>
+            </form:select>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<input type="submit" value="Submit"/>
+</form:form>
        
       </section>
       <footer>
