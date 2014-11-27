@@ -13,6 +13,11 @@
   <body>
     <div class="wrapper">
       <%@ include file="header.jsp" %>
+             <script>
+        $(document).ready(function () {
+$('#nav li:first ul').show();
+});
+    </script>
       <section>
         <h1><spring:message code="label.editbook"/></h1>
         <c:choose>
