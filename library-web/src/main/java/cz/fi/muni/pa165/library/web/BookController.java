@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -141,7 +142,7 @@ public class BookController{
         @RequestMapping("/book/findbooks")
         public ModelAndView findbooks(ModelMap model)
         {
-                ModelAndView mav = new ModelAndView("findbooks");
+                    ModelAndView mav = new ModelAndView("findbooks");
 
 		mav.addObject("search", new SearchModel());
 
@@ -151,18 +152,22 @@ public class BookController{
         @RequestMapping(value="/book/findbooks/result")
 	private ModelAndView processSearch(@ModelAttribute SearchModel search) {
 		ModelAndView mav = new ModelAndView("findbooks");
-                
+                if (search.getSearch() == null) {
+                    mav.addObject("search", new SearchModel());
+                    mav.addObject("list", new ArrayList<BookDTO>());
+                    return mav;
+                }
                 mav.addObject("search", search);
                 
-                if(search.getSearch().equals("ISBN"))
+                if (search.getSearch().equals("ISBN"))
                 {
                     mav.addObject("list", bookService.findBooksByISBN(search.getInput()));
                 }
-                else if(search.getSearch().equals("Name") || search.getSearch().equals("Názov"))
+                else if(search.getSearch().equals("Name"))
                 {
                     mav.addObject("list", bookService.findBooksByName(search.getInput()));
                 }
-                else if(search.getSearch().equals("Authors") || search.getSearch().equals("Autori"))
+                else if(search.getSearch().equals("Authors"))
                 {
                     mav.addObject("list", bookService.findBooksByAuthor(search.getInput()));                    
                 }

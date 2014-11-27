@@ -24,8 +24,8 @@
             <form:form method="POST" modelAttribute="search" action="${contextPath}/book/findbooks/result">
                 <form:input type="text" path="input" />
                 <form:select path="search">
-                    <form:option value="${nametext}"><spring:message code='label.name'/></form:option>
-                    <form:option value="${authorstext}"><spring:message code='label.authors'/></form:option>
+                    <form:option value="Name"><spring:message code='label.name'/></form:option>
+                    <form:option value="Authors"><spring:message code='label.authors'/></form:option>
                     <form:option value="ISBN">ISBN</form:option>
 
                 </form:select>
