@@ -90,19 +90,19 @@ $('#nav li:first ul').show();
     <tbody>
     <tr>
         <td><spring:message code="label.name"/></td>
-        <td><form:input path="name"/></td>
+        <td><form:input path="name" value="${name}"/></td>
     </tr>
     <tr>
         <td>ISBN:</td>
-        <td><form:input path="ISBN"/></td>
+        <td><form:input path="ISBN" value="${isbn}"/></td>
     </tr>
     <tr>
         <td><spring:message code="label.authors"/>:</td>
-        <td><form:input path="authors"/></td>
+        <td><form:input path="authors" value="${authors}"/></td>
     </tr>
     <tr>
         <td><spring:message code="label.description"/>:</td>
-        <td><form:input path="description"/></td>
+        <td><form:input path="description" value="${description}"/></td>
     </tr>
     <tr>
         <td><spring:message code="label.genre"/>:</td>
