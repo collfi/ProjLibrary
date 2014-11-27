@@ -98,7 +98,7 @@ $('#nav li:first ul').show();
             <form:select path="department">
                 <form:option value="Science">Science</form:option>
                 <form:option value="Sport">Sport</form:option>
-                <form:option selected="selected" value="Autobiografy">Autobiografy</form:option>
+                <form:option value="Autobiografy">Autobiografy</form:option>
                 <form:option value="Religion">Religion</form:option>
             </form:select>
         </td>

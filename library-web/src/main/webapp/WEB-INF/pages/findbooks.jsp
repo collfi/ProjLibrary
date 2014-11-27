@@ -7,7 +7,10 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<spring:message code="label.name" var="nametext"/>
+<spring:message code="label.authors" var="authorstext"/>
 
 <!doctype html>
 <html>
@@ -75,14 +78,16 @@ $('#nav li:first ul').show();
         <h1><spring:message code="label.findbooks"/></h1>
         <br>
         <div id="search">
-            <input type="text" name="search" />
-            <select name="condition">
-                <option value="Name"><spring:message code="label.name"/></option>
-                <option value="Author"><spring:message code="label.authors"/></option>
-                <option value="ISBN">ISBN</option>
-                <option value="Genre"><spring:message code="label.genre"/></option>
-            </select>
-            <input type="submit" id="searchbtn" value="search"/>
+            <form:form method="POST" modelAttribute="search" action="${contextPath}/book/findbooks/result">
+                <form:input type="text" path="input" />
+                <form:select path="search">
+                    <form:option value="${nametext}"><spring:message code='label.name'/></form:option>
+                    <form:option value="${authorstext}"><spring:message code='label.authors'/></form:option>
+                    <form:option value="ISBN">ISBN</form:option>
+
+                </form:select>
+                <input type="submit" value="Submit"/>
+            </form:form>
         </div>
         <br>
         <table>

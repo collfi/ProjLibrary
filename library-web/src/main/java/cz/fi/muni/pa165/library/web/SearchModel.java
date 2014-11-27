@@ -11,7 +11,16 @@ package cz.fi.muni.pa165.library.web;
  */
 public class SearchModel {
 	private String search;
+        private String input;
 
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+        
 	public String getSearch() {
 		return search;
 	}

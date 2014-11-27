@@ -2,10 +2,13 @@ package cz.fi.muni.pa165.library.web;
 
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
+import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,15 +29,12 @@ public class BookController{
     
         @Autowired
         public BookService bookService;
-
-        @RequestMapping(value = "/book/management",method = RequestMethod.GET)
-	public String bookmanagement(ModelMap model) {
-		return "bookmanagement";
-	}
         
     	@RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
 	public ModelAndView addformular() {
-            return new ModelAndView("addbook", "book", new BookDTO()); 
+            BookDTO book = new BookDTO();
+            book.setDepartment(Book.Department.Sport);
+            return new ModelAndView("addbook", "book", book); 
 	}
         
         @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
@@ -111,17 +111,32 @@ public class BookController{
         @RequestMapping("/book/findbooks")
         public ModelAndView findbooks(ModelMap model)
         {
-           // List<BookDTO> list = bookService.findAllBooks();
-           // model.addAttribute("list", list);
-            
-            return new ModelAndView("phone-option-form", "smartphone", new SearchModel());
+                ModelAndView mav = new ModelAndView("findbooks");
+
+		mav.addObject("search", new SearchModel());
+
+		return mav;
         }
         
         @RequestMapping(value="/book/findbooks/result")
 	private ModelAndView processSearch(@ModelAttribute SearchModel search) {
-		ModelAndView mav = new ModelAndView("search-result");
-		mav.addObject("search", search);		
+		ModelAndView mav = new ModelAndView("findbooks");
+                
+                mav.addObject("search", search);
+                
+                if(search.getSearch().equals("ISBN"))
+                {
+                    mav.addObject("list", bookService.findBooksByISBN(search.getInput()));
+                }
+                else if(search.getSearch().equals("Name") || search.getSearch().equals("Názov"))
+                {
+                    mav.addObject("list", bookService.findBooksByName(search.getInput()));
+                }
+                else if(search.getSearch().equals("Authors") || search.getSearch().equals("Autori"))
+                {
+                    mav.addObject("list", bookService.findBooksByAuthor(search.getInput()));                    
+                }
+                
 		return mav;
 	}
-
 }
