@@ -120,7 +120,7 @@ public class Book {
         return this.department;
     }
 
-    public void setDapertment(Department Department) {
+    public void setDepartment(Department Department) {
         this.department = Department;
     }
     

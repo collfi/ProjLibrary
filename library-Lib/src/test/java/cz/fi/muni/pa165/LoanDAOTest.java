@@ -47,7 +47,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
 
         Member m = new Member();
         m.setAddress("Vinarska");

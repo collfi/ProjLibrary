@@ -68,7 +68,7 @@ public class MemberServiceTest {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
 
         PrintedBook pb = new PrintedBook();
         pb.setBook(book);

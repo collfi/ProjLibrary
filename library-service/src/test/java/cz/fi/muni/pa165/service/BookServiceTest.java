@@ -54,7 +54,7 @@ public class BookServiceTest {
         book = new Book();
         book.setIdBook(10l);
         book.setAuthors("Author1");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
         book.setDescription("Sports book about passion to run!");
         book.setISBN("123456789");
         book.setName("Born to run");
@@ -64,7 +64,7 @@ public class BookServiceTest {
         book2 = new Book();
         book2.setIdBook((9l));
         book2.setName("Harry Potter");
-        book2.setDapertment(Department.Religion);
+        book2.setDepartment(Department.Religion);
         book2.setAuthors("Author1");
         book2.setDescription("Story about young wizard with brave heart!");
         book2.setISBN("12341234");

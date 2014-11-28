@@ -14,6 +14,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <!doctype html>
@@ -21,23 +22,55 @@
   <body>
     <div class="wrapper">
       <%@ include file="header.jsp" %>
-             <script>
+                   <script>
         $(document).ready(function () {
 $('#nav li:first ul').show();
 });
     </script>
       <section>
-        <h1><spring:message code="label.book"/></h1></br>
+        <h1><spring:message code="label.book"/></h1>
         <p>  
             <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
             <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a>
-            <p><spring:message code="label.name"/> : ${book.name}</p>
-            <p>ISBN : ${book.ISBN}</p>
-            <p><spring:message code="label.authors"/> : ${book.authors}</p>
-            <p><spring:message code="label.description"/> : ${book.description}</p>
-            <p><spring:message code="label.genre"/> : ${book.department}</p>
-        </p></br>
-        <h3><spring:message code="label.printedbooks"/>:</h3>
+        </p>
+        <p>    
+    <form:form  modelAttribute="book">
+    <table>
+    <tbody>
+    <tr>
+        
+        <td><spring:message code="label.name"/></td>
+        <td><form:input readonly="true" path="name" value="${name}"/></td>
+    </tr>
+    <tr>
+        <td>ISBN:</td>
+        <td><form:input readonly="true" path="ISBN" value="${isbn}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.authors"/>:</td>
+        <td><form:input readonly="true" path="authors" value="${authors}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.description"/>:</td>
+        <td><form:input readonly="true" path="description" value="${description}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.genre"/>:</td>
+        <td>
+            <form:select readonly="true" path="department">
+                <form:option value="Science">Science</form:option>
+                <form:option value="Sport">Sport</form:option>
+                <form:option value="Autobiografy">Autobiografy</form:option>
+                <form:option value="Religion">Religion</form:option>
+            </form:select>
+        </td>
+    </tr>
+    
+    </tbody>
+    </table>
+    </form:form>
+        <br>
+    <h3><spring:message code="label.printedbooks"/>:</h3>
         <table>
          <tbody>
             <tr>

@@ -15,17 +15,14 @@
       <%@ include file="header.jsp" %>
       <section>
 	<h1><spring:message code="label.welcome"/></h1>
-        <table>
-          <tbody><tr>
-            <th>ID</th><th>Name</th><th>Rank</th>
-          </tr>
-          <tr>
-            <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
-          </tr>
-          <tr>
-            <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
-          </tr>
-        </tbody></table>
+        <br>
+        <p>
+            <spring:message code="label.maincontent1"/>
+        </p>
+                <p>
+            <spring:message code="label.maincontent2"/>
+        </p>
+
       </section>
       <%@ include file="footer.jsp" %>
     </div>
