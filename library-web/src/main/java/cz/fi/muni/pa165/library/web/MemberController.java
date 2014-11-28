@@ -3,14 +3,18 @@ package cz.fi.muni.pa165.library.web;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.service.api.MemberService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -33,19 +37,20 @@ public class MemberController {
     }
     
     @RequestMapping(value = "/member/addpost", method = RequestMethod.POST)
-    public String addpost(@ModelAttribute("pa165")MemberDTO member, ModelMap model) {
+    public String addpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
+            RedirectAttributes redirectAttributes) {
+    
+        if (bindingResult.hasErrors()) {
+                
+            redirectAttributes.addFlashAttribute("name", member.getName());
+            redirectAttributes.addFlashAttribute("email", member.getEmail());
+            redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("error", "missing");
+            return "redirect:/member/addformular";
+        }
         
         memberService.insertMember(member);
         model.addAttribute(member);
-        
-        MemberDTO mem = memberService.findMemberByEmail(member.getEmail());
-                
-        System.out.println("member/addpose member" + member);
-        System.out.println("member/addpose model" + model.toString());
-        
-        //member predtym zlo
-        String response = "redirect:/member/id/" + String.valueOf(mem.getIdMember()); 
-        System.out.println("response: " + response);
         
         return "redirect:/member/showmembers";
     }
@@ -65,39 +70,34 @@ public class MemberController {
         MemberDTO member = memberService.findMemberByIdMember(number);
         model.addAttribute("member", member);
         
-        System.out.println("member v edit" + member);
-            
         return "editmember";
     }
     
     @RequestMapping(value = "/member/editpost", method = RequestMethod.POST)
-    public String editpost(ModelMap model, @RequestParam("idMember") long idMember, 
-            @RequestParam("name") String name, @RequestParam("email") String email,
-            @RequestParam("address") String address) {
+    public String editpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
+            RedirectAttributes redirectAttributes) {
         
-        System.out.println("edit post" + idMember);
+        if (bindingResult.hasErrors()) {
+                
+            redirectAttributes.addFlashAttribute("name", member.getName());
+            redirectAttributes.addFlashAttribute("email", member.getEmail());
+            redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("error", "missing");
+            return "redirect:/member/edit/" + String.valueOf(member.getIdMember());
+            
+        }
         
-        MemberDTO member = memberService.findMemberByIdMember(idMember);
-        
-        System.out.println("edit post1 "   + member);
-        
-        member.setIdMember(idMember);
-        member.setName(name);
-        member.setEmail(email);
-        member.setAddress(address);
-        memberService.updateMember(member);
-        
-        System.out.println("editpost " + model.toString());
+        try {
+            memberService.updateMember(member);
+        } catch (JpaSystemException jse) {
+                redirectAttributes.addFlashAttribute("name", member.getName());
+            redirectAttributes.addFlashAttribute("email", member.getEmail());
+            redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("error", "missing");
+            return "redirect:/member/edit/" + String.valueOf(member.getIdMember());
+        }
         
         model.addAttribute("member", member);
-        
-        System.out.println("editpost " + model.toString());
-        
-        System.out.println("edit post2 "   + member);
-        
-        System.out.println("edit post3 "   + memberService.findMemberByIdMember(idMember));
-        
-        
         
         return "redirect:/member/id/" + String.valueOf(member.getIdMember());
     }
@@ -106,8 +106,6 @@ public class MemberController {
     public String deletepost(ModelMap model, @PathVariable("number") long number)
     {
         memberService.deleteMember(memberService.findMemberByIdMember(number));
-        
-        //oznam o vymazani clena
         return "redirect:/member/showmembers";
     }
     

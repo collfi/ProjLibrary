@@ -8,6 +8,8 @@ package cz.fi.muni.pa165.datatransferobject;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
  * @author Martin Malik <374128@mail.muni.cz>
@@ -16,10 +18,14 @@ public class MemberDTO {
     
     private long idMember;
     
+    @NotEmpty
     private String name;
     
+    @NotEmpty
+    @Email
     private String email;
     
+    @NotEmpty
     private String address;
     
     private Set<LoanDTO> loans = new HashSet<LoanDTO>();
