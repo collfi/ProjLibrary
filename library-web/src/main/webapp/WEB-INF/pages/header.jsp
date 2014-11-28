@@ -1,5 +1,5 @@
 <%-- 
-    Document   : book
+    Document   : header
     Created on : Nov 23, 2014, 11:18:36 PM
     Author     : michal
 --%>
@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
     <script src="<c:url value="/resources/js/jquery-1.10.2.js" />"></script>
-    <script src="<c:url value="/resources/ui/1.11.2/jquery-ui.js" />"></script>
-    <script src="<c:url value="/resources/js/jquery.js" />"></script>
+    <!--<script src="<c:url value="/resources/js/jquery.js" />"></script>-->
     <!--<script src="<c:url value="/resources/js/jquery.js" />"></script>-->
     <script>
     $(document).ready(function () {
