@@ -44,9 +44,8 @@ public class PrintedBookController {
         return "pbookmanagement";
     }
 
-    @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.POST)
+    @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.GET)
     public String addformular(ModelMap model, @PathVariable("number") int number) {
-        String s = String.valueOf(number);
         PrintedBookDTO pb = new PrintedBookDTO();
         pb.setCondition(PrintedBook.Condition.New);
         pb.setState(Boolean.FALSE);
@@ -60,7 +59,7 @@ public class PrintedBookController {
         b.setBooks(set);
         bookService.updateBook(b);
 
-        return "redirect:/book/id/" + s;
+        return "redirect:/book/id/" + String.valueOf(number);
     }
 
     @RequestMapping("/pbook/edit/{number}")
@@ -76,14 +75,14 @@ public class PrintedBookController {
         PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
         pb.setCondition(con);
         pbookService.updatePrintedBook(pb);
-        //model.addAttribute("condition", pbook.getCondition());
-        
-        /*bookService.updateBook(book);
-        List<BookDTO> list = bookService.findAllBooks();
-        model.addAttribute("list", list);
-
-        return "redirect:/book/id/" + String.valueO;*/
         return "redirect:/book/id/" + String.valueOf(pb.getBook().getIdBook());
+    }
+    
+    @RequestMapping("/pbook/delete/{number}")
+    public String deletebook(ModelMap model, @PathVariable("number") long number) {
+        PrintedBookDTO pbook = pbookService.findPrintedBookById(number);
+        pbookService.deletePrintedBook(pbook);
+        return "redirect:/book/id/" + String.valueOf(pbook.getBook().getIdBook());
     }
 
     
@@ -94,7 +93,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("library-web") PrintedBookDTO pbook,
+    public String add(@ModelAttribute("pa165") PrintedBookDTO pbook,
             ModelMap model,
             @RequestParam(value = "idBook", required = true) long idBook,
             @RequestParam(value = "idLoan", required = true) long idLoan) {

@@ -49,7 +49,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
         book.setDescription("Book about Wizard!");
 
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
 
         em.persist(book);
         em.getTransaction().commit();
@@ -78,7 +78,7 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         Book book = new Book();
         book.setAuthors("Author");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
         book.setDescription("Description");
         book.setISBN("123456456");
         book.setName("Name");

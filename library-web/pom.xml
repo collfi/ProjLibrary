@@ -17,6 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <tomcat.version>7.0.33</tomcat.version>
     </properties>
     
     <dependencies>
@@ -56,6 +57,18 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+         <dependency>
+		<groupId>org.apache.tomcat</groupId>
+		<artifactId>tomcat-servlet-api</artifactId>
+		<version>${tomcat.version}</version>
+		<scope>provided</scope>
+	</dependency>
+        <!-- Hibernate Validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.2.0.Final</version>
+	</dependency>
     </dependencies>
 
     <build>
@@ -104,6 +117,12 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
             </plugin>
         </plugins>
     </build>

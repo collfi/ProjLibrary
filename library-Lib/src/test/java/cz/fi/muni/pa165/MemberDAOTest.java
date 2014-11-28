@@ -223,7 +223,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
 
         PrintedBook pb1 = new PrintedBook();
         pb1.setBook(book);

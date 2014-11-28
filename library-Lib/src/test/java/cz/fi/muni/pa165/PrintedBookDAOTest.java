@@ -53,7 +53,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
 
         em.persist(book);
         em.getTransaction().commit();
@@ -150,7 +150,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
         book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();
@@ -179,7 +179,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
         book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();
@@ -208,7 +208,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         book.setISBN("123112315");
         book.setDescription("Book about Wizard!");
         book.setAuthors("J.K. Rowling");
-        book.setDapertment(Book.Department.Sport);
+        book.setDepartment(Book.Department.Sport);
         book.setIdBook(1);
 
         PrintedBook pbook = new PrintedBook();

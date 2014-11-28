@@ -14,85 +14,63 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Pa165</title>
-    
-    <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
-    <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
-    <script src="<c:url value="/resources/js/jquery.js" />"></script>
-    <script>
+  <body>
+    <div class="wrapper">
+      <%@ include file="header.jsp" %>
+                   <script>
         $(document).ready(function () {
-  $('#nav > li > a').click(function(){
-    if ($(this).attr('class') != 'active'){
-      $('#nav li ul').slideUp();
-      $(this).next().slideToggle();
-      $('#nav li a').removeClass('active');
-      $(this).addClass('active');
-    }
-  });
 $('#nav li:first ul').show();
 });
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href="${contextPath}"><spring:message code="label.appname"/></a></h1>
-        <p><spring:message code="label.appdescription"/></p>
-        <span >
-        <a href="?lang=en">en</a> 
-        | 
-        <a href="?lang=sk">sk</a>
-        </span>
-        <br>
-       
-        <ul id="nav">
-          <li><a href="#"><spring:message code="label.bookmanagement"/></a>
-            <ul>
-            <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="#"><spring:message code="label.findbook"/></a></li>
-            <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.loanmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 3 a</a></li>
-                <li><a href="#">Sub-Item 3 b</a></li>
-                <li><a href="#">Sub-Item 3 c</a></li>
-                <li><a href="#">Sub-Item 3 d</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.membermanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 4 a</a></li>
-                <li><a href="#">Sub-Item 4 b</a></li>
-                <li><a href="#">Sub-Item 4 c</a></li>
-            </ul>
-         </li>
-        </ul>
-      </header>
       <section>
-          <h1><spring:message code="label.book"/></h1></br>
-        <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
-            <form action="${contextPath}/pbook/addformular/${book.idBook}" method="post">
-                <a href="javascript:;" onclick="parentNode.submit();"><spring:message code="label.addpbook"/></a>
-                <input type="hidden" name="mess" value="<spring:message code="label.addpbook"/>"/>
-            </form>
+        <h1><spring:message code="label.book"/></h1>
+        <p>  
+            <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
+            <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a>
+        </p>
+        <p>    
+    <form:form  modelAttribute="book">
+    <table>
+    <tbody>
+    <tr>
         
-        <p><spring:message code="label.name"/> : ${book.name}</p>
-        <p>ISBN : ${book.ISBN}</p>
-        <p><spring:message code="label.authors"/> : ${book.authors}</p>
-        <p><spring:message code="label.description"/> : ${book.description}</p>
-        <p><spring:message code="label.genre"/> : ${book.department}</p>
-        
-        <h3><spring:message code="label.printedbooks"/>:</h3>
+        <td><spring:message code="label.name"/></td>
+        <td><form:input readonly="true" path="name" value="${name}"/></td>
+    </tr>
+    <tr>
+        <td>ISBN:</td>
+        <td><form:input readonly="true" path="ISBN" value="${isbn}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.authors"/>:</td>
+        <td><form:input readonly="true" path="authors" value="${authors}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.description"/>:</td>
+        <td><form:input readonly="true" path="description" value="${description}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.genre"/>:</td>
+        <td>
+            <form:select readonly="true" path="department">
+                <form:option value="Science">Science</form:option>
+                <form:option value="Sport">Sport</form:option>
+                <form:option value="Autobiografy">Autobiografy</form:option>
+                <form:option value="Religion">Religion</form:option>
+            </form:select>
+        </td>
+    </tr>
+    
+    </tbody>
+    </table>
+    </form:form>
+        <br>
+    <h3><spring:message code="label.printedbooks"/>:</h3>
         <table>
          <tbody>
             <tr>
@@ -100,17 +78,13 @@ $('#nav li:first ul').show();
             </tr>
          <c:forEach var="listValue" items="${list}">
                 <tr>
-                    <td>${listValue.idPrintedBook}</td><td>${listValue.condition}</td><td>${listValue.state}</td><td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}"><spring:message code="label.delete"/></a></td>
+                    <td>${listValue.idPrintedBook}</td><td><spring:message code="label.${listValue.condition}"/></td><td><spring:message code="label.${listValue.state}"/></td><td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}"><spring:message code="label.delete"/></a></td>
                 </tr>
-         </c:forEach><a href="edit/${listValue.idPrintedBook}">
+         </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>
          </tbody>
         </table>
       </section>
-      <footer>
-        <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
-        <p><small>Hosted on GitHub Pages &mdash;<a href="https://github.com/Cospel/ProjLibrary">ProjLibrary</a></small></p>
-        <p><small>Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+      <%@ include file="footer.jsp" %>
     </div>
     <script src="<c:url value="/resources/js/scale.fix.js" />"></script>
 </body>

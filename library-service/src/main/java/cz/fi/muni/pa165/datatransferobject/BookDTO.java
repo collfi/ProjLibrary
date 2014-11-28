@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.datatransferobject;
 import cz.fi.muni.pa165.entity.Book.Department;
 import java.util.HashSet;
 import java.util.Set;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -16,13 +17,13 @@ import java.util.Set;
 public class BookDTO {
 
     private long idBook;
-
+    @NotEmpty
     private String name;
-
+    @NotEmpty
     private String authors;
-
+    @NotEmpty
     private String description;
-
+    @NotEmpty
     private String ISBN;
 
     private Set<PrintedBookDTO> Books = new HashSet<PrintedBookDTO>();
