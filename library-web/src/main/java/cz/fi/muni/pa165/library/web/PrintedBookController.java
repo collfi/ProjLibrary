@@ -87,10 +87,10 @@ public class PrintedBookController {
 
     
     //OLD!!
-    @RequestMapping(value = "/pbook", method = RequestMethod.GET)
-    public ModelAndView pbook() {
-        return new ModelAndView("pbook", "command", new PrintedBookDTO());
-    }
+//    @RequestMapping(value = "/pbook", method = RequestMethod.GET)
+//    public ModelAndView pbook() {
+//        return new ModelAndView("pbook", "command", new PrintedBookDTO());
+//    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("pa165") PrintedBookDTO pbook,

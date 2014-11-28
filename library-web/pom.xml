@@ -4,12 +4,12 @@
     <parent>
     <artifactId>library</artifactId>
     <groupId>cz.fi.muni.pa165</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
   </parent>
 
     <groupId>cz.fi.muni.pa165</groupId>
     <artifactId>library-web</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>library-web</name>
@@ -22,12 +22,12 @@
     
     <dependencies>
         		<!-- jstl -->
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-            <dependency>
+        <dependency>
+                <groupId>jstl</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>library-service</artifactId>
             <version>${project.version}</version>

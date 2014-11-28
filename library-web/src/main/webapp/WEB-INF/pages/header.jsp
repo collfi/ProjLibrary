@@ -18,18 +18,25 @@
     
     <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
+    
+    <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />">
+    <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.10.2.js" />"></script>
+    <script src="<c:url value="/resources/ui/1.11.2/jquery-ui.js" />"></script>
     <script src="<c:url value="/resources/js/jquery.js" />"></script>
+    <!--<script src="<c:url value="/resources/js/jquery.js" />"></script>-->
     <script>
-        $(document).ready(function () {
-  $('#nav > li > a').click(function(){
-    if ($(this).attr('class') != 'active'){
-      $('#nav li ul').slideUp();
-      $(this).next().slideToggle();
-      $('#nav li a').removeClass('active');
-      $(this).addClass('active');
-    }
-  });
-});
+    $(document).ready(function () {
+          $('#nav > li > a').click(function(){
+            if ($(this).attr('class') != 'active'){
+              $('#nav li ul').slideUp();
+              $(this).next().slideToggle();
+              $('#nav li a').removeClass('active');
+              $(this).addClass('active');
+            }
+          });
+          $(".date" ).datepicker();
+    });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
@@ -55,10 +62,11 @@
           </li>
           <li><a href="#"><spring:message code="label.loanmanagement"/></a>
             <ul>
-                <li><a href="#">Sub-Item 3 a</a></li>
-                <li><a href="#">Sub-Item 3 b</a></li>
+                <li><a href="${contextPath}/loan/listloans">List all loans</a></li>
+                <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
+<!--                <li><a href="#">Sub-Item 3 b</a></li>
                 <li><a href="#">Sub-Item 3 c</a></li>
-                <li><a href="#">Sub-Item 3 d</a></li>
+                <li><a href="#">Sub-Item 3 d</a></li>-->
             </ul>
           </li>
           <li><a href="#"><spring:message code="label.membermanagement"/></a>

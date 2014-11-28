@@ -42,4 +42,6 @@ import cz.fi.muni.pa165.entity.Member;
      */
     public Loan findLoanById(long id);
 
+    
+    public List<Loan> findAllLoans();
 }

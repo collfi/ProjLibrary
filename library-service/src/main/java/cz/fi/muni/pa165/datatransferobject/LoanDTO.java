@@ -5,8 +5,6 @@
  */
 package cz.fi.muni.pa165.datatransferobject;
 
-import cz.fi.muni.pa165.entity.Member;
-import cz.fi.muni.pa165.entity.PrintedBook;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -18,9 +16,9 @@ import java.util.Set;
 public class LoanDTO {
     private int idLoan;
 
-    private Member member;
+    private MemberDTO member;
 
-    private Set<PrintedBook> pbooks = new HashSet<>();
+    private Set<PrintedBookDTO> pbooks = new HashSet<>();
 
     private Date fromDate;
 
@@ -49,7 +47,7 @@ public class LoanDTO {
     }
 
     public LoanDTO(Date dateReturned, String description, boolean isReturned, Date toDate, Date fromDate,
-                   Set<PrintedBook> pbooks, Member member, int idLoan) {
+                   Set<PrintedBookDTO> pbooks, MemberDTO member, int idLoan) {
         this.dateReturned = dateReturned;
         this.description = description;
         this.isReturned = isReturned;
@@ -93,19 +91,19 @@ public class LoanDTO {
     }
 
 
-    public Member getMember() {
+    public MemberDTO getMember() {
         return member;
     }
 
-    public void setMember(Member member) {
+    public void setMember(MemberDTO member) {
         this.member = member;
     }
 
-    public Set<PrintedBook> getPbooks() {
+    public Set<PrintedBookDTO> getPbooks() {
         return pbooks;
     }
 
-    public void setPbooks(Set<PrintedBook> pbooks) {
+    public void setPbooks(Set<PrintedBookDTO> pbooks) {
         this.pbooks = pbooks;
     }
 
@@ -125,7 +123,7 @@ public class LoanDTO {
         this.toDate = toDate;
     }
 
-    public boolean isReturned() {
+    public boolean getIsReturned() {
         return isReturned;
     }
 

@@ -78,7 +78,18 @@ $('#nav li:first ul').show();
             </tr>
          <c:forEach var="listValue" items="${list}">
                 <tr>
-                    <td>${listValue.idPrintedBook}</td><td><spring:message code="label.${listValue.condition}"/></td><td><spring:message code="label.${listValue.state}"/></td><td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}"><spring:message code="label.delete"/></a></td>
+                    <td>${listValue.idPrintedBook}</td>
+                    <td><spring:message code="label.${listValue.condition}"/></td>
+                    <td><spring:message code="label.${listValue.state}"/></td>
+                    <td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}">
+                            <spring:message code="label.edit"/></a>
+                            /<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}">
+                                <spring:message code="label.delete"/></a>
+                                
+                            /<a href="${contextPath}/loan/addloan?pbookid=${listValue.idPrintedBook}&bookid=${book.idBook}">
+                                <spring:message code="label.addloan"/></a>
+                                
+                    </td>
                 </tr>
          </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>
          </tbody>
@@ -86,6 +97,9 @@ $('#nav li:first ul').show();
       </section>
       <%@ include file="footer.jsp" %>
     </div>
+    
+    
+    
     <script src="<c:url value="/resources/js/scale.fix.js" />"></script>
 </body>
 </html>

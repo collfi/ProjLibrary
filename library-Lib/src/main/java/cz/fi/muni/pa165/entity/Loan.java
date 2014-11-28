@@ -39,7 +39,7 @@ public class Loan {
 
     private String description;
 
-    @Column(nullable=false)
+    @Column()
     @Temporal(TemporalType.DATE)
     private Date dateReturned;
 

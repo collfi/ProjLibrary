@@ -77,28 +77,33 @@ public class LoanServiceImpl implements LoanService {
         return DTOEntityManager.loanEntitytoDTO(l);
     }
 
-    private List<LoanDTO> dtosToEntities(List<Loan> loans) {
+    private List<LoanDTO> entitiesToDTOs(List<Loan> loans) {
         List<LoanDTO> ldtos = new ArrayList<>();
         for (Loan l: loans) {
             ldtos.add(DTOEntityManager.loanEntitytoDTO(l));
         }
         return ldtos;
     }
-
+    
     @Override
     public List<LoanDTO> findAllLoansByMember(MemberDTO memdto, boolean isReturned) {
         Member m = memberDao.find(DTOEntityManager.memberDTOtoEntity(memdto));
-        return dtosToEntities(loanDao.findAllLoansByMember(m, isReturned));
+        return entitiesToDTOs(loanDao.findAllLoansByMember(m, isReturned));
     }
 
     @Override
     public List<LoanDTO> findAllLoandsFromTo(Date from, Date to) {
-        return dtosToEntities(loanDao.findAllLoandsFromTo(from, to));
+        return entitiesToDTOs(loanDao.findAllLoandsFromTo(from, to));
     }
 
     @Override
     public List<LoanDTO> findAllLoansWithBook(BookDTO book) {
         Book b = bookDao.find(DTOEntityManager.bookDTOtoEntity(book));
-        return dtosToEntities(loanDao.findAllLoansWithBook(b));
+        return entitiesToDTOs(loanDao.findAllLoansWithBook(b));
+    }
+    
+    @Override
+    public List<LoanDTO> findAllLoans() {
+        return entitiesToDTOs(loanDao.findAllLoans());
     }
 }

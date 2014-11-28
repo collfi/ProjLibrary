@@ -67,5 +67,7 @@ public interface LoanService {
      * @return List of Loans
      */
     public List<LoanDTO> findAllLoansWithBook(BookDTO b);
+    
+    public List<LoanDTO> findAllLoans();
 
 }
