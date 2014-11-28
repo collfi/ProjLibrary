@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.Book.Department;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
 import java.util.ArrayList;
@@ -170,6 +171,15 @@ public class BookController{
                 else if(search.getSearch().equals("Authors"))
                 {
                     mav.addObject("list", bookService.findBooksByAuthor(search.getInput()));                    
+                }
+                else if(search.getSearch().equals("Department"))
+                {
+                    try {
+                        mav.addObject("list", bookService.findBooksByDepartment(Department.valueOf(search.getInput())));
+                    }   
+                    catch(IllegalArgumentException ex) {
+                        mav.addObject("list", new ArrayList());
+                    }
                 }
                 
 		return mav;

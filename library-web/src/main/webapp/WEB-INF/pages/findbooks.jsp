@@ -32,7 +32,7 @@ $('#nav li:first ul').show();
                     <form:option value="Name"><spring:message code='label.name'/></form:option>
                     <form:option value="Authors"><spring:message code='label.authors'/></form:option>
                     <form:option value="ISBN">ISBN</form:option>
-
+                    <form:option value="Department"><spring:message code='label.genre'/></form:option>
                 </form:select>
                 <input type="submit" value="Submit"/>
             </form:form>
