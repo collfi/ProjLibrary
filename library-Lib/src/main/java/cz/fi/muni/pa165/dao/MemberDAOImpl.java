@@ -24,6 +24,16 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
     @PersistenceContext(unitName = "myUnit")
     private EntityManager entityManager;
     
+    @Override 
+    public List<Member> findAllMembers(){
+        try{
+            final Query query = entityManager.createQuery("SELECT mem FROM Member as mem");
+            return query.getResultList();
+        }catch(RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
+    }
+    
     @Override
     public Member findMemberByIdMember(long id) {
         if(id < 0) throw new IllegalArgumentException("id is not possitive");
@@ -93,6 +103,7 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
 
     @Override
     public void insert(Member t) {
+        System.out.println("insert v dao1: " + t);
         if(t == null) throw new NullPointerException("member is null");
         
         try {
@@ -100,22 +111,30 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
         } catch(RuntimeException E) {
             throw new DAException(E.getMessage());
         }
+        
+        System.out.println("insert v dao2: " + t);
     }
 
     @Override
     public void update(Member t) {
         if(t == null) throw new NullPointerException("member is null");
         
+        System.out.println("member update dao1 " + t);
+        
         try {
             final Query query = entityManager.createQuery("UPDATE Member SET name = :name," +
-                                "email = :email, adress = :address WHERE idMember = :id");
+                                "email = :email, address = :address WHERE idMember = :id");
             query.setParameter("id", t.getIdMember());
             query.setParameter("name", t.getName());
             query.setParameter("email", t.getEmail());
             query.setParameter("address", t.getAddress());
+            query.executeUpdate();
         } catch(RuntimeException E) {
             throw new DAException(E.getMessage());
         }
+        
+        System.out.println("member update dao1 " + t);
+        
     }
 
     @Override

@@ -100,4 +100,24 @@ public class MemberDTO {
         }
         return true;
     }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("idMember: " + idMember + ", name: " + name + ", email: " + email + ", address: " + address);
+        
+        if(loans == null){
+            return sb.toString();
+        }else{
+            sb.append(" Loans = [ ");
+            
+            for(LoanDTO loan : loans){
+                sb.append(loan.toString());
+            }
+            
+            sb.append("]");
+            
+            return sb.toString();
+        }
+    }
 }

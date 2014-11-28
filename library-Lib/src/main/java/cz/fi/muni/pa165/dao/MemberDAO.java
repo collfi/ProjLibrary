@@ -12,6 +12,13 @@ import java.util.List;
 public interface MemberDAO extends GenericDAO<Member>{
     
     /**
+     * Method finds all members.
+     * 
+     * @return  members 
+     */
+    public List<Member> findAllMembers();
+    
+    /**
      * Method finds member by unique identifier.
      * 
      * @param id    identifier

@@ -1,8 +1,9 @@
 <%-- 
-    Document   : book
-    Created on : Nov 23, 2014, 11:18:36 PM
+    Document   : showbooks
+    Created on : Nov 26, 2014, 1:50:29 AM
     Author     : michal
 --%>
+
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -28,6 +29,7 @@
       $(this).addClass('active');
     }
   });
+$('#nav li:first ul').show();
 });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -43,44 +45,21 @@
         <a href="?lang=sk">sk</a>
         </span>
         <br>
-       
-        <ul id="nav">
-          <li><a href="#"><spring:message code="label.bookmanagement"/></a>
-            <ul>
-            <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
-            <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.loanmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 3 a</a></li>
-                <li><a href="#">Sub-Item 3 b</a></li>
-                <li><a href="#">Sub-Item 3 c</a></li>
-                <li><a href="#">Sub-Item 3 d</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.membermanagement"/></a>
-            <ul>
-                <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
-                <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
-            </ul>
-         </li>
-        </ul>
       </header>
       <section>
-	<h1><spring:message code="label.welcome"/></h1>
+        <h1><spring:message code="label.allmembers"/></h1>
         <table>
-          <tbody><tr>
-            <th>ID</th><th>Name</th><th>Rank</th>
-          </tr>
-          <tr>
-            <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
-          </tr>
-          <tr>
-            <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
-          </tr>
-        </tbody></table>
+            <tbody>
+            <tr>
+                <th><spring:message code="label.name"/></th><th><spring:message code="label.email"/></th><th><spring:message code="label.address"/></th><th><spring:message code="label.show"/>/<spring:message code="label.edit"/>/<spring:message code="label.delete"/></th>
+            </tr>
+            <c:forEach var="listValue" items="${list}">
+                <tr>
+                    <td>${listValue.name}</td><td>${listValue.email}</td><td>${listValue.address}</td><td><a href="${contextPath}/member/id/${listValue.idMember}">Show</a>/<a href="${contextPath}/member/edit/${listValue.idMember}"><spring:message code="label.edit"/></a>/<a href="${contextPath}/member/delete/${listValue.idMember}"><spring:message code="label.delete"/></a></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>       
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
@@ -91,3 +70,4 @@
     <script src="<c:url value="/resources/js/scale.fix.js" />"></script>
 </body>
 </html>
+

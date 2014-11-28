@@ -130,7 +130,10 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
         member.setEmail("l.red@gmail.com");
         member.setAddress("142/12, Kralovo Pole, Brno");
 
+        em.getTransaction().begin();
         memDAO.update(member);
+        em.getTransaction().commit();
+
 
         String name = memDAO.find(member).getName();
         String email = memDAO.find(member).getEmail();

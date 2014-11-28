@@ -28,6 +28,7 @@
       $(this).addClass('active');
     }
   });
+$('#nav li:first ul').show();
 });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -43,44 +44,31 @@
         <a href="?lang=sk">sk</a>
         </span>
         <br>
-       
-        <ul id="nav">
-          <li><a href="#"><spring:message code="label.bookmanagement"/></a>
-            <ul>
-            <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
-            <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
-            <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.loanmanagement"/></a>
-            <ul>
-                <li><a href="#">Sub-Item 3 a</a></li>
-                <li><a href="#">Sub-Item 3 b</a></li>
-                <li><a href="#">Sub-Item 3 c</a></li>
-                <li><a href="#">Sub-Item 3 d</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><spring:message code="label.membermanagement"/></a>
-            <ul>
-                <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
-                <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
-            </ul>
-         </li>
-        </ul>
       </header>
       <section>
-	<h1><spring:message code="label.welcome"/></h1>
-        <table>
-          <tbody><tr>
-            <th>ID</th><th>Name</th><th>Rank</th>
-          </tr>
-          <tr>
-            <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
-          </tr>
-          <tr>
-            <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
-          </tr>
-        </tbody></table>
+        <h1><spring:message code="label.editmember"/></h1>
+
+        <form method="POST" action="${contextPath}/member/editpost">
+  <table>
+    <TR style="display: none;">
+        <TD>ID</TD>
+        <TD><INPUT  TYPE="TEXT" NAME="idMember" value="${member.idMember}" SIZE="25"></TD>
+    </TR>  
+    <TR>
+        <TD><spring:message code="label.name"/>:</TD>
+        <TD><INPUT TYPE="TEXT" NAME="name" value="${member.name}" SIZE="25"></TD>
+    </TR>
+    <TR>
+        <TD><spring:message code="label.email"/>:</TD>
+        <TD><INPUT TYPE="TEXT" NAME="email" value="${member.email}" SIZE="25"></TD>
+    </TR>
+    <TR>
+        <TD><spring:message code="label.address"/>:</TD>
+        <TD><INPUT TYPE="TEXT" NAME="address" value="${member.address}" SIZE="25"></TD>
+    </TR>
+    </table>    
+    <input type="submit" value="Submit"/>
+    </form>
       </section>
       <footer>
         <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>

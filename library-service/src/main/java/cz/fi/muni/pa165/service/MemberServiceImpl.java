@@ -26,17 +26,20 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     BookDAO bookDAO;
-    
-    @Override
+
+   @Override
     public void insertMember(MemberDTO memberDTO) {
         Member member = DTOEntityManager.memberDTOtoEntity(memberDTO);
         memberDAO.insert(member);
+        System.out.println("insertMemberDTO v service: " + memberDTO);
+        System.out.println("insertMember v service: " + member);
     }
 
     @Override
     public void updateMember(MemberDTO memberDTO) {
         Member member = DTOEntityManager.memberDTOtoEntity(memberDTO);
         memberDAO.update(member);
+        System.out.println("updateMember v service: " + member);
     }
 
     @Override
@@ -49,6 +52,17 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO findMember(MemberDTO memberDTO) {
         Member member = memberDAO.find(DTOEntityManager.memberDTOtoEntity(memberDTO));
         return DTOEntityManager.memberEntitytoDTO(member);
+    }
+    
+    @Override
+    public List<MemberDTO> findAllMembers(){
+        List<Member> members = memberDAO.findAllMembers();
+        List<MemberDTO> membersDTO = new ArrayList<MemberDTO>();
+        for(Member member : members){
+            membersDTO.add(DTOEntityManager.memberEntitytoDTO(member));
+        }
+        
+        return membersDTO;
     }
 
     @Override
