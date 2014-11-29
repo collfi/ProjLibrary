@@ -40,7 +40,7 @@ import cz.fi.muni.pa165.entity.Member;
      * @param id of book
      * @return loan if find
      */
-    public Loan findLoanById(long id);
+    public Loan findLoanById(int id);
 
     
     public List<Loan> findAllLoans();

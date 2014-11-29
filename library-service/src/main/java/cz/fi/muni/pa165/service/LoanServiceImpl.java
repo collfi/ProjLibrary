@@ -72,7 +72,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public LoanDTO findLoanById(long id) {
+    public LoanDTO findLoanById(int id) {
         Loan l = loanDao.findLoanById(id);
         return DTOEntityManager.loanEntitytoDTO(l);
     }

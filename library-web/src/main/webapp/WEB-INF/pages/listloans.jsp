@@ -18,7 +18,7 @@
       <div class="wrapper">
       <%@ include file="header.jsp" %>
       <section>
-        <h1><spring:message code="label.findloans"/></h1>
+        <h1><spring:message code="label.listloans"/></h1>
         <br>
 
         <br>
@@ -33,7 +33,7 @@
                 <th><spring:message code="label.loandatereturned"/></th>
                 <th></th>
             </tr>
-            <c:forEach var="loan" items="${list}">
+            <c:forEach var="loan" items="${loans}">
                 <tr>
                     <td>${loan.idLoan}</td>
                     <td>${loan.member.name}</td>
@@ -43,7 +43,8 @@
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
                     <td>${loan.dateReturned}</td>
-                    <td><a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a></td>
+                    <td><a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/
+                        <a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>
                 </tr>
                 <tr>
                     <td>${loan.description}</td>

@@ -36,7 +36,7 @@ public interface LoanService {
      * @param id of loan.
      * @return LoanDTO
      */
-    public LoanDTO findLoanById(long id);
+    public LoanDTO findLoanById(int id);
 
     /**
      * Find Loan in database.

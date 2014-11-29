@@ -16,14 +16,12 @@
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
     <title>Pa165</title>
     
-    <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
+    <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">    
     <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
-    
     <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />">
-    <link rel="stylesheet" href="<c:url value="/resources/css/pygment_trac.css" />">
-    <script src="<c:url value="/resources/js/jquery-1.10.2.js" />"></script>
-    <!--<script src="<c:url value="/resources/js/jquery.js" />"></script>-->
-    <!--<script src="<c:url value="/resources/js/jquery.js" />"></script>-->
+    
+    <script src="<c:url value="/resources/js/jquery.js" />"></script>
+    <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
     <script>
     $(document).ready(function () {
           $('#nav > li > a').click(function(){

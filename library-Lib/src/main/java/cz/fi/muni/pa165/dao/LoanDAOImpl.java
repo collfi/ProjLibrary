@@ -74,7 +74,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     }
 
     @Override
-    public Loan findLoanById(long id) {
+    public Loan findLoanById(int id) {
         try {
             final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id = :lid)", Loan.class);
             query.setParameter("lid", id);
@@ -115,8 +115,9 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     }
 
     @Override
-    public void delete(Loan loan) {
+    public void delete(Loan l) {
         try {
+            Loan loan = (Loan) em.merge(l);
             PrintedBookDAOImpl pbd = new PrintedBookDAOImpl();
             pbd.setManager(em);
             List<PrintedBook> books = pbd.findAllPrintedBooksByLoan(loan);
@@ -128,6 +129,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             throw new DAException(E.getMessage());
         }
     }
+   
 
     @Override
     public Loan find(Loan loan) {
