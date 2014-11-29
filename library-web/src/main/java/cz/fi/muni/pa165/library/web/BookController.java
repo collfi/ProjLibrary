@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+/**
+ * @author michal.lukac, xlukac, 430614
+ */
 @Controller
 public class BookController{
         @Autowired
