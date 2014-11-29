@@ -38,10 +38,12 @@ $('#nav li:first ul').show();
                 <tr>
                     <td>${listValue.idLoan}</td>
                     <td>${listValue.isReturned}</td>
-                    <td><a href="${contextPath}/pbook/edit/">
-                            <spring:message code="label.edit"/></a>
-                            /<a href="${contextPath}/pbook/delete/">
-                                <spring:message code="label.delete"/></a>                                
+                    <td><a href="${contextPath}/loan/id/${listValue.idLoan}">
+                            <spring:message code="label.show"/></a>
+                            /<a href="${contextPath}/loan/edit/${listValue.idLoan}">
+                                <spring:message code="label.edit"/></a>
+                                /<a href="${contextPath}/loan/delete/${listValue.idLoan}">
+                                    <spring:message code="label.delete"/></a>                                
                     </td>
                 </tr>
          </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>

@@ -69,7 +69,7 @@
         <table>
          <tbody>
             <tr>
-                <th>ID</th><th><spring:message code="label.condition"/></th><th><spring:message code="label.state"/></th><th><spring:message code="label.action"/></>
+                <th>ID</th><th><spring:message code="label.condition"/></th><th><spring:message code="label.availability"/></th><th><spring:message code="label.action"/></>
             </tr>
          <c:forEach var="listValue" items="${list}">
                 <tr>

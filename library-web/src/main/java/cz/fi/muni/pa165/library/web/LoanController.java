@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -30,57 +30,69 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class LoanController {
+
     @Autowired
     public PrintedBookService pbookService;
 
     @Autowired
     public BookService bookService;
-    
+
     @Autowired
     public LoanService loanService;
-    
+
     @Autowired
     public MemberService memberService;
-    
-    @RequestMapping(value = "/loan/addloan", method = RequestMethod.GET)
-        public ModelAndView addloanstep0(ModelMap model)
-        {
-            ModelAndView mav = new ModelAndView("addloan");
 
-            mav.addObject("search", new SearchModel());
-            mav.addObject("lmembers", memberService.findAllMembers());
-            mav.addObject("lbooks", bookService.findAllBooks());
-            return mav;
-        }
+    @RequestMapping(value = "/loan/addloan", method = RequestMethod.GET)
+    public ModelAndView addloanstep0(ModelMap model) {
+        ModelAndView mav = new ModelAndView("addloan");
+
+        mav.addObject("search", new SearchModel());
+        mav.addObject("lmembers", memberService.findAllMembers());
+        mav.addObject("lbooks", bookService.findAllBooks());
+        return mav;
+    }
 
     @RequestMapping(value = "/loan/addloan/member", method = RequestMethod.POST)
-        public String addloanstep1(@ModelAttribute SearchModel search) {
-            LoanDTO loan = new LoanDTO();
-            loan.setReturned(false);
-            loan.setDescription("description");
-            loan.setFromDate(new Date());
-            loan.setToDate(new Date());
-            
-            List<PrintedBookDTO> pbooks = pbookService.findPrintedBooksByBook(bookService.findBookById(Long.parseLong(search.getBook())));
-            PrintedBookDTO pbook = pbooks.get(0);
-            loan.setPrintedBook(pbook);
-            
-            MemberDTO member = memberService.findMemberByIdMember(Long.parseLong(search.getSearch(), 10));
-            
-            loan.setMember(member);
-            pbook.setLoan(loan);
-            
-            loanService.insertLoan(loan);
-            pbookService.updatePrintedBook(pbook);
-            
-            HashSet set = new HashSet();
-            set.add(loan);
-            member.setLoans(set);
-            memberService.updateMember(member);
-            
-            return "redirect:/";
+    public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes) {
+        LoanDTO loan = new LoanDTO();
+        loan.setReturned(false);
+        loan.setDescription("description");
+        loan.setFromDate(new Date());
+        loan.setToDate(new Date());
+        List<PrintedBookDTO> pbooks = pbookService.findPrintedBookByState(bookService.findBookById(Long.parseLong(search.getBook())), Boolean.FALSE);
+        if (pbooks.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "nofreebook");
+            return "redirect:/loan/addloan";
+        }
+
+        PrintedBookDTO pbook = pbooks.get(0);
+        loan.setPrintedBook(pbook);
+
+        MemberDTO member = memberService.findMemberByIdMember(Long.parseLong(search.getSearch(), 10));
+
+        loan.setMember(member);
+        pbook.setLoan(loan);
+        pbook.setState(Boolean.TRUE);
+
+        loanService.insertLoan(loan);
+        pbookService.updatePrintedBook(pbook);
+
+        HashSet set = new HashSet();
+        set.add(loan);
+        member.setLoans(set);
+        memberService.updateMember(member);
+
+        return "redirect:/";
     }
-    
+
+    @RequestMapping("/loan/id/{number}")
+    public String showloan(ModelMap model, @PathVariable("number") int number) {
+        LoanDTO loan = loanService.findLoanById(number);
+        model.addAttribute("loan", loan);
+        return "showloan";
+    }
+
     @RequestMapping(value = "/loan/listloans", method = RequestMethod.GET)
     public String listLoans(ModelMap model) {
         List<LoanDTO> loans = loanService.findAllLoans();
@@ -96,11 +108,11 @@ public class LoanController {
         model.addAttribute("books", books);
         return "findloans";
     }
-    
+
     @RequestMapping(value = "/loan/findloans/date", method = RequestMethod.POST)
-    private String searchByDate(ModelMap model, 
-                @RequestParam("datefrom") Date datefrom,
-                @RequestParam("dateto") Date dateto) {
+    private String searchByDate(ModelMap model,
+            @RequestParam("datefrom") Date datefrom,
+            @RequestParam("dateto") Date dateto) {
 
         model.addAttribute("loans", loanService.findAllLoandsFromTo(datefrom, dateto));
         model.addAttribute("datefrom", datefrom);
@@ -113,11 +125,10 @@ public class LoanController {
         return "findloans";
     }
 
-
     @RequestMapping(value = "/loan/findloans/member", method = RequestMethod.POST)
     private String searchByDate(ModelMap model,
-                                @RequestParam("memberid") int memberid,
-                                @RequestParam("returned") boolean returned) {
+            @RequestParam("memberid") int memberid,
+            @RequestParam("returned") boolean returned) {
 
         MemberDTO m = new MemberDTO();
         m.setIdMember(memberid);
@@ -146,8 +157,7 @@ public class LoanController {
         return "findloans";
     }
 
-    
-    @RequestMapping(value="/loan/delete/{loanid}")
+    @RequestMapping(value = "/loan/delete/{loanid}")
     public String delete(@PathVariable("loanid") int id) {
         loanService.deleteLoan(loanService.findLoanById(id));
         return "redirect:/loan/listloans";
@@ -162,6 +172,5 @@ public class LoanController {
         loanService.updateLoan(l);
         return "redirect:/loan/listloans";
     }
-
 
 }

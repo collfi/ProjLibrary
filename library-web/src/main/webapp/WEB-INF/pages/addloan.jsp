@@ -16,6 +16,11 @@
       <%@ include file="header.jsp" %>
       <section>
         <h1><spring:message code="label.addloan"/></h1>
+        <c:choose>
+            <c:when test="${error == 'nofreebook'}">
+                <p><font color="red"><spring:message code="label.nofreebook"/></font></p>
+            </c:when>
+        </c:choose>
             <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/addloan/member">
                     <table>
             <tbody>
