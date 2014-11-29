@@ -17,7 +17,7 @@
       <%@ include file="header.jsp" %>
        <script>
         $(document).ready(function () {
-$('#nav li:first ul').show();
+$('#nav li:third ul').show();
 });
     </script>
       <section>
@@ -32,19 +32,24 @@ $('#nav li:first ul').show();
             <p><font color="red"><spring:message code="label.validationduplicate"/></font></p>
         </c:when>
     </c:choose>
+    <c:choose>
+         <c:when test="${error == 'email'}">
+            <p><font color="red"><spring:message code="label.validationemail"/></font></p>
+            </c:when>
+    </c:choose>
     <form method="POST" action="addpost">    
         <table>
             <TR>
                 <TD><spring:message code="label.name"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="name"></TD>
+                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="${name}"></TD>
             </TR>
             <TR>
             <TD><spring:message code="label.email"/>:</TD>
-            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value="email"></TD>
+            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value="${email}"></TD>
             </TR>
             <TR>
                 <TD><spring:message code="label.address"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value="address"></TD>
+                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value="${address}"></TD>
             </TR>
         </table>    
         

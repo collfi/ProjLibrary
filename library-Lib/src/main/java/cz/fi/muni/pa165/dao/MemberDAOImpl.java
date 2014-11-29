@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.entity.Member;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
@@ -64,7 +65,10 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
             final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
             query.setParameter("email", email);
             return (Member) query.getSingleResult();
-        } catch(RuntimeException E) {
+        } catch (NoResultException nre) {
+            throw new NoResultException("No result exception");
+        }
+            catch(RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
