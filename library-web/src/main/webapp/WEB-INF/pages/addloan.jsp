@@ -6,6 +6,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!doctype html>
 <html>
   
@@ -14,21 +16,19 @@
       <%@ include file="header.jsp" %>
       <section>
         <h1><spring:message code="label.goingloan"/></h1>
-        <form method="POST" action="${contextPath}/loan/addloan">
-            <table>
-              <TR>
-                  <TD><spring:message code="label.printedbook"/><INPUT TYPE="TEXT" NAME="pbookid" value="${pbook.idPrintedBook}"/></TD>
-                  <TD><spring:message code="label.bookname"/><INPUT TYPE="TEXT" value="${book.name}"></TD>
-                  <TD><spring:message code="label.loanto"/><INPUT TYPE="TEXT" name="datetill" class="date"/></TD>
-                  <TD><spring:message code="label.member"/><select name="memberid">
-                      <c:forEach var="listValue" items="${lmembers}">
-                          <option value="${listValue.idMember}">${listValue.name}</option>
-                      </c:forEach>
-                  </select>
-              </TR>
-            </table>    
-          <input type="submit" value="<spring:message code="label.confirm"/>"/>
-        </form>
+            <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/addloan/member">
+                <form:select path="search">
+                    <c:forEach var="listValue" items="${lmembers}">
+                        <form:option value="${listValue.idMember}">${listValue.name}</form:option>
+                    </c:forEach>
+                </form:select>
+                <form:select path="book">
+                    <c:forEach var="listValue" items="${lbooks}">
+                        <form:option value="${listValue.idBook}">${listValue.name}</form:option>
+                    </c:forEach>
+                </form:select>
+                <input type="submit" value="Submit"/>
+            </form:form>
       </section>
       <%@ include file="footer.jsp" %>
     </div>

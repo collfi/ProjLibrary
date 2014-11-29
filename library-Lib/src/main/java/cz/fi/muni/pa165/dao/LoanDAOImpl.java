@@ -107,7 +107,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             l.setToDate(l.getToDate());
             l.setDescription(l.getDescription());
             l.setMember(l.getMember());
-            l.setPbooks(l.getPbooks());
+            l.setPrintedBook(l.getPrintedBook());
             em.persist(l);
         } catch(RuntimeException E) {
             throw new DAException(E.getMessage());

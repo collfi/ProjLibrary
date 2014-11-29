@@ -68,6 +68,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         l.setReturned(false);
         l.setToDate(new Date());
         l.setFromDate(new Date());
+        l.setPrintedBook(pb1);
         l.setDateReturned(new Date());
         l.setMember(m);
         pb2.setLoan(l);
@@ -99,7 +100,7 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         Loan l = new Loan();
         l.setReturned(false);
         l = ldao.find(l);
-        assertEquals(l.getPbooks().iterator().next().getBook().getName(), "Harry Potter");
+        assertEquals(l.getPrintedBook().getBook().getName(), "Harry Potter");
     }
 
     @Test

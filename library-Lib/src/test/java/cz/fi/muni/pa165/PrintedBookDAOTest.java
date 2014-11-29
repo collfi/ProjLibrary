@@ -263,7 +263,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
 
         Loan l = new Loan();
         l.setIdLoan(1);
-        l.setPbooks(set);
+        l.setPrintedBook(book);
         book.setLoan(l);
         book.setState(Boolean.TRUE);
         pbDAO.update(book);

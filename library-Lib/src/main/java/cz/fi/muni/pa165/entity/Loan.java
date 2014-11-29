@@ -23,9 +23,9 @@ public class Loan {
     @ManyToOne
     private Member member;
 
-    @OneToMany(mappedBy = "loan")
-    private Set<PrintedBook> pbooks = new HashSet<PrintedBook>();
-
+    @OneToOne
+    private PrintedBook printedBook;
+    
     @Column(nullable=false)
     @Temporal(TemporalType.DATE)
     private Date fromDate;
@@ -57,11 +57,11 @@ public class Loan {
      * @param description description of the loan
      * @param dateReturned actual date of loan return
      */
-    public Loan(int idLoan, Member member, Set<PrintedBook> pbooks, Date fromDate, Date toDate, boolean isReturned,
+    public Loan(int idLoan, Member member, PrintedBook printedBook, Date fromDate, Date toDate, boolean isReturned,
                 String description, Date dateReturned) {
         this.idLoan = idLoan;
         this.member = member;
-        this.pbooks = pbooks;
+        this.printedBook = printedBook;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.isReturned = isReturned;
@@ -126,19 +126,19 @@ public class Loan {
         this.idLoan = idLoan;
     }
 
-    public Set<PrintedBook> getPbooks() {
-        return pbooks;
+    public PrintedBook getPrintedBook() {
+        return this.printedBook;
     }
 
-    public void setPbooks(Set<PrintedBook> books) {
-        this.pbooks = books;
+    public void setPrintedBook(PrintedBook printedBook) {
+        this.printedBook = printedBook;
     }
 
     @Override
     public String toString() {
         return this.getClass() + "{" + "idLoan=" + idLoan + ", fromDate=" + fromDate + ", toDate=" + toDate +
                 ", dateReturned=" + dateReturned + ", isReturned=" + isReturned + ", Member=" + member
-                + ", Description=" + description + ", PrintedBooks=" + pbooks + '}';
+                + ", Description=" + description + ", PrintedBooks=" + printedBook.toString() + '}';
     }
 
     @Override

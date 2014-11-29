@@ -33,7 +33,7 @@ public class PrintedBook {
     @Column(nullable = false)
     private Condition condition;
 
-    @ManyToOne
+    @OneToOne
     private Loan loan;
 
     /**

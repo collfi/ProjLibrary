@@ -18,7 +18,7 @@ public class LoanDTO {
 
     private MemberDTO member;
 
-    private Set<PrintedBookDTO> pbooks = new HashSet<>();
+    private PrintedBookDTO printedBook;
 
     private Date fromDate;
 
@@ -31,7 +31,7 @@ public class LoanDTO {
         return "LoanDTO{" +
                 "idLoan=" + idLoan +
                 ", member=" + member +
-                ", pbooks=" + pbooks +
+                ", pbooks=" + printedBook +
                 ", fromDate=" + fromDate +
                 ", toDate=" + toDate +
                 ", isReturned=" + isReturned +
@@ -47,13 +47,13 @@ public class LoanDTO {
     }
 
     public LoanDTO(Date dateReturned, String description, boolean isReturned, Date toDate, Date fromDate,
-                   Set<PrintedBookDTO> pbooks, MemberDTO member, int idLoan) {
+                   PrintedBookDTO printedBook, MemberDTO member, int idLoan) {
         this.dateReturned = dateReturned;
         this.description = description;
         this.isReturned = isReturned;
         this.toDate = toDate;
         this.fromDate = fromDate;
-        this.pbooks = pbooks;
+        this.printedBook = printedBook;
         this.member = member;
         this.idLoan = idLoan;
     }
@@ -99,12 +99,12 @@ public class LoanDTO {
         this.member = member;
     }
 
-    public Set<PrintedBookDTO> getPbooks() {
-        return pbooks;
+    public PrintedBookDTO getPrintedBook() {
+        return printedBook;
     }
 
-    public void setPbooks(Set<PrintedBookDTO> pbooks) {
-        this.pbooks = pbooks;
+    public void setPrintedBook(PrintedBookDTO printedBook) {
+        this.printedBook = printedBook;
     }
 
     public Date getFromDate() {

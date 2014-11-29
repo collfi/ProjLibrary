@@ -12,6 +12,9 @@ package cz.fi.muni.pa165.library.web;
 public class SearchModel {
 	private String search;
         private String input;
+        
+        private String book;
+        private String input2;
 
 	public String getInput() {
 		return input;
@@ -28,4 +31,21 @@ public class SearchModel {
 	public void setSearch(String search) {
 		this.search = search;
 	}
+        
+        public String getInput2() {
+		return input2;
+	}
+
+	public void setInput2(String input2) {
+		this.input2 = input2;
+	}
+        
+	public String getBook() {
+		return this.book;
+	}
+
+	public void setBook(String book) {
+		this.book = book;
+	}
+
 }

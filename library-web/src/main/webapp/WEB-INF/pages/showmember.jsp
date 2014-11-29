@@ -26,7 +26,28 @@ $('#nav li:first ul').show();
         <p><spring:message code="label.name"/> : ${member.name}</p>
         <p><spring:message code="label.email"/> : ${member.email}</p>
         <p><spring:message code="label.address"/> : ${member.address}</p>
-        
+
+                <br>
+    <h3>Loans:</h3>
+        <table>
+         <tbody>
+            <tr>
+                <th>idLoan</th><th>isReturned</th><th>action</th>
+            </tr>
+         <c:forEach var="listValue" items="${list}">
+                <tr>
+                    <td>${listValue.idLoan}</td>
+                    <td>${listValue.isReturned}</td>
+                    <td><a href="${contextPath}/pbook/edit/">
+                            <spring:message code="label.edit"/></a>
+                            /<a href="${contextPath}/pbook/delete/">
+                                <spring:message code="label.delete"/></a>                                
+                    </td>
+                </tr>
+         </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>
+         </tbody>
+        </table>
+
       </section>      
       <%@ include file="footer.jsp" %>
     </div>
