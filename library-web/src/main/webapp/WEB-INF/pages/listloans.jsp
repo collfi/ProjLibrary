@@ -37,9 +37,7 @@
                 <tr>
                     <td>${loan.idLoan}</td>
                     <td>${loan.member.name}</td>
-                    <td><c:forEach var="pbook" items="${loan.pbooks}">
-                        ${pbook.idPrintedBook}, 
-                    </c:forEach></td>
+                    <td>${pbook.idPrintedBook}</td>
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
                     <td>${loan.dateReturned}</td>

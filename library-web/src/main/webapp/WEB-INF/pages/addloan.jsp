@@ -15,20 +15,39 @@
     <div class="wrapper">
       <%@ include file="header.jsp" %>
       <section>
-        <h1><spring:message code="label.goingloan"/></h1>
+        <h1><spring:message code="label.addloan"/></h1>
             <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/addloan/member">
+                    <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <spring:message code="label.member"/>
+                    </td>
+                    <td>
                 <form:select path="search">
                     <c:forEach var="listValue" items="${lmembers}">
                         <form:option value="${listValue.idMember}">${listValue.name}</form:option>
                     </c:forEach>
                 </form:select>
+                    </td>
+                </tr>
+                <tr>
+                                        <td>
+                        <spring:message code="label.book"/>
+                    </td>
+                    <td>
                 <form:select path="book">
                     <c:forEach var="listValue" items="${lbooks}">
                         <form:option value="${listValue.idBook}">${listValue.name}</form:option>
                     </c:forEach>
                 </form:select>
-                <input type="submit" value="Submit"/>
-            </form:form>
+                    </td>
+                </tr>
+                    </tbody>
+        </table>
+                                    <input type="submit" value="Submit"/>
+
+                    </form:form>
       </section>
       <%@ include file="footer.jsp" %>
     </div>
