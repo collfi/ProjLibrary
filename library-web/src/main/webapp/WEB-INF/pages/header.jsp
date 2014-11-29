@@ -59,11 +59,9 @@
           </li>
           <li><a href="#"><spring:message code="label.loanmanagement"/></a>
             <ul>
-                <li><a href="${contextPath}/loan/listloans">List all loans</a></li>
+                <li><a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
+                <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
                 <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
-<!--                <li><a href="#">Sub-Item 3 b</a></li>
-                <li><a href="#">Sub-Item 3 c</a></li>
-                <li><a href="#">Sub-Item 3 d</a></li>-->
             </ul>
           </li>
           <li><a href="#"><spring:message code="label.membermanagement"/></a>

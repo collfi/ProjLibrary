@@ -32,7 +32,7 @@ $('#nav li:first ul').show();
         <table>
          <tbody>
             <tr>
-                <th>idLoan</th><th>isReturned</th><th>action</th>
+                <th>Id</th><th><spring:message code="label.returned"/></th><th><spring:message code="label.action"/></th>
             </tr>
          <c:forEach var="listValue" items="${list}">
                 <tr>

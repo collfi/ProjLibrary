@@ -136,7 +136,7 @@ public class Loan {
 
     @Override
     public String toString() {
-        return this.getClass() + "{" + "idLoan=" + idLoan + ", fromDate=" + fromDate + ", toDate=" + toDate +
+        return this.getClass() + "{" + "idLoan=" + idLoan + ", fromDate=" + fromDate.toString() + ", toDate=" + toDate.toString() +
                 ", dateReturned=" + dateReturned + ", isReturned=" + isReturned + ", Member=" + member
                 + ", Description=" + description + ", PrintedBooks=" + printedBook.toString() + '}';
     }
