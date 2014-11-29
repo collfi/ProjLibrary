@@ -36,15 +36,15 @@ $('#nav li:first ul').show();
         <table>
             <TR>
                 <TD><spring:message code="label.name"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="name"></TD>
+                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value=""></TD>
             </TR>
             <TR>
             <TD><spring:message code="label.email"/>:</TD>
-            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value="email"></TD>
+            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value=""></TD>
             </TR>
             <TR>
                 <TD><spring:message code="label.address"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value="address"></TD>
+                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value=""></TD>
             </TR>
         </table>    
         

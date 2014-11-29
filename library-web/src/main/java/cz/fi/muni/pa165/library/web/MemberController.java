@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.library.web;
 
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
+import cz.fi.muni.pa165.service.api.LoanService;
 import cz.fi.muni.pa165.service.api.MemberService;
 import java.util.List;
 import javax.validation.Valid;
@@ -26,10 +27,15 @@ public class MemberController {
     @Autowired
     public MemberService memberService;
     
+    @Autowired
+    public LoanService loanService;
+    
     @RequestMapping(value = "/member/management",method = RequestMethod.GET)
     public String membermanagement(ModelMap model) {
 	return "membermanagement";
     }
+    
+    
     
     @RequestMapping(value = "/member/addformular",method = RequestMethod.GET)
     public String addformular(ModelMap model) {
@@ -60,7 +66,7 @@ public class MemberController {
     {
         MemberDTO member = memberService.findMemberByIdMember(number);
         model.addAttribute("member", member);
-        
+        model.addAttribute("list", loanService.findAllLoansByMember(member, false));
         return "showmember";
     }
     
