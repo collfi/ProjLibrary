@@ -69,6 +69,7 @@
           <li><a href="#"><spring:message code="label.membermanagement"/></a>
             <ul>
                 <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
+                <li><a href="${contextPath}/member/findmember"><spring:message code="label.findmember"/></a></li>
                 <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
             </ul>
          </li>

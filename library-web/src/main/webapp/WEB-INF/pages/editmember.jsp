@@ -34,6 +34,11 @@ $('#nav li:first ul').show();
             <p><font color="red"><spring:message code="label.validationduplicate"/></font></p>
             </c:when>
         </c:choose>
+        <c:choose>
+         <c:when test="${error == 'email'}">
+            <p><font color="red"><spring:message code="label.validationemail"/></font></p>
+            </c:when>
+        </c:choose>
         
         <form method="POST" action="${contextPath}/member/editpost">
   <table>
