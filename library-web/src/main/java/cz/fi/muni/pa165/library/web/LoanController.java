@@ -122,6 +122,7 @@ public class LoanController {
                 }
                 mav.addObject("search", search);
                 
+                try{
                 if (search.getSearch().equals("Member"))
                 {
                     List<MemberDTO> list = memberService.findMembersByName(search.getInput());
@@ -130,20 +131,31 @@ public class LoanController {
                     {
                         mav.addObject("loans", l2);
                     }
+                    return mav;
                 }
                 else if(search.getSearch().equals("Id"))
                 {
-                        mav.addObject("loans", new ArrayList<LoanDTO>().add(loanService.findLoanById(Integer.parseInt(search.getInput()))));
+                    List<LoanDTO> l2 = new ArrayList<LoanDTO>();
+                    l2.add(loanService.findLoanById(Integer.parseInt(search.getInput())));
+                        mav.addObject("loans", l2);
+                        return mav;
                 }
                 else if(search.getSearch().equals("Book"))
                 {
                     List<BookDTO> list = bookService.findBooksByName(search.getInput());
+                    List<LoanDTO> l2 =  loanService.findAllLoansWithBook(list.get(0));
+
                     if(!list.isEmpty())
                     {
-                        mav.addObject("loans", loanService.findAllLoansWithBook(list.get(0)));
+                        mav.addObject("loans", l2);
+                        return mav;
                     }
                 }
+                } catch(Exception e) {
 
+                return mav;
+                }
+                
                 return mav;
 	}
 

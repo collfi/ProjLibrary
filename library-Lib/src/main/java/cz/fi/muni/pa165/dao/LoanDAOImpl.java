@@ -64,8 +64,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     @Override
     public List<Loan> findAllLoansWithBook(Book b) {
         try {
-            final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id IN " +
-                    "(SELECT pb.loan.id from PrintedBook as pb where pb.book.id = :bid)", Loan.class);
+            final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.printedBook.book.idBook = :bid)", Loan.class);
             query.setParameter("bid", b.getIdBook());
             return query.getResultList();
         } catch(RuntimeException E) {
