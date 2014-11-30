@@ -70,6 +70,7 @@ public class LoanController {
 
         PrintedBookDTO pbook = pbooks.get(0);
         loan.setPrintedBook(pbook);
+        
 
         MemberDTO member = memberService.findMemberByIdMember(Long.parseLong(search.getSearch(), 10));
 
@@ -85,7 +86,7 @@ public class LoanController {
         member.setLoans(set);
         memberService.updateMember(member);
 
-        return "redirect:/";
+        return "redirect:/loan/listloans";
     }
 
     @RequestMapping("/loan/id/{number}")
@@ -162,17 +163,38 @@ public class LoanController {
     
     @RequestMapping(value = "/loan/delete/{loanid}")
     public String delete(@PathVariable("loanid") int id) {
-        loanService.deleteLoan(loanService.findLoanById(id));
+        LoanDTO loan = loanService.findLoanById(id);
+        PrintedBookDTO pbook = pbookService.findPrintedBook(loan.getPrintedBook());
+        pbook.setState(Boolean.FALSE);
+        pbook.setLoan(null);
+        
+        MemberDTO member = memberService.findMember(loan.getMember());
+        for(LoanDTO loan1: member.getLoans())
+        {
+            if(loan1.getIdLoan() == id)
+                member.getLoans().remove(loan1);
+        }
+        
+        pbookService.updatePrintedBook(pbook);
+        memberService.updateMember(member);        
+        loanService.deleteLoan(loan);
+        
         return "redirect:/loan/listloans";
     }
 
     @RequestMapping(value = "/loan/setreturned/{loanid}", method = RequestMethod.GET)
     public String listSetReturned(@RequestParam("loanid") int loanid) {
-        LoanDTO l = new LoanDTO();
-        l.setIdLoan(loanid);
+        LoanDTO l = loanService.findLoanById(loanid);
         l.setDateReturned(new Date());
         l.setReturned(true);
-        loanService.updateLoan(l);
+        
+        PrintedBookDTO pbook = pbookService.findPrintedBook(l.getPrintedBook());
+        pbook.setState(Boolean.FALSE);
+        pbook.setLoan(null);
+        
+        pbookService.updatePrintedBook(pbook);        
+        loanService.updateLoan(l);  
+        
         return "redirect:/loan/listloans";
     }
 
