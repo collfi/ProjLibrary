@@ -58,7 +58,7 @@ public class LoanController {
     @RequestMapping(value = "/loan/addloan/member", method = RequestMethod.POST)
     public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes) {
         LoanDTO loan = new LoanDTO();
-        loan.setReturned(false);
+        loan.setReturned(Boolean.FALSE);
         loan.setDescription("description");
         loan.setFromDate(new Date());
         loan.setToDate(new Date());
@@ -183,10 +183,10 @@ public class LoanController {
     }
 
     @RequestMapping(value = "/loan/setreturned/{loanid}", method = RequestMethod.GET)
-    public String listSetReturned(@RequestParam("loanid") int loanid) {
-        LoanDTO l = loanService.findLoanById(loanid);
+    public String listSetReturned(@PathVariable("loanid") int id) {
+        LoanDTO l = loanService.findLoanById(id);
         l.setDateReturned(new Date());
-        l.setReturned(true);
+        l.setReturned(Boolean.TRUE);
         
         PrintedBookDTO pbook = pbookService.findPrintedBook(l.getPrintedBook());
         pbook.setState(Boolean.FALSE);

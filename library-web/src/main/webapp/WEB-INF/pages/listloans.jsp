@@ -30,8 +30,7 @@
                 <th><spring:message code="label.loanbooks"/></th>
                 <th><spring:message code="label.loanfrom"/></th>
                 <th><spring:message code="label.loanto"/></th>
-                <th><spring:message code="label.loandatereturned"/></th>
-                <th></th>
+                <th><spring:message code="label.loanisreturned"/></th>
             </tr>
             <c:forEach var="loan" items="${loans}">
                 <tr>

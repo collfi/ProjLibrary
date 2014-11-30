@@ -45,16 +45,19 @@
                 <th><spring:message code="label.loanbooks"/></th>
                 <th><spring:message code="label.loanfrom"/></th>
                 <th><spring:message code="label.loanto"/></th>
-                <th><spring:message code="label.loandatereturned"/></th>
+                <th><spring:message code="label.loanisreturned"/></th>
             </tr>
             <c:forEach var="loan" items="${loans}">
                 <tr>
                     <td>${loan.idLoan}</td>
                     <td>${loan.member.name}</td>
+                    <td>${loan.printedBook.book.name}</td>
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
                     <td>${loan.dateReturned}</td>
-                    <td><a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/<a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>
+                    <td><a href="${contextPath}/loan/id/${loan.idLoan}"><spring:message code="label.show"/></a>/
+                        <a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/
+                        <a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>
                 </tr>
             </c:forEach>
             </tbody>

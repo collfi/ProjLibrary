@@ -101,6 +101,11 @@ public class Loan {
         return toDate;
     }
 
+    public boolean getReturned() {
+        return isReturned;
+    }
+
+    
     public boolean isReturned() {
         return isReturned;
     }
