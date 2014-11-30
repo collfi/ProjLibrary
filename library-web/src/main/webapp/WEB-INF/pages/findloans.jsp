@@ -25,40 +25,18 @@
         <h1><spring:message code="label.findloans"/></h1>
         <br>
         <div id="search">
-            <h2><spring:message code="label.findByDate"/></h2>
-            <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/findloans/date">
-                <spring:message code='label.loanfrom'/>:
-                <input name="datefrom" class="date" value="${datefrom}"/>
-                <spring:message code='label.loanto'/>:
-                <input name="dateto" class="date" value="${dateto}"/>
-                <input type="submit" value="<spring:message code="label.search"/>"/>
-            </form:form>
-            <h2><spring:message code="label.findByMember"/></h2>
-            <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/findloans/member">
-                <select name="memberid">
-                    <c:forEach var="listValue" items="${lmembers}">
-                        <option <c:if test="${listValue.idMember == memberid}">selected</c:if>
-                                value="${listValue.idMember}">${listValue.name}</option>
-                    </c:forEach>
-                </select>
-                <select name="returned">
-                    <option selected value="true"><spring:message code='label.yes'/></option>
-                    <option selected value="false"><spring:message code='label.no'/></option>
-                </select>
-                <input type="submit" value="<spring:message code="label.search"/>"/>
-            </form:form>
-            <h2><spring:message code="label.findByBook"/></h2>
-            <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/findloans/book">
-                <select name="bookid">
-                    <c:forEach var="listValue" items="${books}">
-                        <option <c:if test="${listValue.idBook == bookid}">selected</c:if>
-                                value="${listValue.idBook}">${listValue.name}</option>
-                    </c:forEach>
-                </select>
-                <input type="submit" value="<spring:message code="label.search"/>"/>
+            <h1>Find</h1>
+            <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/findloans/result">
+                <form:input type="text" path="input" />
+                <form:select path="search">
+                    <form:option value="Member"><spring:message code='label.member'/></form:option>
+                    <form:option value="Id">Id</form:option>
+                    <form:option value="Book"><spring:message code='label.book'/></form:option>
+                </form:select>
+                <input type="submit" value="Submit"/>
             </form:form>
         </div>
-        <br>
+
         <table>
             <tbody>
             <tr>
@@ -74,17 +52,12 @@
                 <tr>
                     <td>${loan.idLoan}</td>
                     <td>${loan.member.name}</td>
-                    <td><c:forEach var="pbook" items="${loan.pbooks}">
-                        ${pbook.idPrintedBook}, 
-                    </c:forEach></td>
+                    <td></td>
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
                     <td>${loan.dateReturned}</td>
                     <td><a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/
                         <a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>
-                </tr>
-                <tr>
-                    <td>${loan.description}</td>
                 </tr>
             </c:forEach>
             </tbody>

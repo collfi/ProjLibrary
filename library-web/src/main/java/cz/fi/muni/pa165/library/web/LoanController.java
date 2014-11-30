@@ -9,10 +9,12 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
+import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.LoanService;
 import cz.fi.muni.pa165.service.api.MemberService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -101,62 +103,51 @@ public class LoanController {
     }
 
     @RequestMapping(value = "/loan/findloans", method = RequestMethod.GET)
-    public String findLoans(ModelMap model) {
-        List<MemberDTO> lmembers = memberService.findAllMembers();
-        model.addAttribute("lmembers", lmembers);
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
-        return "findloans";
+    public ModelAndView findLoans(ModelMap model) {
+        ModelAndView mav = new ModelAndView("findloans");
+
+	mav.addObject("search", new SearchModel());
+
+	return mav;
     }
+    
+    @RequestMapping(value="/loan/findloans/result")
+    private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+        
+		ModelAndView mav = new ModelAndView("findloans");
+                if (search.getSearch() == null) {
+                    mav.addObject("search", new SearchModel());
+                    mav.addObject("list", new ArrayList<BookDTO>());
+                    return mav;
+                }
+                mav.addObject("search", search);
+                
+                if (search.getSearch().equals("Member"))
+                {
+                    List<MemberDTO> list = memberService.findMembersByName(search.getInput());
+                    List<LoanDTO> l2 =  loanService.findAllLoansByMember(list.get(0), false);
+                    if(!list.isEmpty())
+                    {
+                        mav.addObject("loans", l2);
+                    }
+                }
+                else if(search.getSearch().equals("Id"))
+                {
+                        mav.addObject("loans", new ArrayList<LoanDTO>().add(loanService.findLoanById(Integer.parseInt(search.getInput()))));
+                }
+                else if(search.getSearch().equals("Book"))
+                {
+                    List<BookDTO> list = bookService.findBooksByName(search.getInput());
+                    if(!list.isEmpty())
+                    {
+                        mav.addObject("loans", loanService.findAllLoansWithBook(list.get(0)));
+                    }
+                }
 
-    @RequestMapping(value = "/loan/findloans/date", method = RequestMethod.POST)
-    private String searchByDate(ModelMap model,
-            @RequestParam("datefrom") Date datefrom,
-            @RequestParam("dateto") Date dateto) {
+                return mav;
+	}
 
-        model.addAttribute("loans", loanService.findAllLoandsFromTo(datefrom, dateto));
-        model.addAttribute("datefrom", datefrom);
-        model.addAttribute("dateto", dateto);
-        List<MemberDTO> lmembers = memberService.findAllMembers();
-        model.addAttribute("lmembers", lmembers);
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
-
-        return "findloans";
-    }
-
-    @RequestMapping(value = "/loan/findloans/member", method = RequestMethod.POST)
-    private String searchByDate(ModelMap model,
-            @RequestParam("memberid") int memberid,
-            @RequestParam("returned") boolean returned) {
-
-        MemberDTO m = new MemberDTO();
-        m.setIdMember(memberid);
-        model.addAttribute("loans", loanService.findAllLoansByMember(m, returned));
-        List<MemberDTO> lmembers = memberService.findAllMembers();
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
-        model.addAttribute("lmembers", lmembers);
-        model.addAttribute("memberid", lmembers);
-        model.addAttribute("returned", lmembers);
-        return "findloans";
-    }
-
-    @RequestMapping(value = "/loan/findloans/book", method = RequestMethod.POST)
-    private String searchByDate(ModelMap model, @RequestParam("bookid") int bookid) {
-
-        BookDTO b = new BookDTO();
-        b.setIdBook(bookid);
-        model.addAttribute("loans", loanService.findAllLoansWithBook(b));
-        List<MemberDTO> lmembers = memberService.findAllMembers();
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
-        model.addAttribute("lmembers", lmembers);
-        model.addAttribute("memberid", lmembers);
-        model.addAttribute("bookid", bookid);
-        return "findloans";
-    }
-
+    
     @RequestMapping(value = "/loan/delete/{loanid}")
     public String delete(@PathVariable("loanid") int id) {
         loanService.deleteLoan(loanService.findLoanById(id));
