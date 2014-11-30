@@ -24,7 +24,7 @@ public class LoanDTO {
 
     private Date toDate;
 
-    private boolean isReturned;
+    private boolean returned;
 
     @Override
     public String toString() {
@@ -34,7 +34,7 @@ public class LoanDTO {
                 ", pbooks=" + printedBook +
                 ", fromDate=" + fromDate +
                 ", toDate=" + toDate +
-                ", isReturned=" + isReturned +
+                ", isReturned=" + returned +
                 ", description='" + description + '\'' +
                 ", dateReturned=" + dateReturned +
                 '}';
@@ -50,7 +50,7 @@ public class LoanDTO {
                    PrintedBookDTO printedBook, MemberDTO member, int idLoan) {
         this.dateReturned = dateReturned;
         this.description = description;
-        this.isReturned = isReturned;
+        this.returned = isReturned;
         this.toDate = toDate;
         this.fromDate = fromDate;
         this.printedBook = printedBook;
@@ -123,12 +123,12 @@ public class LoanDTO {
         this.toDate = toDate;
     }
 
-    public boolean getIsReturned() {
-        return isReturned;
+    public boolean getReturned() {
+        return returned;
     }
 
     public void setReturned(boolean isReturned) {
-        this.isReturned = isReturned;
+        this.returned = isReturned;
     }
 
     public String getDescription() {

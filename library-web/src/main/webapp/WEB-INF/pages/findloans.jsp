@@ -7,6 +7,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <spring:message code="label.name" var="nametext"/>
 <spring:message code="label.authors" var="authorstext"/>
@@ -16,11 +17,6 @@
   <body>
     <div class="wrapper">
       <%@ include file="header.jsp" %>
-        <script>
-        $(document).ready(function () {
-            $('#nav li:second ul').show();
-        });
-        </script>
       <section>
         <h1><spring:message code="label.findloans"/></h1>
         <br>
@@ -54,7 +50,7 @@
                     <td>${loan.printedBook.book.name}</td>
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
-                    <td>${loan.dateReturned}</td>
+                    <td><fmt:formatDate value="${loan.dateReturned}" pattern="yyyy-MM-dd" /></td>
                     <td><a href="${contextPath}/loan/id/${loan.idLoan}"><spring:message code="label.show"/></a>/
                         <a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/
                         <a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>

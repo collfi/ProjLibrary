@@ -9,16 +9,16 @@ import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
-import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.LoanService;
 import cz.fi.muni.pa165.service.api.MemberService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,12 +56,31 @@ public class LoanController {
     }
 
     @RequestMapping(value = "/loan/addloan/member", method = RequestMethod.POST)
-    public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes) {
+    public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes,
+            @RequestParam("dateto") String dateto) {
+        if (search.getSearch() == null) {
+            redirectAttributes.addFlashAttribute("error", "validationmissing");
+            return "redirect:/loan/addloan";
+        }
         LoanDTO loan = new LoanDTO();
         loan.setReturned(Boolean.FALSE);
         loan.setDescription("description");
         loan.setFromDate(new Date());
-        loan.setToDate(new Date());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String dateInString = dateto;
+        Date date = null;
+        try {
+            date = formatter.parse(dateInString);
+        } catch (ParseException e) {
+            redirectAttributes.addFlashAttribute("error", "wrongdate");
+            return "redirect:/loan/addloan";
+        }
+        loan.setToDate(date);
+        if (loan.getFromDate().after(date)) {
+            redirectAttributes.addFlashAttribute("error", "wrongdate");
+            return "redirect:/loan/addloan";
+        }
         List<PrintedBookDTO> pbooks = pbookService.findPrintedBookByState(bookService.findBookById(Long.parseLong(search.getBook())), Boolean.FALSE);
         if (pbooks.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "nofreebook");
@@ -70,7 +89,6 @@ public class LoanController {
 
         PrintedBookDTO pbook = pbooks.get(0);
         loan.setPrintedBook(pbook);
-        
 
         MemberDTO member = memberService.findMemberByIdMember(Long.parseLong(search.getSearch(), 10));
 
@@ -107,78 +125,70 @@ public class LoanController {
     public ModelAndView findLoans(ModelMap model) {
         ModelAndView mav = new ModelAndView("findloans");
 
-	mav.addObject("search", new SearchModel());
+        mav.addObject("search", new SearchModel());
 
-	return mav;
+        return mav;
     }
-    
-    @RequestMapping(value="/loan/findloans/result")
+
+    @RequestMapping(value = "/loan/findloans/result")
     private ModelAndView processSearch(@ModelAttribute SearchModel search) {
-        
-		ModelAndView mav = new ModelAndView("findloans");
-                if (search.getSearch() == null) {
-                    mav.addObject("search", new SearchModel());
-                    mav.addObject("list", new ArrayList<BookDTO>());
+
+        ModelAndView mav = new ModelAndView("findloans");
+        if (search.getSearch() == null) {
+            mav.addObject("search", new SearchModel());
+            mav.addObject("list", new ArrayList<BookDTO>());
+            return mav;
+        }
+        mav.addObject("search", search);
+
+        try {
+            if (search.getSearch().equals("Member")) {
+                List<MemberDTO> list = memberService.findMembersByName(search.getInput());
+                List<LoanDTO> l2 = loanService.findAllLoansByMember(list.get(0), false);
+                if (!list.isEmpty()) {
+                    mav.addObject("loans", l2);
+                }
+                return mav;
+            } else if (search.getSearch().equals("Id")) {
+                List<LoanDTO> l2 = new ArrayList<LoanDTO>();
+                l2.add(loanService.findLoanById(Integer.parseInt(search.getInput())));
+                mav.addObject("loans", l2);
+                return mav;
+            } else if (search.getSearch().equals("Book")) {
+                List<BookDTO> list = bookService.findBooksByName(search.getInput());
+                List<LoanDTO> l2 = loanService.findAllLoansWithBook(list.get(0));
+
+                if (!list.isEmpty()) {
+                    mav.addObject("loans", l2);
                     return mav;
                 }
-                mav.addObject("search", search);
-                
-                try{
-                if (search.getSearch().equals("Member"))
-                {
-                    List<MemberDTO> list = memberService.findMembersByName(search.getInput());
-                    List<LoanDTO> l2 =  loanService.findAllLoansByMember(list.get(0), false);
-                    if(!list.isEmpty())
-                    {
-                        mav.addObject("loans", l2);
-                    }
-                    return mav;
-                }
-                else if(search.getSearch().equals("Id"))
-                {
-                    List<LoanDTO> l2 = new ArrayList<LoanDTO>();
-                    l2.add(loanService.findLoanById(Integer.parseInt(search.getInput())));
-                        mav.addObject("loans", l2);
-                        return mav;
-                }
-                else if(search.getSearch().equals("Book"))
-                {
-                    List<BookDTO> list = bookService.findBooksByName(search.getInput());
-                    List<LoanDTO> l2 =  loanService.findAllLoansWithBook(list.get(0));
+            }
+        } catch (Exception e) {
 
-                    if(!list.isEmpty())
-                    {
-                        mav.addObject("loans", l2);
-                        return mav;
-                    }
-                }
-                } catch(Exception e) {
+            return mav;
+        }
 
-                return mav;
-                }
-                
-                return mav;
-	}
+        return mav;
+    }
 
-    
     @RequestMapping(value = "/loan/delete/{loanid}")
     public String delete(@PathVariable("loanid") int id) {
         LoanDTO loan = loanService.findLoanById(id);
         PrintedBookDTO pbook = pbookService.findPrintedBook(loan.getPrintedBook());
         pbook.setState(Boolean.FALSE);
         pbook.setLoan(null);
-        
+
         MemberDTO member = memberService.findMember(loan.getMember());
-        for(LoanDTO loan1: member.getLoans())
-        {
-            if(loan1.getIdLoan() == id)
+        for (LoanDTO loan1 : member.getLoans()) {
+            if (loan1.getIdLoan() == id) {
                 member.getLoans().remove(loan1);
+            }
         }
-        
+
         pbookService.updatePrintedBook(pbook);
-        memberService.updateMember(member);        
+        memberService.updateMember(member);
         loanService.deleteLoan(loan);
-        
+
         return "redirect:/loan/listloans";
     }
 
@@ -186,15 +196,15 @@ public class LoanController {
     public String listSetReturned(@PathVariable("loanid") int id) {
         LoanDTO l = loanService.findLoanById(id);
         l.setDateReturned(new Date());
-        l.setReturned(Boolean.TRUE);
-        
+        l.setReturned(true);
+
         PrintedBookDTO pbook = pbookService.findPrintedBook(l.getPrintedBook());
         pbook.setState(Boolean.FALSE);
         pbook.setLoan(null);
-        
-        pbookService.updatePrintedBook(pbook);        
-        loanService.updateLoan(l);  
-        
+
+        pbookService.updatePrintedBook(pbook);
+        loanService.updateLoan(l);
+
         return "redirect:/loan/listloans";
     }
 

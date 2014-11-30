@@ -47,7 +47,6 @@ public class MemberController {
     @RequestMapping(value = "/member/addpost", method = RequestMethod.POST)
     public String addpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
             RedirectAttributes redirectAttributes) {
-
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());

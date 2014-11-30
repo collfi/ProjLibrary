@@ -17,8 +17,18 @@
       <section>
         <h1><spring:message code="label.addloan"/></h1>
         <c:choose>
+            <c:when test="${error == 'validationmissing'}">
+                <p><font color="red"><spring:message code="label.noselected"/></font></p>
+            </c:when>
+        </c:choose>
+        <c:choose>
             <c:when test="${error == 'nofreebook'}">
                 <p><font color="red"><spring:message code="label.nofreebook"/></font></p>
+            </c:when>
+        </c:choose>
+        <c:choose>
+            <c:when test="${error == 'wrongdate'}">
+                <p><font color="red"><spring:message code="label.wrongdate"/></font></p>
             </c:when>
         </c:choose>
             <form:form method="POST" modelAttribute="search" action="${contextPath}/loan/addloan/member">
@@ -37,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                                        <td>
+                    <td>
                         <spring:message code="label.book"/>
                     </td>
                     <td>
@@ -48,9 +58,17 @@
                 </form:select>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <spring:message code="label.loanto"/>
+                    </td>
+                    <td>
+                        <input name="dateto" class="date" value="${dateto}"/>
+                    </td>
+                </tr>
                     </tbody>
         </table>
-                                    <input type="submit" value="Submit"/>
+                    <input type="submit" value="Submit"/>
 
                     </form:form>
       </section>

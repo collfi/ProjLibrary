@@ -15,11 +15,6 @@
   <body>
     <div class="wrapper">
       <%@ include file="header.jsp" %>
-       <script>
-        $(document).ready(function () {
-$('#nav li:first ul').show();
-});
-    </script>
       <section>
         <h1><spring:message code="label.member"/></h1></br>
         
@@ -37,13 +32,12 @@ $('#nav li:first ul').show();
          <c:forEach var="listValue" items="${list}">
                 <tr>
                     <td>${listValue.idLoan}</td>
-                    <td>${listValue.isReturned}</td>
+                    <td>${listValue.returned}</td>
                     <td><a href="${contextPath}/loan/id/${listValue.idLoan}">
                             <spring:message code="label.show"/></a>
-                            /<a href="${contextPath}/loan/edit/${listValue.idLoan}">
-                                <spring:message code="label.edit"/></a>
                                 /<a href="${contextPath}/loan/delete/${listValue.idLoan}">
-                                    <spring:message code="label.delete"/></a>                                
+                                    <spring:message code="label.delete"/></a>
+                                    /<a href="${contextPath}/loan/setreturned/${listValue.idLoan}"><spring:message code="label.setreturned"/></a></td>
                     </td>
                 </tr>
          </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>

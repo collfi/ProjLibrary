@@ -37,7 +37,7 @@
                     <td>${loan.printedBook.book.name}</td>
                     <td><fmt:formatDate value="${loan.fromDate}" pattern="yyyy-MM-dd" /></td>
                     <td><fmt:formatDate value="${loan.toDate}" pattern="yyyy-MM-dd" /></td>
-                    <td>${loan.dateReturned}</td>
+                    <td><fmt:formatDate value="${loan.dateReturned}" pattern="yyyy-MM-dd" /></td>
                     <td><a href="${contextPath}/loan/delete/${loan.idLoan}"><spring:message code="label.delete"/></a>/
                         <a href="${contextPath}/loan/setreturned/${loan.idLoan}"><spring:message code="label.setreturned"/></a></td>
                 </tr>

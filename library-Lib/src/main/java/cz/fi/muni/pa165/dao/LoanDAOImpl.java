@@ -39,7 +39,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     public List<Loan> findAllLoansByMember(Member m, boolean is_returned) {
         try {
             final TypedQuery<Loan> query = em.createQuery(
-                    "SELECT l FROM Loan as l WHERE l.member.id = :mid and l.isReturned = :r", Loan.class);
+                    "SELECT l FROM Loan as l WHERE l.member.id = :mid and l.returned = :r", Loan.class);
             query.setParameter("mid", m.getIdMember());
             query.setParameter("r", is_returned);
             return query.getResultList();

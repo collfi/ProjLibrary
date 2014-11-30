@@ -35,7 +35,7 @@ public class Loan {
     private Date toDate;
 
     @Column(nullable=false)
-    private boolean isReturned;
+    private boolean returned;
 
     private String description;
 
@@ -64,7 +64,7 @@ public class Loan {
         this.printedBook = printedBook;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.isReturned = isReturned;
+        this.returned = isReturned;
         this.description = description;
         this.dateReturned = dateReturned;
     }
@@ -90,7 +90,7 @@ public class Loan {
     }
 
     public void setReturned(boolean isReturned) {
-        this.isReturned = isReturned;
+        this.returned = isReturned;
     }
 
     public Date getFromDate() {
@@ -102,12 +102,7 @@ public class Loan {
     }
 
     public boolean getReturned() {
-        return isReturned;
-    }
-
-    
-    public boolean isReturned() {
-        return isReturned;
+        return returned;
     }
 
     public String getDescription() {
@@ -142,7 +137,7 @@ public class Loan {
     @Override
     public String toString() {
         return this.getClass() + "{" + "idLoan=" + idLoan + ", fromDate=" + fromDate.toString() + ", toDate=" + toDate.toString() +
-                ", dateReturned=" + dateReturned + ", isReturned=" + isReturned + ", Member=" + member
+                ", dateReturned=" + dateReturned + ", isReturned=" + returned + ", Member=" + member
                 + ", Description=" + description + ", PrintedBooks=" + printedBook.toString() + '}';
     }
 

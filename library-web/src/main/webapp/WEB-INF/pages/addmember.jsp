@@ -15,11 +15,6 @@
   <body>
     <div class="wrapper">
       <%@ include file="header.jsp" %>
-       <script>
-        $(document).ready(function () {
-$('#nav li:third ul').show();
-});
-    </script>
       <section>
         <h1><spring:message code="label.addmember"/></h1>  
           <c:choose>
@@ -41,15 +36,15 @@ $('#nav li:third ul').show();
         <table>
             <TR>
                 <TD><spring:message code="label.name"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value=""></TD>
+                <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="${name}"></TD>
             </TR>
             <TR>
             <TD><spring:message code="label.email"/>:</TD>
-            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value=""></TD>
+            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value="${email}"></TD>
             </TR>
             <TR>
                 <TD><spring:message code="label.address"/>:</TD>
-                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value=""></TD>
+                <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value="${address}"></TD>
             </TR>
         </table>    
         
