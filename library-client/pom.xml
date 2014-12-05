@@ -22,4 +22,8 @@
             <type>jar</type>
         </dependency>
     </dependencies>
+    
+    <properties>
+        <start-class>cz.fi.muni.pa165.library.client.Application</start-class>
+    </properties>
 </project>

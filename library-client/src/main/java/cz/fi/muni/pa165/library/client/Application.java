@@ -13,14 +13,21 @@ import org.springframework.web.client.RestTemplate;
  * @author michal
  */
 //http://www.journaldev.com/2552/spring-restful-web-service-example-with-json-jackson-and-client-program
+//http://spring.io/guides/gs/rest-service/
 public class Application {
 
     public class RestURIConstants {
-        public static final String DUMMY_EMP = "/rest/emp/dummy";
-        public static final String GET_EMP = "/rest/emp/{id}";
-        public static final String GET_ALL_EMP = "/rest/emps";
-        public static final String CREATE_EMP = "/rest/emp/create";
-        public static final String DELETE_EMP = "/rest/emp/delete/{id}";
+        public static final String ADD_BOOK = "/rest/book/add/";
+        public static final String DEL_BOOK = "/rest/book/delete/{id}";
+        public static final String GET_BOOK = "/rest/book/get/{id}";
+        public static final String GET_BOOKS = "/rest/book/find/{name}";
+        
+        public static final String ADD_MEMBER = "/rest/member/add/";
+        public static final String DEL_MEMBER = "/rest/member/delete/{id}";
+        public static final String GET_MEMBER = "/rest/member/get/{id}";
+        public static final String GET_MEMBERS = "/rest/member/find/{name}";
+        
+        public static final String ADD_PBOOK = "/rest/pbook/add/";
     }
     
     public static void main(String args[]) {   
@@ -31,5 +38,4 @@ public class Application {
         System.out.println("Phone:   " + page.getPhone());
         System.out.println("Website: " + page.getWebsite());
     }
-
 }
