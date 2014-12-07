@@ -5,6 +5,7 @@
  */
 package cz.fi.muni.pa165.datatransferobject;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +15,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Martin Malik <374128@mail.muni.cz>
  */
-public class MemberDTO {
+
+public class MemberDTO implements Serializable {
     
     private long idMember;
     

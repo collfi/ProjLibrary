@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,7 +60,7 @@ public class MemberRestController {
         }
     }    
     
-    @RequestMapping(value="/api/member/delete/{number}", method=RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value="/api/member/delete/{number}", method=RequestMethod.GET, produces = "application/json")
     public MemberDTO apiDeleteMember(ModelMap model, @PathVariable("number") int number)
     {
         try {
@@ -72,7 +73,7 @@ public class MemberRestController {
     }
     
     @RequestMapping(value="/api/member/add/", method=RequestMethod.POST)
-    public String apiSaveMember(MemberDTO member) {
+    public String apiSaveMember(@RequestBody MemberDTO member) {
         try {
             memberService.insertMember(member);
             return "Saved person: " + member.toString();
@@ -82,7 +83,7 @@ public class MemberRestController {
     }
 
     @RequestMapping(value="/api/member/update/", method=RequestMethod.POST)
-    public String apiUpdateMember(MemberDTO member) {
+    public String apiUpdateMember(@RequestBody MemberDTO member) {
         try {
             memberService.updateMember(member);
             return "Saved person: " + member.toString();

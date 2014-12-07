@@ -6,6 +6,7 @@
 package cz.fi.muni.pa165.datatransferobject;
 
 import cz.fi.muni.pa165.entity.Book.Department;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -14,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author michal.lukac - xlukac, 430614
  */
-public class BookDTO {
+public class BookDTO implements Serializable{
 
     private long idBook;
     @NotEmpty

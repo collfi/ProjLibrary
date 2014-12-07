@@ -6,13 +6,14 @@
 package cz.fi.muni.pa165.datatransferobject;
 
 import cz.fi.muni.pa165.entity.PrintedBook.Condition;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Data Transfer Object of Printed Book
  * @author Boris Valentovic - xvalent2
  */
-public class PrintedBookDTO {
+public class PrintedBookDTO implements Serializable {
     private Long idPrintedBook;
     
     private BookDTO book;

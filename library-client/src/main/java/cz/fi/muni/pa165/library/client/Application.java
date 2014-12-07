@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.library.client;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
-import cz.fi.muni.pa165.library.data.Book;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ public class Application {
     public static final int UERROR = 1;
     public static final int NOTEER = 2;
     public static final int BADADDR = 3;
+    public static final int ERRPARS = 4;
     
     public static Map<Integer, String> errorCodes;
     public static final String PA165URL = "http://localhost:8084/pa165";
@@ -39,6 +39,7 @@ public class Application {
         public static final String DEL_MEMBER = "/api/member/delete/";
         public static final String GET_MEMBER = "/api/member/get/";
         public static final String GET_MEMBERS = "/api/member/find/";
+        public static final String UPD_MEMBER = "/api/member/update/";
         
         public static final String ADD_PBOOK = "/api/pbook/add/";
     }
@@ -51,6 +52,8 @@ public class Application {
         errorCodes.put(UERROR, "Unexpected error!");
         errorCodes.put(NOTEER, "No entity in Database with specific query!");
         errorCodes.put(BADADDR, "Sorry bad api address to server!");
+        errorCodes.put(ERRPARS, "Error with parsing data!");
+
         int retvalue = 0;
         if(args.length < 2) {
             menu();
@@ -142,11 +145,104 @@ public class Application {
     }
 
     private static int updateMember(int error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("REST: UPDATE MEMBER");
+        printError(error);
+        System.out.println("1. Write \"id name email address\" or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return memberMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    String[] data = str.trim().split(" ");
+                    if(data.length != 4) {
+                        throw new Exception();
+                    }
+                    
+                    MemberDTO member = new MemberDTO();
+                    member.setIdMember(Integer.parseInt(data[0]));
+                    member.setEmail(data[2]);
+                    member.setAddress(data[3]);
+                    member.setName(data[1]);
+                    
+                    System.out.println("saving:" + member.toString());
+                    String response = restTemplate.postForObject(PA165URL+RestURIConstants.UPD_MEMBER, member,  String.class);
+                    if(response == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println(str);
+                    }
+
+                    break;
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return updateMember(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return updateMember(NOTEER);
+                }
+                catch (Exception e) {
+                    return updateMember(ERRPARS);
+                }
+
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return updateMember(EOK);
     }
 
     private static int addMember(int error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("REST: ADD MEMBER");
+        printError(error);
+        System.out.println("1. Write \"name email address\" or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return memberMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    String[] data = str.trim().split(" ");
+                    if(data.length != 3) {
+                        throw new Exception();
+                    }
+                    
+                    MemberDTO member = new MemberDTO();
+                    member.setEmail(data[1]);
+                    member.setAddress(data[2]);
+                    member.setName(data[0]);
+                    
+                    System.out.println("saving:" + member.toString());
+                    String response = restTemplate.postForObject(PA165URL+RestURIConstants.ADD_MEMBER, member,  String.class);
+                    if(response == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println(str);
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return addMember(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return addMember(NOTEER);
+                }
+                catch (Exception e) {
+                    return addMember(ERRPARS);
+                }
+
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return addMember(EOK);
     }
     
     
@@ -166,52 +262,76 @@ public class Application {
         
 
         switch (str) {
-            case "1": return findMemberByName(EOK);
-            case "2": return findMemberByAddress(EOK);
+            case "1": return findMembersByName(EOK);
+            case "2": return findMembersByAddress(EOK);
             case "3": return memberMenu();
             default:
                 return findMember(EOK);            
         }
     }
     
-    private static int findMemberByName(int error) {
-        System.out.println("REST: DELETE MEMBER by ID");
+    private static int findMembersByName(int error) {
+        System.out.println("REST: FIND MEMBER by name");
         printError(error);
-        System.out.println("1. Write Id > 0, or 0 if you want to go back to menu!:");
+        System.out.println("1. Write name, or 0 if you want to go back!:");
         
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
         switch (str) {
-            case "0": return memberMenu();
+            case "0": return findMember(EOK);
             default:
                 try {
                     RestTemplate restTemplate = new RestTemplate();
-                    MemberDTO page = restTemplate.getForObject(PA165URL+RestURIConstants.DEL_MEMBER+str, MemberDTO.class);
-                    System.out.println("Name:    " + page.getName());
-                    System.out.println("Address:   " + page.getAddress());
-                    System.out.println("Email:   " + page.getEmail());
-                    System.out.println("Loans:");
-                    break;
+                    MemberDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_MEMBERS+"?name="+str, MemberDTO[].class);
+                    for(MemberDTO member : page) {
+                        System.out.println("Name: " + member.getName() + " Address: " + member.getAddress() + " Email: " + member.getEmail());
+                    }
                 }
                 catch (IllegalStateException | HttpClientErrorException e) {
-                    return deleteMember(3);
+                    return findMembersByName(BADADDR);
                 }
                 catch (NullPointerException e) {
-                    return deleteMember(2);
+                    return findMembersByName(NOTEER);
                 }
         }
         
         System.out.println("Press any key to continue!");
         s.nextLine();
-        return deleteMember(0);
+        return findMembersByName(EOK);
     }
 
-    private static int findMemberByAddress(int error) {
-        return EOK;
+    private static int findMembersByAddress(int error) {
+        System.out.println("REST: FIND MEMBER by address");
+        printError(error);
+        System.out.println("1. Write address, or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findMember(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    MemberDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_MEMBERS+"?address="+str, MemberDTO[].class);
+                    for(MemberDTO member : page) {
+                        System.out.println("Name: " + member.getName() + " Address: " + member.getAddress() + " Email: " + member.getEmail());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findMembersByAddress(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findMembersByAddress(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findMembersByAddress(EOK);
     }
 
-    
     private static int deleteMember(int error) {
         System.out.println("REST: DELETE MEMBER by ID");
         printError(error);
@@ -226,25 +346,26 @@ public class Application {
                 try {
                     RestTemplate restTemplate = new RestTemplate();
                     MemberDTO page = restTemplate.getForObject(PA165URL+RestURIConstants.DEL_MEMBER+str, MemberDTO.class);
-                    System.out.println("Name:    " + page.getName());
-                    System.out.println("Address:   " + page.getAddress());
-                    System.out.println("Email:   " + page.getEmail());
-                    System.out.println("Loans:");
+                    if(page == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println("Deleted member with id="+str);
+                    }
                     break;
                 }
                 catch (IllegalStateException | HttpClientErrorException e) {
-                    return deleteMember(3);
+                    return deleteMember(BADADDR);
                 }
                 catch (NullPointerException e) {
-                    return deleteMember(2);
+                    return deleteMember(NOTEER);
                 }
         }
         
         System.out.println("Press any key to continue!");
         s.nextLine();
-        return deleteMember(0);
+        return deleteMember(EOK);
     }
-
     
     private static int getMember(int error) {
         System.out.println("REST: GET MEMBER by ID");
@@ -270,10 +391,10 @@ public class Application {
                     break;
                 }
                 catch (IllegalStateException | HttpClientErrorException e) {
-                    return getMember(3);
+                    return getMember(BADADDR);
                 }
                 catch (NullPointerException e) {
-                    return getMember(2);
+                    return getMember(NOTEER);
                 }
         }
         

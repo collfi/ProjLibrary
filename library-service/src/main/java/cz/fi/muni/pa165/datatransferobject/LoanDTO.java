@@ -6,6 +6,7 @@
 package cz.fi.muni.pa165.datatransferobject;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Set;
  /**
  * @author Sergii Pylypenko, 430519
  */
-public class LoanDTO {
+public class LoanDTO implements Serializable{
     private int idLoan;
 
     private MemberDTO member;
