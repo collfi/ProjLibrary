@@ -65,10 +65,7 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member>{
             final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
             query.setParameter("email", email);
             return (Member) query.getSingleResult();
-        } catch (NoResultException nre) {
-            throw new NoResultException("No result exception");
-        }
-            catch(RuntimeException E) {
+        } catch(RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }

@@ -22,72 +22,72 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Rest-Api for member.
+ *
  * @author michal.lukac
  */
 @RestController
 public class MemberRestController {
-    
+
     @Autowired
     public MemberService memberService;
 
-    @RequestMapping(value="/api/member/get/{number}", method=RequestMethod.GET, produces = "application/json")
-    public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number)
-    {
+    @RequestMapping(value = "/api/member/get/{number}", method = RequestMethod.GET, produces = "application/json")
+    public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number) {
         try {
             MemberDTO member = memberService.findMemberByIdMember(number);
             return member;
-        } catch(DAException e) {
+        } catch (DAException e) {
             return null;
         }
     }
 
-    @RequestMapping(value="/api/member/find", method=RequestMethod.GET, produces = "application/json")
-    public List<MemberDTO> apiFindMembers(@RequestParam(value="name", defaultValue="") String name,
-            @RequestParam(value="address", defaultValue="") String address)
-    {
+    @RequestMapping(value = "/api/member/find", method = RequestMethod.GET, produces = "application/json")
+    public List<MemberDTO> apiFindMembers(@RequestParam(value = "name", defaultValue = "") String name,
+            @RequestParam(value = "address", defaultValue = "") String address,
+            @RequestParam(value = "email", defaultValue = "") String email) {
         List<MemberDTO> memberList = new ArrayList<MemberDTO>();
         try {
-            if(name.length() > 0) {
+            if (name.length() > 0) {
                 memberList = memberService.findMembersByName(name);
-            }
-            else if(address.length() > 0) {
+            } else if (address.length() > 0) {
                 memberList = memberService.findMembersByAddress(address);
+            } else if (email.length() > 0) {
+                MemberDTO m = memberService.findMemberByEmail(email);
+                memberList.add(m);
             }
-
             return memberList;
-        } catch(DAException e) {
+        } catch (DAException e) {
             return null;
         }
-    }    
-    
-    @RequestMapping(value="/api/member/delete/{number}", method=RequestMethod.GET, produces = "application/json")
-    public MemberDTO apiDeleteMember(ModelMap model, @PathVariable("number") int number)
-    {
+    }
+
+    @RequestMapping(value = "/api/member/delete/{number}", method = RequestMethod.GET, produces = "application/json")
+    public MemberDTO apiDeleteMember(ModelMap model, @PathVariable("number") int number) {
         try {
             MemberDTO member = memberService.findMemberByIdMember(number);
             memberService.deleteMember(member);
             return member;
-        } catch(DAException e) {
-            return null;
-        }
-    }
-    
-    @RequestMapping(value="/api/member/add/", method=RequestMethod.POST)
-    public String apiSaveMember(@RequestBody MemberDTO member) {
-        try {
-            memberService.insertMember(member);
-            return "Saved person: " + member.toString();
-        } catch(DAException e) {
+        } catch (DAException e) {
             return null;
         }
     }
 
-    @RequestMapping(value="/api/member/update/", method=RequestMethod.POST)
+    @RequestMapping(value = "/api/member/add/", method = RequestMethod.POST)
+    public String apiSaveMember(@RequestBody MemberDTO member) {
+        try {
+            memberService.insertMember(member);
+            return "Saved person: " + member.toString();
+        } catch (DAException e) {
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/api/member/update/", method = RequestMethod.POST)
     public String apiUpdateMember(@RequestBody MemberDTO member) {
         try {
             memberService.updateMember(member);
             return "Saved person: " + member.toString();
-        } catch(DAException e) {
+        } catch (DAException e) {
             return null;
         }
     }

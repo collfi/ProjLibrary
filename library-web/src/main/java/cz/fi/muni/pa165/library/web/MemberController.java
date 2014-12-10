@@ -160,7 +160,7 @@ public class MemberController {
                 List<MemberDTO> l = new ArrayList<>();
                 l.add(memberService.findMemberByEmail(search.getInput()));
                 mav.addObject("list", l);
-            } catch (NoResultException nre) {
+            } catch (DAException dae) {
                 mav.addObject("search", new SearchModel());
                 mav.addObject("list", new ArrayList<MemberDTO>());
                 return mav;

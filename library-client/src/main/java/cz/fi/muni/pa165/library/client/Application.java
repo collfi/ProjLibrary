@@ -1,6 +1,9 @@
 package cz.fi.muni.pa165.library.client;
+import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.LoanDTO;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
+import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
+import cz.fi.muni.pa165.entity.Book;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +30,14 @@ public class Application {
     public static final int ERRPARS = 4;
     
     public static Map<Integer, String> errorCodes;
-    public static final String PA165URL = "http://localhost:8084/pa165";
+    public static final String PA165URL = "http://localhost:8080/pa165";
 
     public static class RestURIConstants {
         public static final String ADD_BOOK = "/api/book/add/";
         public static final String DEL_BOOK = "/api/book/delete/";
         public static final String GET_BOOK = "/api/book/get/";
         public static final String GET_BOOKS = "/api/book/find/";
+        public static final String UPD_BOOK = "/api/book/update/";
         
         public static final String ADD_MEMBER = "/api/member/add/";
         public static final String DEL_MEMBER = "/api/member/delete/";
@@ -109,7 +113,35 @@ public class Application {
     }
 
     private static int bookMenu() {
-        return 1;
+        System.out.println("REST: INTERACTIVE CLIENT MENU");
+        System.out.println("1. Get book");
+        System.out.println("2. Delete book");
+        System.out.println("3. Find book");
+        System.out.println("4. Update book");
+        System.out.println("5. Add book");
+        System.out.println("6. Menu");
+
+        System.out.println("Press 1-6 and enter to continue!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+        
+        switch (str) {
+            case "1":
+                return getBook(EOK);
+            case "2":
+                return deleteBook(EOK);
+            case "3":
+                return findBook(EOK);
+            case "4":
+                return updateBook(EOK);
+            case "5":
+                return addBook(EOK);
+            case "6":
+                return menu();
+            default:
+                return memberMenu();
+        }   
     }
 
     private static int memberMenu() {
@@ -245,7 +277,6 @@ public class Application {
         return addMember(EOK);
     }
     
-    
     private static int findMember(int error) {
         System.out.println("REST: FIND MEMBER");
         printError(error);
@@ -253,9 +284,10 @@ public class Application {
         System.out.println("REST: INTERACTIVE CLIENT MENU");
         System.out.println("1. Find members by name");
         System.out.println("2. Find members by address");
-        System.out.println("3. back");
+        System.out.println("3. Find member by email");
+        System.out.println("4. back");
 
-        System.out.println("Press 1-3 and enter to continue!:");
+        System.out.println("Press 1-4 and enter to continue!:");
         
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
@@ -264,7 +296,8 @@ public class Application {
         switch (str) {
             case "1": return findMembersByName(EOK);
             case "2": return findMembersByAddress(EOK);
-            case "3": return memberMenu();
+            case "3": return findMemberByEmail(EOK);
+            case "4": return memberMenu();
             default:
                 return findMember(EOK);            
         }
@@ -300,7 +333,7 @@ public class Application {
         s.nextLine();
         return findMembersByName(EOK);
     }
-
+    //vypise chybu ked nenajde (preco ostatne nie?)
     private static int findMembersByAddress(int error) {
         System.out.println("REST: FIND MEMBER by address");
         printError(error);
@@ -330,6 +363,37 @@ public class Application {
         System.out.println("Press any key to continue!");
         s.nextLine();
         return findMembersByAddress(EOK);
+    }
+    
+    private static int findMemberByEmail(int error) {
+        System.out.println("REST: FIND MEMBER by email");
+        printError(error);
+        System.out.println("1. Write email, or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findMember(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    MemberDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_MEMBERS+"?email="+str, MemberDTO[].class);
+                    for(MemberDTO member : page) {
+                        System.out.println("Name: " + member.getName() + " Address: " + member.getAddress() + " Email: " + member.getEmail());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findMemberByEmail(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findMemberByEmail(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findMemberByEmail(EOK);
     }
 
     private static int deleteMember(int error) {
@@ -417,5 +481,233 @@ public class Application {
         System.out.println("-menu, menu");
         System.out.println("-h, help");
         return EOK;
+    }
+    
+    private static int getBook(int error) {
+        System.out.println("REST: GET BOOK by ID");
+        printError(error);
+        System.out.println("1. Write Id > 0, or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return bookMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_BOOK+str, BookDTO.class);
+                    System.out.println("Name:    " + page.getName());
+                    System.out.println("Authors:   " + page.getAuthors());
+                    System.out.println("ISBN:   " + page.getISBN());
+                    System.out.println("Genre:   " + page.getDepartment());
+                    System.out.println("Description:   " + page.getDescription());
+                    System.out.println("Printed Books:");
+                    for(PrintedBookDTO pbook : page.getBooks()) {
+                        System.out.println(pbook.getIdPrintedBook() + ": " + pbook.getCondition());
+                    }
+                    break;
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return getBook(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return getBook(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return getBook(0);
+    }
+
+    private static int deleteBook(int error) {
+        System.out.println("REST: DELETE BOOK by ID");
+        printError(error);
+        System.out.println("1. Write Id > 0, or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return bookMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO page = restTemplate.getForObject(PA165URL+RestURIConstants.DEL_BOOK+str, BookDTO.class);
+                    if(page == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println("Deleted book with id="+str);
+                    }
+                    break;
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return deleteBook(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return deleteBook(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return deleteBook(EOK);
+    }
+
+    private static int findBook(int error) {
+        System.out.println("NOT SUPPORTED YET!!!!!!!!!!!!!!!!!!!");
+        System.out.println("REST: FIND BOOK");
+        printError(error);
+       
+        System.out.println("REST: INTERACTIVE CLIENT MENU");
+        System.out.println("1. Find books by name");
+        System.out.println("2. Find books by ISBN");
+        System.out.println("3. Find books by author");
+        System.out.println("4. Find books by department");
+        System.out.println("5. back");
+
+        System.out.println("Press 1-5 and enter to continue!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+        
+
+        switch (str) {
+            case "1": return findBooksByName(EOK);
+            case "2": return findBooksByISBN(EOK);
+            case "3": return findBookByAuthors(EOK);
+            case "4": return findBooksByDepartment(EOK);
+            case "5": return bookMenu();
+            default:
+                return findBook(EOK);            
+        }
+    }
+    
+    private static int findBooksByName(int error) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static int findBooksByISBN(int error) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static int findBookByAuthors(int error) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static int findBooksByDepartment(int error) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static int updateBook(int error) {
+        System.out.println("REST: UPDATE BOOK");
+        printError(error);
+        System.out.println("1. Write \"id name isbn authors department(Science, Sport, Religion, Autobiografy)"
+                + " description \" or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return bookMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    String[] data = str.trim().split(" ");
+                    if(data.length != 6) {
+                        throw new Exception();
+                    }
+                    
+                    BookDTO book = new BookDTO();
+                    book.setIdBook(Integer.parseInt(data[0]));
+                    book.setName(data[1]);
+                    book.setISBN(data[2]);
+                    book.setAuthors(data[3]);
+                    book.setDepartment(Book.Department.valueOf(data[4]));
+                    book.setDescription(data[5]);
+                    
+                    System.out.println("saving:" + book.toString());
+                    String response = restTemplate.postForObject(PA165URL+RestURIConstants.UPD_BOOK, book,  String.class);
+                    if(response == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println(str);
+                    }
+
+                    break;
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return updateBook(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return updateBook(NOTEER);
+                }
+                catch (Exception e) {
+                    return updateBook(ERRPARS);
+                }
+
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return updateBook(EOK);
+    }
+
+    private static int addBook(int error) {
+        System.out.println("REST: ADD BOOK");
+        printError(error);
+        System.out.println("1. Write \"name isbn authors department(Science, Sport, Religion, Autobiografy)"
+                + " description \" or 0 if you want to go back to menu!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return bookMenu();
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    String[] data = str.trim().split(" ");
+                    if(data.length != 5) {
+                        throw new Exception();
+                    }
+                    BookDTO book = new BookDTO();
+                    book.setName(data[0]);
+                    book.setISBN(data[1]);
+                    book.setAuthors(data[2]);
+                    book.setDepartment(Book.Department.valueOf(data[3]));
+                    book.setDescription(data[4]);
+                    
+                    System.out.println("saving:" + book.toString());
+                    String response = restTemplate.postForObject(PA165URL+RestURIConstants.ADD_BOOK, book,  String.class);
+                    if(response == null) {
+                        throw new NullPointerException();
+                    }
+                    else {
+                        System.out.println(str);
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return addBook(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return addBook(NOTEER);
+                }
+                catch (Exception e) {
+                    return addBook(ERRPARS);
+                }
+
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return addBook(EOK);
     }
 }
