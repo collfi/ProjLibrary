@@ -86,8 +86,6 @@ public class Application {
         } catch (Exception e) {
             printError(1);
         }
-        
-        return;
     }
     
     public static int menu() {
@@ -557,7 +555,6 @@ public class Application {
     }
 
     private static int findBook(int error) {
-        System.out.println("NOT SUPPORTED YET!!!!!!!!!!!!!!!!!!!");
         System.out.println("REST: FIND BOOK");
         printError(error);
        
@@ -577,7 +574,7 @@ public class Application {
         switch (str) {
             case "1": return findBooksByName(EOK);
             case "2": return findBooksByISBN(EOK);
-            case "3": return findBookByAuthors(EOK);
+            case "3": return findBooksByAuthors(EOK);
             case "4": return findBooksByDepartment(EOK);
             case "5": return bookMenu();
             default:
@@ -586,30 +583,143 @@ public class Application {
     }
     
     private static int findBooksByName(int error) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        System.out.println("REST: FIND BOOK by name");
+        printError(error);
+        System.out.println("1. Write name, or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findBook(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_BOOKS+"?name="+str, BookDTO[].class);
+                    for(BookDTO book : page) {
+                        System.out.println("Name: " + book.getName() + " ISBN: " + book.getISBN() + 
+                                " Authors: " + book.getAuthors() + " Department: " + book.getDepartment() + 
+                                " Description: " + book.getDescription());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findBooksByName(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findBooksByName(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findBooksByName(EOK);
     }
 
     private static int findBooksByISBN(int error) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        System.out.println("REST: FIND BOOK by ISBN");
+        printError(error);
+        System.out.println("1. Write ISBN, or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findBook(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_BOOKS+"?isbn="+str, BookDTO[].class);
+                    for(BookDTO book : page) {
+                        System.out.println("Name: " + book.getName() + " ISBN: " + book.getISBN() + 
+                                " Authors: " + book.getAuthors() + " Department: " + book.getDepartment() + 
+                                " Description: " + book.getDescription());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findBooksByISBN(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findBooksByISBN(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findBooksByISBN(EOK);
     }
 
-    private static int findBookByAuthors(int error) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+    private static int findBooksByAuthors(int error) {
+        System.out.println("REST: FIND BOOK by author");
+        printError(error);
+        System.out.println("1. Write author, or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findBook(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_BOOKS+"?authors="+str, BookDTO[].class);
+                    for(BookDTO book : page) {
+                        System.out.println("Name: " + book.getName() + " ISBN: " + book.getISBN() + 
+                                " Authors: " + book.getAuthors() + " Department: " + book.getDepartment() + 
+                                " Description: " + book.getDescription());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findBooksByAuthors(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findBooksByAuthors(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findBooksByAuthors(EOK);
     }
 
     private static int findBooksByDepartment(int error) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
+        System.out.println("REST: FIND BOOK by department");
+        printError(error);
+        System.out.println("1. Write department (Science, Sport, Religion, Autobiografy), "
+                + "or 0 if you want to go back!:");
+        
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
+
+        switch (str) {
+            case "0": return findBook(EOK);
+            default:
+                try {
+                    RestTemplate restTemplate = new RestTemplate();
+                    BookDTO[] page = restTemplate.getForObject(PA165URL+RestURIConstants.GET_BOOKS+"?department="+str, BookDTO[].class);
+                    for(BookDTO book : page) {
+                        System.out.println("Name: " + book.getName() + " ISBN: " + book.getISBN() + 
+                                " Authors: " + book.getAuthors() + "Department: " + book.getDepartment() + 
+                                "Description: " + book.getDescription());
+                    }
+                }
+                catch (IllegalStateException | HttpClientErrorException e) {
+                    return findBooksByDepartment(BADADDR);
+                }
+                catch (NullPointerException e) {
+                    return findBooksByDepartment(NOTEER);
+                }
+        }
+        
+        System.out.println("Press any key to continue!");
+        s.nextLine();
+        return findBooksByDepartment(EOK);
     }
 
     private static int updateBook(int error) {
         System.out.println("REST: UPDATE BOOK");
         printError(error);
         System.out.println("1. Write \"id name isbn authors department(Science, Sport, Religion, Autobiografy)"
-                + " description \" or 0 if you want to go back to menu!:");
+                + " description\" or 0 if you want to go back to menu!:");
         
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
