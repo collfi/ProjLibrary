@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class BookRestController {
 
     @Autowired
     public BookService bookService;
-
+    //delete?
     @RequestMapping(value = "/api/book/get/{number}", method = RequestMethod.GET, produces = "application/json")
     public BookDTO apiGetBook(ModelMap model, @PathVariable("number") int number) {
         try {
@@ -76,7 +77,7 @@ public class BookRestController {
     }
 
     @RequestMapping(value = "/api/book/add/", method = RequestMethod.POST)
-    public String apiSaveBook(@RequestBody BookDTO book) {
+    public String apiSaveBook(@RequestBody @Valid BookDTO book) {
         try {
             bookService.insertBook(book);
             return "Saved book: " + book.toString();
@@ -86,7 +87,7 @@ public class BookRestController {
     }
 
     @RequestMapping(value = "/api/book/update/", method = RequestMethod.POST)
-    public String apiUpdateBook(@RequestBody BookDTO book) {
+    public String apiUpdateBook(@RequestBody @Valid BookDTO book) {
         try {
             bookService.updateBook(book);
             return "Saved person: " + book.toString();

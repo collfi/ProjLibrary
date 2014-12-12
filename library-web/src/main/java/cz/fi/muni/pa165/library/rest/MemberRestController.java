@@ -6,11 +6,11 @@
 package cz.fi.muni.pa165.library.rest;
 
 import cz.fi.muni.pa165.DAException;
-import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.service.api.MemberService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,7 @@ public class MemberRestController {
 
     @Autowired
     public MemberService memberService;
-
+    //delete?
     @RequestMapping(value = "/api/member/get/{number}", method = RequestMethod.GET, produces = "application/json")
     public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number) {
         try {
@@ -73,7 +73,7 @@ public class MemberRestController {
     }
 
     @RequestMapping(value = "/api/member/add/", method = RequestMethod.POST)
-    public String apiSaveMember(@RequestBody MemberDTO member) {
+    public String apiSaveMember(@RequestBody @Valid MemberDTO member) {
         try {
             memberService.insertMember(member);
             return "Saved person: " + member.toString();
@@ -83,7 +83,7 @@ public class MemberRestController {
     }
 
     @RequestMapping(value = "/api/member/update/", method = RequestMethod.POST)
-    public String apiUpdateMember(@RequestBody MemberDTO member) {
+    public String apiUpdateMember(@RequestBody @Valid MemberDTO member) {
         try {
             memberService.updateMember(member);
             return "Saved person: " + member.toString();
