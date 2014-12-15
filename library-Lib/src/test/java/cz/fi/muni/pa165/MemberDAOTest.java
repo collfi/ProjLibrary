@@ -5,28 +5,29 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
-import java.util.Date;
-import java.util.List;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import java.util.Date;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
- * Test for method of class MemberDAOImpl 
+ * Test for method of class MemberDAOImpl
  *
  * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
 @ContextConfiguration(classes = DaoContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class MemberDAOTest extends AbstractTestNGSpringContextTests{
+public class MemberDAOTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
     public EntityManagerFactory emf;
@@ -50,7 +51,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findMemberByEmail(){
+    public void findMemberByEmail() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -61,7 +62,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void insertMember(){
+    public void insertMember() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -82,7 +83,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findMember(){
+    public void findMember() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -95,7 +96,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void deleteMember(){
+    public void deleteMember() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -112,7 +113,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void updateMember(){
+    public void updateMember() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -151,7 +152,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findMembersByName(){
+    public void findMembersByName() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -180,7 +181,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findMembersByAddress(){
+    public void findMembersByAddress() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
@@ -203,7 +204,7 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findMembersByBook(){
+    public void findMembersByBook() {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);

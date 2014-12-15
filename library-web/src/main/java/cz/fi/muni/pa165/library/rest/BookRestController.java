@@ -9,17 +9,13 @@ import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
-import java.util.ArrayList;
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rest-Api controller for books.
@@ -31,6 +27,7 @@ public class BookRestController {
 
     @Autowired
     public BookService bookService;
+
     //delete?
     @RequestMapping(value = "/api/book/get/{number}", method = RequestMethod.GET, produces = "application/json")
     public BookDTO apiGetBook(ModelMap model, @PathVariable("number") int number) {
@@ -44,9 +41,9 @@ public class BookRestController {
 
     @RequestMapping(value = "/api/book/find", method = RequestMethod.GET, produces = "application/json")
     public List<BookDTO> apiFindBooks(@RequestParam(value = "name", defaultValue = "") String name,
-            @RequestParam(value = "authors", defaultValue = "") String authors,
-            @RequestParam(value = "isbn", defaultValue = "") String isbn,
-            @RequestParam(value = "department", defaultValue = "") String department) {
+                                      @RequestParam(value = "authors", defaultValue = "") String authors,
+                                      @RequestParam(value = "isbn", defaultValue = "") String isbn,
+                                      @RequestParam(value = "department", defaultValue = "") String department) {
         List<BookDTO> bookList = new ArrayList<>();
         try {
             if (name.length() > 0) {

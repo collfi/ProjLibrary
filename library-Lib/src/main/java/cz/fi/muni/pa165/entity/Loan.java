@@ -5,10 +5,8 @@
  */
 package cz.fi.muni.pa165.entity;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Pylypenko Sergii <430519@mail.muni.cz>
@@ -25,16 +23,16 @@ public class Loan {
 
     @OneToOne
     private PrintedBook printedBook;
-    
-    @Column(nullable=false)
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Date toDate;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private boolean returned;
 
     private String description;
@@ -47,14 +45,13 @@ public class Loan {
     }
 
     /**
-     *
-     * @param idLoan id of loan
-     * @param member member assigned to loan
-     * @param pbooks borrowed books
-     * @param fromDate date loan started from
-     * @param toDate date loan ends
-     * @param isReturned is loan closed
-     * @param description description of the loan
+     * @param idLoan       id of loan
+     * @param member       member assigned to loan
+     * @param pbooks       borrowed books
+     * @param fromDate     date loan started from
+     * @param toDate       date loan ends
+     * @param isReturned   is loan closed
+     * @param description  description of the loan
      * @param dateReturned actual date of loan return
      */
     public Loan(int idLoan, Member member, PrintedBook printedBook, Date fromDate, Date toDate, boolean isReturned,
@@ -69,53 +66,53 @@ public class Loan {
         this.dateReturned = dateReturned;
     }
 
-    public void setDateReturned(Date when) {
-        this.dateReturned = when;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
+    public Date getFromDate() {
+        return fromDate;
     }
 
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
-
-    public void setReturned(boolean isReturned) {
-        this.returned = isReturned;
-    }
-
-    public Date getFromDate() {
-        return fromDate;
-    }
-
     public Date getToDate() {
         return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     public boolean getReturned() {
         return returned;
     }
 
+    public void setReturned(boolean isReturned) {
+        this.returned = isReturned;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDateReturned() {
         return dateReturned;
     }
 
+    public void setDateReturned(Date when) {
+        this.dateReturned = when;
+    }
+
     public Member getMember() {
 
         return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public int getIdLoan() {
@@ -143,7 +140,7 @@ public class Loan {
 
     @Override
     public int hashCode() {
-        return this.idLoan*3;
+        return this.idLoan * 3;
     }
 
     @Override

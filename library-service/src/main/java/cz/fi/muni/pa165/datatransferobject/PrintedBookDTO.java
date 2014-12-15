@@ -6,26 +6,28 @@
 package cz.fi.muni.pa165.datatransferobject;
 
 import cz.fi.muni.pa165.entity.PrintedBook.Condition;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Data Transfer Object of Printed Book
+ *
  * @author Boris Valentovic - xvalent2
  */
 public class PrintedBookDTO implements Serializable {
     private Long idPrintedBook;
-    
+
     private BookDTO book;
-    
+
     private Boolean state;
-    
+
     private Condition condition;
-    
+
     private LoanDTO loan;
-    
-    public PrintedBookDTO () {
-        
+
+    public PrintedBookDTO() {
+
     }
 
     public PrintedBookDTO(Long id, BookDTO book, Boolean state, Condition condition, LoanDTO loan) {
@@ -49,7 +51,7 @@ public class PrintedBookDTO implements Serializable {
 
     public void setIdPrintedBook(Long idPrintedBook) {
         this.idPrintedBook = idPrintedBook;
-    } 
+    }
 
     public BookDTO getBook() {
         return book;
@@ -103,12 +105,12 @@ public class PrintedBookDTO implements Serializable {
             return false;
         }
         return true;
-    }   
+    }
 
     @Override
     public String toString() {
         return "PrintedBookDTO{" + "idPrintedBook=" + idPrintedBook + ", book=" + book + ", state=" + state + ", condition=" + condition + ", loan=" + loan + '}';
     }
-    
-    
+
+
 }

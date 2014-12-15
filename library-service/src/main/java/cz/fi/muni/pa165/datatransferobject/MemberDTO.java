@@ -5,34 +5,35 @@
  */
 package cz.fi.muni.pa165.datatransferobject;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+
 /**
- *
  * @author Martin Malik <374128@mail.muni.cz>
  */
 
 public class MemberDTO implements Serializable {
-    
+
     private long idMember;
-    
+
     @NotEmpty
     private String name;
-    
+
     @NotEmpty
     @Email
     private String email;
-    
+
     @NotEmpty
     private String address;
-    
+
     private Set<LoanDTO> loans = new HashSet<LoanDTO>();
-    
-    public MemberDTO(){    
+
+    public MemberDTO() {
     }
 
     public long getIdMember() {
@@ -108,23 +109,23 @@ public class MemberDTO implements Serializable {
         }
         return true;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("idMember: " + idMember + ", name: " + name + ", email: " + email + ", address: " + address);
-        
-        if(loans == null){
+
+        if (loans == null) {
             return sb.toString();
-        }else{
+        } else {
             sb.append(" Loans = [ ");
-            
-            for(LoanDTO loan : loans){
+
+            for (LoanDTO loan : loans) {
                 sb.append(loan.toString());
             }
-            
+
             sb.append("]");
-            
+
             return sb.toString();
         }
     }

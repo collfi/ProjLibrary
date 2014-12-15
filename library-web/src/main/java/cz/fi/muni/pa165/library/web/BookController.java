@@ -7,13 +7,6 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Book.Department;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import javax.validation.ConstraintViolationException;
-import java.util.Map;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
@@ -25,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author michal.lukac, xlukac, 430614
@@ -47,7 +45,7 @@ public class BookController {
 
     @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
     public String addpost(@ModelAttribute("book") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
-            RedirectAttributes redirectAttributes) {
+                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
 
             redirectAttributes.addFlashAttribute("name", book.getName());
@@ -114,7 +112,7 @@ public class BookController {
 
     @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
     public String editpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
-            RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes) {
 //            BookDTO bookNew = bookService.findBookById(book.getIdBook());
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("name", book.getName());

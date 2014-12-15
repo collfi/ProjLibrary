@@ -6,33 +6,33 @@
 package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.dao.BookDAO;
-import cz.fi.muni.pa165.dao.LoanDAO;
-import cz.fi.muni.pa165.dao.PrintedBookDAO;
 import cz.fi.muni.pa165.datatransferobject.BookDTO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.service.api.BookService;
-import java.util.ArrayList;
-import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implemented book service for data transfer object.
  * Implementation with dependency injection.(auto-wired)
+ *
  * @author michal.lukac, xlukac, 430614
  */
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {
-    
+
     @Autowired
     private BookDAO bookDao;
-    
+
     public void setBookDAO(BookDAO bookdao) {
         this.bookDao = bookdao;
     }
-    
+
     @Override
     public void insertBook(BookDTO pbookto) {
         Book b = DTOEntityManager.bookDTOtoEntity(pbookto);
@@ -67,8 +67,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findBooksByISBN(String Isbn) {
         List<Book> books = bookDao.findBooksByISBN(Isbn);
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
-        for(Book b : books)
-        {
+        for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }
         return booksdto;
@@ -78,8 +77,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findBooksByAuthor(String Author) {
         List<Book> books = bookDao.findBooksByAuthor(Author);
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
-        for(Book b : books)
-        {
+        for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }
         return booksdto;
@@ -89,8 +87,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findBooksByDepartment(Book.Department en) {
         List<Book> books = bookDao.findBooksByDepartment(en);
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
-        for(Book b : books)
-        {
+        for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }
         return booksdto;
@@ -100,8 +97,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findBooksByName(String Name) {
         List<Book> books = bookDao.findBooksByName(Name);
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
-        for(Book b : books)
-        {
+        for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }
         return booksdto;
@@ -111,8 +107,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findAllBooks() {
         List<Book> books = bookDao.findAllBooks();
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
-        for(Book b : books)
-        {
+        for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }
         return booksdto;

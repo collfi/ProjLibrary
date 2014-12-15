@@ -9,25 +9,22 @@ import cz.fi.muni.pa165.dao.PrintedBookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
-
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
  * @author michal.lukac, xlukac, 430614
@@ -217,7 +214,7 @@ public class PrintedBookDAOTest extends AbstractTestNGSpringContextTests {
         pbook.setCondition(PrintedBook.Condition.New);
         pbook.setIdPrintedBook(2);
         bdao.update(pbook);
-        
+
         PrintedBook b1 = bdao.find(pbook);
         em.getTransaction().commit();
         em.close();

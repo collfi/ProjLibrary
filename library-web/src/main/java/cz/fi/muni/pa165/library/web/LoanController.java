@@ -13,12 +13,6 @@ import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.LoanService;
 import cz.fi.muni.pa165.service.api.MemberService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,8 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 /**
- *
  * @author Sergii Pylypenko - xpylypen
  */
 @Controller
@@ -57,7 +57,7 @@ public class LoanController {
 
     @RequestMapping(value = "/loan/addloan/member", method = RequestMethod.POST)
     public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes,
-            @RequestParam("dateto") String dateto) {
+                               @RequestParam("dateto") String dateto) {
         if (search.getSearch() == null) {
             redirectAttributes.addFlashAttribute("error", "validationmissing");
             return "redirect:/loan/addloan";

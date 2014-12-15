@@ -83,7 +83,7 @@ public class LoanServiceTest {
         LoanDTO result = loanService.findLoanById(id);
         assertEquals(loanDTO, result);
     }
-    
+
     @Test
     public void insertTest() {
         doThrow(new RuntimeException()).when(mockLoanDao).insert(loan);

@@ -7,14 +7,14 @@ import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.service.api.MemberService;
-import java.util.ArrayList;
-import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Martin Malik <374128@mail.muni.cz>
  */
 @Transactional
@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     BookDAO bookDAO;
 
-   @Override
+    @Override
     public void insertMember(MemberDTO memberDTO) {
         Member member = DTOEntityManager.memberDTOtoEntity(memberDTO);
         memberDAO.insert(member);
@@ -53,15 +53,15 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberDAO.find(DTOEntityManager.memberDTOtoEntity(memberDTO));
         return DTOEntityManager.memberEntitytoDTO(member);
     }
-    
+
     @Override
-    public List<MemberDTO> findAllMembers(){
+    public List<MemberDTO> findAllMembers() {
         List<Member> members = memberDAO.findAllMembers();
         List<MemberDTO> membersDTO = new ArrayList<MemberDTO>();
-        for(Member member : members){
+        for (Member member : members) {
             membersDTO.add(DTOEntityManager.memberEntitytoDTO(member));
         }
-        
+
         return membersDTO;
     }
 
@@ -93,13 +93,13 @@ public class MemberServiceImpl implements MemberService {
         List<Member> members = memberDAO.findMembersByBook(book);
         return MemberEntityArrayToMemberDTOArray(members);
     }
-    
-    private List<MemberDTO> MemberEntityArrayToMemberDTOArray(List<Member> members){
-        List<MemberDTO> membersDTO= new ArrayList<MemberDTO>();
-        for(Member member : members){
+
+    private List<MemberDTO> MemberEntityArrayToMemberDTOArray(List<Member> members) {
+        List<MemberDTO> membersDTO = new ArrayList<MemberDTO>();
+        for (Member member : members) {
             membersDTO.add(DTOEntityManager.memberEntitytoDTO(member));
         }
-        
+
         return membersDTO;
     }
 

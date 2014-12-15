@@ -17,7 +17,8 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 /**
- *Mapper that maps data transfer objects to entities and vice versa
+ * Mapper that maps data transfer objects to entities and vice versa
+ *
  * @author Boris Valentovic - xvalent2
  */
 public class DTOEntityManager {

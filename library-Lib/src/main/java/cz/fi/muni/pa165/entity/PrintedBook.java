@@ -8,42 +8,35 @@ package cz.fi.muni.pa165.entity;
 import javax.persistence.*;
 
 /**
- *
  * @author @author Boris Valentovic - xvalent2
  */
 @Entity
 public class PrintedBook {
-    
-    public enum Condition {New, Used, Damaged}
 
-    public PrintedBook() {
-    }
-    
     @Id
     @GeneratedValue
     private long idPrintedBook;
-    
     @ManyToOne
     private Book book;
-    
     @Column(nullable = true)
     private Boolean state;
-    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Condition condition;
-
     @OneToOne
     private Loan loan;
 
+    public PrintedBook() {
+    }
+
     /**
      * Constructor for printed book.
-     * 
+     *
      * @param idPrintedBook id of printed book
-     * @param book which book this printed book belongs
-     * @param state state if is borrowed or not
-     * @param condition is it new or used, ...
-     * @param loan in which loan it participates
+     * @param book          which book this printed book belongs
+     * @param state         state if is borrowed or not
+     * @param condition     is it new or used, ...
+     * @param loan          in which loan it participates
      */
     public PrintedBook(Long idPrintedBook, Book book, Boolean state, Condition condition, Loan loan) {
         this.idPrintedBook = idPrintedBook;
@@ -59,7 +52,6 @@ public class PrintedBook {
         this.condition = condition;
         this.loan = loan;
     }
-    
 
     public long getIdPrintedBook() {
         return idPrintedBook;
@@ -101,8 +93,7 @@ public class PrintedBook {
         if (loan == null) {
             this.loan = null;
             this.setState(Boolean.FALSE);
-        }
-        else {
+        } else {
             this.loan = loan;
             this.setState(Boolean.TRUE);
         }
@@ -131,4 +122,6 @@ public class PrintedBook {
         final PrintedBook other = (PrintedBook) obj;
         return this.idPrintedBook == other.idPrintedBook;
     }
+
+    public enum Condition {New, Used, Damaged}
 }

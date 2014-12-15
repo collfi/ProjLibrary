@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-    
+
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <context:annotation-config />
-    <context:component-scan base-package="cz.fi.muni.pa165.service" />
-    
+    <context:annotation-config/>
+    <context:component-scan base-package="cz.fi.muni.pa165.service"/>
+
     <aop:aspectj-autoproxy/>
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
-    
-    
-  <!-- Exception translation bean post processor -->
-  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-  
+
+
+    <!-- Exception translation bean post processor -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
     <bean id="dataSource"
-        class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
         <property name="url"
-                value="jdbc:derby://localhost:1527/pa165" />
-        <property name="username" value="pa165" />
-        <property name="password" value="pa165" />
+                  value="jdbc:derby://localhost:1527/pa165"/>
+        <property name="username" value="pa165"/>
+        <property name="password" value="pa165"/>
     </bean>
 
     <bean id="entityManagerFactory"
-        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="persistenceUnitName" value="myUnit"/>
         <property name="jpaVendorAdapter">
-                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                        <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
-                </bean>
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect"/>
+            </bean>
         </property>
         <property name="jpaProperties">
-                <props>
-                        <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-                        <prop key="hibernate.show_sql">true</prop>
-                        <prop key="hbm2ddl.auto">create-drop</prop>
-                </props>
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hbm2ddl.auto">create-drop</prop>
+            </props>
         </property>
 
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-      <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    
+
 </beans>
 
 

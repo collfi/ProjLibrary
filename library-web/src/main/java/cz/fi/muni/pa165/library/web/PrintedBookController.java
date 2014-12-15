@@ -10,19 +10,17 @@ import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.service.api.BookService;
 import cz.fi.muni.pa165.service.api.PrintedBookService;
-import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Set;
+
 /**
- *
  * @author Boris Valentovic - xvalent2
  */
 @Controller
@@ -66,13 +64,13 @@ public class PrintedBookController {
 
     @RequestMapping(value = "/pbook/editpost", method = RequestMethod.POST)
     public String editpost(@RequestParam("condition") PrintedBook.Condition con, ModelMap model,
-            @RequestParam("idPrintedBook") long idpbook) {
+                           @RequestParam("idPrintedBook") long idpbook) {
         PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
         pb.setCondition(con);
         pbookService.updatePrintedBook(pb);
         return "redirect:/book/id/" + String.valueOf(pb.getBook().getIdBook());
     }
-    
+
     @RequestMapping("/pbook/delete/{number}")
     public String deletebook(ModelMap model, @PathVariable("number") long number) {
         PrintedBookDTO pbook = pbookService.findPrintedBookById(number);

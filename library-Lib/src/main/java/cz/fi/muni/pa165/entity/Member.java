@@ -1,43 +1,36 @@
 package cz.fi.muni.pa165.entity;
 
-import cz.fi.muni.pa165.entity.Loan;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
- * Class defines member of library with basic registration information. 
- *  
+ * Class defines member of library with basic registration information.
+ *
  * @author Martin Malik <374128@mail.muni.cz>
  */
 @Entity
 public class Member {
-    
+
     @Id
     @GeneratedValue
-    @Column(name="ID_MEMBER")
+    @Column(name = "ID_MEMBER")
     private long idMember;
-    
-    @Column(name="NAME", nullable=false)
+
+    @Column(name = "NAME", nullable = false)
     private String name;
-    
-    @Column(name="EMAIL", nullable=false, unique = true)
+
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
-    
-    @Column(name="ADDRESS", nullable=false)
+
+    @Column(name = "ADDRESS", nullable = false)
     private String address;
-    
+
     @OneToMany(mappedBy = "member")
     private Set<Loan> loans = new HashSet<Loan>();
-    
-    public Member(){    
+
+    public Member() {
     }
 
     public Member(long idMember, String name, String email, String address) {
@@ -122,7 +115,7 @@ public class Member {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("idMember: " + idMember + ", name: " + name + ", email: " + email + ", address: " + address);
         return sb.toString();

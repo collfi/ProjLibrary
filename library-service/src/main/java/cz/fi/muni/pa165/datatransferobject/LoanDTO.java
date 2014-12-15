@@ -8,13 +8,11 @@ package cz.fi.muni.pa165.datatransferobject;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
- /**
+/**
  * @author Sergii Pylypenko, 430519
  */
-public class LoanDTO implements Serializable{
+public class LoanDTO implements Serializable {
     private int idLoan;
 
     private MemberDTO member;
@@ -26,22 +24,8 @@ public class LoanDTO implements Serializable{
     private Date toDate;
 
     private boolean returned;
-
-    @Override
-    public String toString() {
-        return "LoanDTO{" +
-                "idLoan=" + idLoan +
-                ", member=" + member +
-                ", pbooks=" + printedBook +
-                ", fromDate=" + fromDate +
-                ", toDate=" + toDate +
-                ", isReturned=" + returned +
-                ", description='" + description + '\'' +
-                ", dateReturned=" + dateReturned +
-                '}';
-    }
-
     private String description;
+    private Date dateReturned;
 
     public LoanDTO() {
 
@@ -59,7 +43,19 @@ public class LoanDTO implements Serializable{
         this.idLoan = idLoan;
     }
 
-    private Date dateReturned;
+    @Override
+    public String toString() {
+        return "LoanDTO{" +
+                "idLoan=" + idLoan +
+                ", member=" + member +
+                ", pbooks=" + printedBook +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
+                ", isReturned=" + returned +
+                ", description='" + description + '\'' +
+                ", dateReturned=" + dateReturned +
+                '}';
+    }
 
     public int getIdLoan() {
         return idLoan;

@@ -5,18 +5,20 @@ import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import cz.fi.muni.pa165.entity.PrintedBook;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 
 /**
-* @author Pylypenko Sergii <430519@mail.muni.cz>
+ * @author Pylypenko Sergii <430519@mail.muni.cz>
  */
 @Component
 public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
@@ -30,11 +32,11 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             final TypedQuery<Loan> query = em.createQuery(
                     "SELECT l FROM Loan as l", Loan.class);
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
-    
+
     @Override
     public List<Loan> findAllLoansByMember(Member m, boolean is_returned) {
         try {
@@ -43,7 +45,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             query.setParameter("mid", m.getIdMember());
             query.setParameter("r", is_returned);
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -56,7 +58,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             query.setParameter("f", from);
             query.setParameter("t", to);
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -67,7 +69,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.printedBook.book.idBook = :bid)", Loan.class);
             query.setParameter("bid", b.getIdBook());
             return query.getResultList();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -78,7 +80,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             final TypedQuery<Loan> query = em.createQuery("SELECT l from Loan as l WHERE l.id = :lid)", Loan.class);
             query.setParameter("lid", id);
             return query.getSingleResult();
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -91,7 +93,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     public void insert(Loan l) {
         try {
             this.em.persist(l);
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -99,7 +101,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     @Override
     public void update(Loan loan) {
         try {
-                     Loan loan2 = (Loan) em.merge(loan);
+            Loan loan2 = (Loan) em.merge(loan);
 
            /* Loan l = find(loan);2
             l.setReturned(l.isReturned());
@@ -110,7 +112,7 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             l.setMember(l.getMember());
             l.setPrintedBook(l.getPrintedBook());
             em.persist(l);*/
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
@@ -122,26 +124,26 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
             PrintedBookDAOImpl pbd = new PrintedBookDAOImpl();
             pbd.setManager(em);
             List<PrintedBook> books = pbd.findAllPrintedBooksByLoan(loan);
-            for (PrintedBook pb : books){
+            for (PrintedBook pb : books) {
                 pb.setLoan(null);
             }
             em.remove(loan);
-        } catch(RuntimeException E) {
+        } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
     }
-   
+
 
     @Override
     public Loan find(Loan loan) {
         try {
-            CriteriaBuilder cb  = em.getCriteriaBuilder();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Loan> cq = cb.createQuery(Loan.class);
             Root<Loan> root = cq.from(Loan.class);
             cq.select(root);
             TypedQuery<Loan> q = em.createQuery(cq);
             return q.getSingleResult();
-        } catch(Exception E) {
+        } catch (Exception E) {
             throw new DAException(E.getMessage());
         }
     }

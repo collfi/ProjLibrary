@@ -3,12 +3,12 @@ package cz.fi.muni.pa165.dao;
 import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.PrintedBook;
-import java.util.List;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
 /**
  * DAO Implementation of BookDAO interface.
@@ -74,10 +74,10 @@ public class BookDAOImpl implements BookDAO {
             throw new DAException(E.getMessage());
         }*/
         try {
-         Book book = (Book) entityManager.merge(t);
-         } catch (RuntimeException E) {
-         throw new DAException(E.getMessage());
-         }
+            Book book = (Book) entityManager.merge(t);
+        } catch (RuntimeException E) {
+            throw new DAException(E.getMessage());
+        }
     }
 
     /**

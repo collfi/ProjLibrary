@@ -6,46 +6,45 @@
 package cz.fi.muni.pa165.library.web;
 
 /**
- *
  * @author michal
  */
 public class SearchModel {
-	private String search;
-        private String input;
-        
-        private String book;
-        private String input2;
+    private String search;
+    private String input;
 
-	public String getInput() {
-		return input;
-	}
+    private String book;
+    private String input2;
 
-	public void setInput(String input) {
-		this.input = input;
-	}
-        
-	public String getSearch() {
-		return search;
-	}
+    public String getInput() {
+        return input;
+    }
 
-	public void setSearch(String search) {
-		this.search = search;
-	}
-        
-        public String getInput2() {
-		return input2;
-	}
+    public void setInput(String input) {
+        this.input = input;
+    }
 
-	public void setInput2(String input2) {
-		this.input2 = input2;
-	}
-        
-	public String getBook() {
-		return this.book;
-	}
+    public String getSearch() {
+        return search;
+    }
 
-	public void setBook(String book) {
-		this.book = book;
-	}
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getInput2() {
+        return input2;
+    }
+
+    public void setInput2(String input2) {
+        this.input2 = input2;
+    }
+
+    public String getBook() {
+        return this.book;
+    }
+
+    public void setBook(String book) {
+        this.book = book;
+    }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 
 /**
  * Our custom data access exception which is thrown in persistance layer.
- * 
+ *
  * @author michal.lukac, 430614
  */
 public class DAException extends DataAccessException {
@@ -17,5 +17,5 @@ public class DAException extends DataAccessException {
     public DAException(String msg) {
         super(msg);
     }
-    
+
 }

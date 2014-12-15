@@ -14,16 +14,17 @@ import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;
-import java.util.ArrayList;
-import java.util.List;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.assertEquals;
+
 /**
- *
  * @author Boris Valentovic - xvalent2
  */
 public class PrintedBookServiceTest {
@@ -81,7 +82,7 @@ public class PrintedBookServiceTest {
         PrintedBookDTO result = pbookService.findPrintedBookById(id);
         assertEquals(pbookdto1, result);
     }
-    
+
     @Test
     public void insertTest() {
         doThrow(new RuntimeException()).when(mockpBookDao).insert(pbook1);

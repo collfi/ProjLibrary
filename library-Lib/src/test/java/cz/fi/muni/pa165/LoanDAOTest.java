@@ -13,16 +13,19 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 /**
- * 
  * @author Martin Malik<374128@mail.muni.cz>
  */
 @ContextConfiguration(classes = DaoContext.class)
@@ -34,13 +37,13 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
     @PersistenceContext
     public EntityManager em;
 
-    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+    SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 
 
     @DirtiesContext
     @BeforeMethod
     public void setup() {
-        em  = emf.createEntityManager();
+        em = emf.createEntityManager();
         em.getTransaction().begin();
         Book book = new Book();
         book.setName("Harry Potter");
@@ -80,10 +83,10 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         em.persist(pb2);
         em.getTransaction().commit();
         em.close();
-}
+    }
 
     @Test
-    public void testFindAllLoandsFromTo() throws ParseException{
+    public void testFindAllLoandsFromTo() throws ParseException {
         EntityManager em = emf.createEntityManager();
         LoanDAOImpl ldao = new LoanDAOImpl();
         ldao.setManager(em);
@@ -158,9 +161,9 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
 
         try {
             ldao.find(l);
-            fail( "Method didn't throw when it had to" );
+            fail("Method didn't throw when it had to");
+        } catch (Exception e) {
         }
-        catch (Exception e){}
 
     }
 }

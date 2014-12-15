@@ -8,17 +8,13 @@ package cz.fi.muni.pa165.library.rest;
 import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.service.api.MemberService;
-import java.util.ArrayList;
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rest-Api for member.
@@ -30,6 +26,7 @@ public class MemberRestController {
 
     @Autowired
     public MemberService memberService;
+
     //delete?
     @RequestMapping(value = "/api/member/get/{number}", method = RequestMethod.GET, produces = "application/json")
     public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number) {
@@ -43,8 +40,8 @@ public class MemberRestController {
 
     @RequestMapping(value = "/api/member/find", method = RequestMethod.GET, produces = "application/json")
     public List<MemberDTO> apiFindMembers(@RequestParam(value = "name", defaultValue = "") String name,
-            @RequestParam(value = "address", defaultValue = "") String address,
-            @RequestParam(value = "email", defaultValue = "") String email) {
+                                          @RequestParam(value = "address", defaultValue = "") String address,
+                                          @RequestParam(value = "email", defaultValue = "") String email) {
         List<MemberDTO> memberList = new ArrayList<MemberDTO>();
         try {
             if (name.length() > 0) {

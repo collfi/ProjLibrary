@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *Service layer class of Loan implementation
+ * Service layer class of Loan implementation
+ *
  * @author Sergii Pylypenko, 430519
  */
 @Service
@@ -34,7 +35,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Autowired
     private MemberDAO memberDao;
-    
+
     public void setLoanDao(LoanDAO loanDao) {
         this.loanDao = loanDao;
     }
@@ -64,7 +65,7 @@ public class LoanServiceImpl implements LoanService {
         Loan loan = DTOEntityManager.loanDTOtoEntity(loanto);
         loanDao.delete(loan);
     }
-    
+
     @Override
     public LoanDTO findLoan(LoanDTO loanto) {
         Loan loan = DTOEntityManager.loanDTOtoEntity(loanto);
@@ -79,12 +80,12 @@ public class LoanServiceImpl implements LoanService {
 
     private List<LoanDTO> entitiesToDTOs(List<Loan> loans) {
         List<LoanDTO> ldtos = new ArrayList<>();
-        for (Loan l: loans) {
+        for (Loan l : loans) {
             ldtos.add(DTOEntityManager.loanEntitytoDTO(l));
         }
         return ldtos;
     }
-    
+
     @Override
     public List<LoanDTO> findAllLoansByMember(MemberDTO memdto, boolean isReturned) {
         Member m = memberDao.find(DTOEntityManager.memberDTOtoEntity(memdto));
@@ -101,7 +102,7 @@ public class LoanServiceImpl implements LoanService {
         Book b = bookDao.find(DTOEntityManager.bookDTOtoEntity(book));
         return entitiesToDTOs(loanDao.findAllLoansWithBook(b));
     }
-    
+
     @Override
     public List<LoanDTO> findAllLoans() {
         return entitiesToDTOs(loanDao.findAllLoans());
