@@ -54,16 +54,16 @@
                     <td><spring:message code="label.genre"/>:</td>
                     <td>
                         <form:select path="department">
-                            <form:option value="Science">Science</form:option>
-                            <form:option value="Sport">Sport</form:option>
-                            <form:option value="Autobiografy">Autobiografy</form:option>
-                            <form:option value="Religion">Religion</form:option>
+                            <form:option value="Science"><spring:message code="label.science"/></form:option>
+                            <form:option value="Sport"><spring:message code="label.sport"/></form:option>
+                            <form:option value="Autobiografy"><spring:message code="label.autobiografy"/></form:option>
+                            <form:option value="Religion"><spring:message code="label.religion"/></form:option>
                         </form:select>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="<spring:message code='label.submit'/>"/>
         </form:form>
     </section>
     <%@ include file="footer.jsp" %>

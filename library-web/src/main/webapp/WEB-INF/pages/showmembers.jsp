@@ -31,7 +31,7 @@
                     <td>${listValue.name}</td>
                     <td>${listValue.email}</td>
                     <td>${listValue.address}</td>
-                    <td><a href="${contextPath}/member/id/${listValue.idMember}">Show</a>/<a
+                    <td><a href="${contextPath}/member/id/${listValue.idMember}"><spring:message code="label.show"/></a>/<a
                             href="${contextPath}/member/edit/${listValue.idMember}"><spring:message
                             code="label.edit"/></a>/<a
                             href="${contextPath}/member/delete/${listValue.idMember}"><spring:message

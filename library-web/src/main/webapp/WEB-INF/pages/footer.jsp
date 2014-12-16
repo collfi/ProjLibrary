@@ -11,7 +11,7 @@
 </head>
 <body>
 <footer>
-    <p>This project is created by Martin Malik, Michal Lukac, Boris Valentovic and Sergii Pylypenko</p>
+    <p><spring:message code="label.createdby"/></p>
 
     <p>
         <small>Hosted on GitHub Pages &mdash;<a href="https://github.com/Cospel/ProjLibrary">ProjLibrary</a></small>

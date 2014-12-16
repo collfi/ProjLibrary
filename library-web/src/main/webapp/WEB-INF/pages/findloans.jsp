@@ -30,7 +30,7 @@
                     <form:option value="Id">Id</form:option>
                     <form:option value="Book"><spring:message code='label.book'/></form:option>
                 </form:select>
-                <input type="submit" value="Submit"/>
+                <input type="submit" value="<spring:message code='label.submit'/>"/>
             </form:form>
         </div>
 

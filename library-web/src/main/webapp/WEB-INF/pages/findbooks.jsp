@@ -30,7 +30,7 @@
                     <form:option value="ISBN">ISBN</form:option>
                     <form:option value="Department"><spring:message code='label.genre'/></form:option>
                 </form:select>
-                <input type="submit" value="Submit"/>
+                <input type="submit" value="<spring:message code='label.submit'/>"/>
             </form:form>
         </div>
         <br>
@@ -50,7 +50,7 @@
                     <td>${listValue.ISBN}</td>
                     <td>${listValue.authors}</td>
                     <td>${listValue.department}</td>
-                    <td><a href="${contextPath}/book/id/${listValue.idBook}">Show</a>/<a
+                    <td><a href="${contextPath}/book/id/${listValue.idBook}"><spring:message code="label.show"/></a>/<a
                             href="${contextPath}/book/edit/${listValue.idBook}"><spring:message code="label.edit"/></a>/<a
                             href="${contextPath}/book/delete/${listValue.idBook}"><spring:message
                             code="label.delete"/></a></td>

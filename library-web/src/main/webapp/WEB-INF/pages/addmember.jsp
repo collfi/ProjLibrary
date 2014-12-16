@@ -48,7 +48,7 @@
                 </TR>
             </table>
 
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="<spring:message code='label.submit'/>"/>
         </form>
 
     </section>

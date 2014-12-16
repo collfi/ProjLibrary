@@ -54,7 +54,7 @@
                     <TD><INPUT TYPE="TEXT" NAME="address" value="${member.address}" SIZE="25" value="address"></TD>
                 </TR>
             </table>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="<spring:message code='label.submit'/>"/>
         </form>
     </section>
     <%@ include file="footer.jsp" %>

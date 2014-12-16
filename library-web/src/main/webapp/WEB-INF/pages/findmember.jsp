@@ -26,7 +26,7 @@
                     <form:option value="Name"><spring:message code='label.name'/></form:option>
                     <form:option value="email">email</form:option>
                 </form:select>
-                <input type="submit" value="Submit"/>
+                <input type="submit" value="<spring:message code='label.submit'/>"/>
             </form:form>
         </div>
         <br>
