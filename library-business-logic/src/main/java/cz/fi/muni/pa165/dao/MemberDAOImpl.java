@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.dao;
 
-import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Member;
 import org.springframework.stereotype.Component;

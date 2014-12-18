@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.library.client;
 
-import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.library.api.constants.Department;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
@@ -14,7 +13,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * Rest interactive console client.
  *
@@ -27,7 +25,6 @@ public class Application {
     //match ISBN-10 and 13
     public static final String ISBN_PATTERN = "((978[\\--– ])?[0-9][0-9\\--– ]{10}[\\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])";
     public static final String DEPARTMENT_PATTERN ="(Science|Sport|Religion|Autobiografy)";
-    
     
     //error codes
     public static final int EOK = 0;
@@ -169,7 +166,7 @@ public class Application {
     private static int updateMember(int error) {
         System.out.println("REST: UPDATE MEMBER");
         printError(error);
-        System.out.println("1. Write new \"name, email, address\" or 0 if you want to go "
+        System.out.println("1. Write new \"name; email; address\" or 0 if you want to go "
                 + "back to menu!:");
 
         Scanner s = new Scanner(System.in);
@@ -181,16 +178,25 @@ public class Application {
             default:
                 try {
                     RestTemplate restTemplate = new RestTemplate();
-                    String[] data = str.trim().split(" ");
-                    if (data.length != 3) {
+                    String[] data = str.split(";");
+                    
+                    if (data.length != 3) throw new Exception();
+                    
+                    String name = data[0].trim();
+                    String email = data[1].trim();
+                    String address = data[2].trim();
+                    
+                    //only email have strict format
+                    if (!checkInput(email, EMAIL_PATTERN)) {
+                        System.out.println("bad format of mail");
                         throw new Exception();
                     }
-
+                    
                     MemberDTO member = new MemberDTO();
                     member.setIdMember(idMember);
-                    member.setName(data[0]);
-                    member.setEmail(data[1]);
-                    member.setAddress(data[2]);
+                    member.setName(name);
+                    member.setEmail(email);
+                    member.setAddress(address);
 
                     System.out.println("saving:" + member.toString());
                     String response = restTemplate.postForObject(PA165URL + RestURIConstants.UPD_MEMBER, member, String.class);
@@ -212,6 +218,7 @@ public class Application {
                 }
 
         }
+        
         idMember = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -288,7 +295,6 @@ public class Application {
 
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
-
 
         switch (str) {
             case "1":
@@ -369,7 +375,6 @@ public class Application {
 
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
-
 
         switch (str) {
             case "1":
@@ -585,6 +590,7 @@ public class Application {
             default:
                 return deleteBook(BADADDR);
         }
+        
         idBook = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -822,8 +828,8 @@ public class Application {
     private static int updateBook(int error) {
         System.out.println("REST: UPDATE BOOK");
         printError(error);
-        System.out.println("1. Write new \"name isbn authors department (Science, Sport, Religion, "
-                + "Autobiografy) description\" or 0 if you want to go back to menu!:");
+        System.out.println("1. Write new \"name; isbn; authors; department(Science, Sport, Religion, "
+                + "Autobiografy); description\" or 0 if you want to go back to menu!:");
 
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
@@ -834,21 +840,36 @@ public class Application {
             default:
                 try {
                     RestTemplate restTemplate = new RestTemplate();
-                    String[] data = str.trim().split(" ");
+                    String[] data = str.split(";");
                     if (data.length != 5) {
                         throw new Exception();
                     }
-                    if (!validDepartment(data[3])) {
-                        return addBook(ERRPARS);
+                    
+                    String name = data[0].trim();
+                    String ISBN = data[1].trim();
+                    String authors = data[2].trim();
+                    String department = data[3].trim();
+                    String description = data[4].trim();
+                    
+                    //only ISBN and department have strict format  
+                    if(!checkInput(ISBN, ISBN_PATTERN)){
+                        System.out.println("bad format of ISBN");
+                        throw new Exception();
+                    }
+                    
+                    if(!checkInput(department, DEPARTMENT_PATTERN)){
+                        System.out.println("not allowed value of department");
+                        throw new Exception();
                     }
 
                     BookDTO book = new BookDTO();
                     book.setIdBook(idBook);
-                    book.setName(data[0]);
-                    book.setISBN(data[1]);
-                    book.setAuthors(data[2]);
-                    book.setDepartment(Department.valueOf(data[3]));
-                    book.setDescription(data[4]);
+
+                    book.setName(name);
+                    book.setISBN(ISBN);
+                    book.setAuthors(authors);
+                    book.setDepartment(Department.valueOf(department));
+                    book.setDescription(description);
 
                     System.out.println("saving:" + book.toString());
                     String response = restTemplate.postForObject(PA165URL + RestURIConstants.UPD_BOOK, book, String.class);
@@ -870,6 +891,7 @@ public class Application {
                 }
 
         }
+        
         idBook = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -903,7 +925,6 @@ public class Application {
                     String description = data[4].trim();
                     
                     //only ISBN and department have strict format  
-                    
                     if(!checkInput(ISBN, ISBN_PATTERN)){
                         System.out.println("bad format of ISBN");
                         throw new Exception();
@@ -914,12 +935,6 @@ public class Application {
                         throw new Exception();
                     }
                     
-                    //validation in method checkInput above
-                    /*if (!validDepartment(data[3])) {
-                        return addBook(ERRPARS);
-                    }*/
-
-                    System.out.println("SDADASDSADS"); 
                     BookDTO book = new BookDTO();
                     book.setName(name);
                     book.setISBN(ISBN);
@@ -949,15 +964,6 @@ public class Application {
         System.out.println("Press enter to continue!");
         s.nextLine();
         return bookMenu();
-    }
-
-    private static boolean validDepartment(String d) {
-        try {
-            Department dep = Department.valueOf(d);
-        } catch (IllegalArgumentException iae) {
-            return false;
-        }
-        return true;
     }
     
     private static boolean checkInput(String userInput, String allowedInput){

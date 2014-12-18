@@ -18,8 +18,6 @@ import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import service.DTOEntityManager;
-import service.PrintedBookServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165;
+package cz.fi.muni.pa165.dao;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;

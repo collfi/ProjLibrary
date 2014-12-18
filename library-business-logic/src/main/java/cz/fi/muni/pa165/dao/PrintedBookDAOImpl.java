@@ -5,7 +5,6 @@
  */
 package cz.fi.muni.pa165.dao;
 
-import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.PrintedBook;

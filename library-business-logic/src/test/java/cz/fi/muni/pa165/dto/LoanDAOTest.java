@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.DaoContext;
+import cz.fi.muni.pa165.dao.DaoContext;
 import cz.fi.muni.pa165.dao.BookDAOImpl;
 import cz.fi.muni.pa165.dao.LoanDAOImpl;
 import cz.fi.muni.pa165.dao.MemberDAOImpl;

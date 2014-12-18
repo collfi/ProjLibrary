@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.dao;
 
-import cz.fi.muni.pa165.DAException;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.library.api.constants.Department;

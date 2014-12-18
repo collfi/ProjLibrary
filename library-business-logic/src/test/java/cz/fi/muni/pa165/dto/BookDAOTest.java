@@ -5,7 +5,7 @@
  */
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.DaoContext;
+import cz.fi.muni.pa165.dao.DaoContext;
 import cz.fi.muni.pa165.dao.BookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.library.api.constants.Department;

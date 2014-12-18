@@ -1,4 +1,4 @@
-package service;
+package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.dao.BookDAO;
 import cz.fi.muni.pa165.dao.MemberDAO;

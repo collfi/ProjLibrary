@@ -7,8 +7,6 @@ import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import service.BookServiceImpl;
-import service.DTOEntityManager;
 
 import java.util.ArrayList;
 import java.util.List;

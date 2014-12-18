@@ -18,8 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import service.DTOEntityManager;
-import service.MemberServiceImpl;
 
 import java.util.*;
 
