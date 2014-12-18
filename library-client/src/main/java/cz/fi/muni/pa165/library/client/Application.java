@@ -73,6 +73,7 @@ public class Application {
                 }
             }
         } catch (Exception e) {
+//            e.printStackTrace();
             printError(UERROR);
         }
     }
@@ -186,7 +187,7 @@ public class Application {
                     String email = data[1].trim();
                     String address = data[2].trim();
                     
-                    //only email have strict format
+//                    only email have strict format
                     if (!checkInput(email, EMAIL_PATTERN)) {
                         System.out.println("bad format of mail");
                         throw new Exception();
@@ -212,6 +213,7 @@ public class Application {
                 } catch (NullPointerException e) {
                     return updateMember(NOTEER);
                 } catch (ResourceAccessException ce) {
+                    System.out.print(ce);
                     return updateMember(SERERR);
                 } catch (Exception e) {
                     return updateMember(ERRPARS);
