@@ -5,9 +5,8 @@
  */
 package cz.fi.muni.pa165.library.rest;
 
-import cz.fi.muni.pa165.DAException;
-import cz.fi.muni.pa165.datatransferobject.MemberDTO;
-import cz.fi.muni.pa165.service.api.MemberService;
+import cz.fi.muni.pa165.library.api.dto.MemberDTO;
+import cz.fi.muni.pa165.library.api.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +29,8 @@ public class MemberRestController {
     //delete?
     @RequestMapping(value = "/api/member/get/{number}", method = RequestMethod.GET, produces = "application/json")
     public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number) {
-        try {
-            MemberDTO member = memberService.findMemberByIdMember(number);
-            return member;
-        } catch (DAException e) {
-            return null;
-        }
+        MemberDTO member = memberService.findMemberByIdMember(number);
+        return member;
     }
 
     @RequestMapping(value = "/api/member/find", method = RequestMethod.GET, produces = "application/json")
@@ -43,49 +38,33 @@ public class MemberRestController {
                                           @RequestParam(value = "address", defaultValue = "") String address,
                                           @RequestParam(value = "email", defaultValue = "") String email) {
         List<MemberDTO> memberList = new ArrayList<MemberDTO>();
-        try {
-            if (name.length() > 0) {
-                memberList = memberService.findMembersByName(name);
-            } else if (address.length() > 0) {
-                memberList = memberService.findMembersByAddress(address);
-            } else if (email.length() > 0) {
-                MemberDTO m = memberService.findMemberByEmail(email);
-                memberList.add(m);
-            }
-            return memberList;
-        } catch (DAException e) {
-            return null;
+        if (name.length() > 0) {
+            memberList = memberService.findMembersByName(name);
+        } else if (address.length() > 0) {
+            memberList = memberService.findMembersByAddress(address);
+        } else if (email.length() > 0) {
+            MemberDTO m = memberService.findMemberByEmail(email);
+            memberList.add(m);
         }
+        return memberList;
     }
 
     @RequestMapping(value = "/api/member/delete/{number}", method = RequestMethod.GET, produces = "application/json")
     public MemberDTO apiDeleteMember(ModelMap model, @PathVariable("number") int number) {
-        try {
-            MemberDTO member = memberService.findMemberByIdMember(number);
-            memberService.deleteMember(member);
-            return member;
-        } catch (DAException e) {
-            return null;
-        }
+        MemberDTO member = memberService.findMemberByIdMember(number);
+        memberService.deleteMember(member);
+        return member;
     }
 
     @RequestMapping(value = "/api/member/add/", method = RequestMethod.POST)
     public String apiSaveMember(@RequestBody @Valid MemberDTO member) {
-        try {
-            memberService.insertMember(member);
-            return "Saved person: " + member.toString();
-        } catch (DAException e) {
-            return null;
-        }
+        memberService.insertMember(member);
+        return "Saved person: " + member.toString();
     }
 
     @RequestMapping(value = "/api/member/update/", method = RequestMethod.POST)
     public String apiUpdateMember(@RequestBody @Valid MemberDTO member) {
-        try {
-            memberService.updateMember(member);
-            return "Saved person: " + member.toString();
-        } catch (DAException e) {
-            return null;
-        }
+        memberService.updateMember(member);
+        return "Saved person: " + member.toString();
     }
 }

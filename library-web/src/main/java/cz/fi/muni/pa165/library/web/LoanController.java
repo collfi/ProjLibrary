@@ -5,14 +5,14 @@
  */
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.datatransferobject.BookDTO;
-import cz.fi.muni.pa165.datatransferobject.LoanDTO;
-import cz.fi.muni.pa165.datatransferobject.MemberDTO;
-import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
-import cz.fi.muni.pa165.service.api.BookService;
-import cz.fi.muni.pa165.service.api.LoanService;
-import cz.fi.muni.pa165.service.api.MemberService;
-import cz.fi.muni.pa165.service.api.PrintedBookService;
+import cz.fi.muni.pa165.library.api.dto.BookDTO;
+import cz.fi.muni.pa165.library.api.dto.LoanDTO;
+import cz.fi.muni.pa165.library.api.dto.MemberDTO;
+import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
+import cz.fi.muni.pa165.library.api.service.BookService;
+import cz.fi.muni.pa165.library.api.service.LoanService;
+import cz.fi.muni.pa165.library.api.service.MemberService;
+import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.library.client;
 
-import cz.fi.muni.pa165.datatransferobject.BookDTO;
-import cz.fi.muni.pa165.datatransferobject.MemberDTO;
 import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.library.api.constants.Department;
+import cz.fi.muni.pa165.library.api.dto.BookDTO;
+import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -19,10 +20,6 @@ import java.util.regex.Pattern;
  *
  * @author michal.lukac
  */
-//http://www.journaldev.com/2552/spring-restful-web-service-example-with-json-jackson-and-client-program
-//http://spring.io/guides/gs/rest-service/
-//http://www.restapitutorial.com/lessons/httpmethods.html
-//http://codetutr.com/2013/04/09/spring-mvc-easy-rest-based-json-services-with-responsebody/
 public class Application {
 
     //patterns from http://regexlib.com/
@@ -850,7 +847,7 @@ public class Application {
                     book.setName(data[0]);
                     book.setISBN(data[1]);
                     book.setAuthors(data[2]);
-                    book.setDepartment(Book.Department.valueOf(data[3]));
+                    book.setDepartment(Department.valueOf(data[3]));
                     book.setDescription(data[4]);
 
                     System.out.println("saving:" + book.toString());
@@ -927,7 +924,7 @@ public class Application {
                     book.setName(name);
                     book.setISBN(ISBN);
                     book.setAuthors(authors);
-                    book.setDepartment(Book.Department.valueOf(department));
+                    book.setDepartment(Department.valueOf(department));
                     book.setDescription(description);
 
                     System.out.println("saving:" + book.toString());
@@ -956,7 +953,7 @@ public class Application {
 
     private static boolean validDepartment(String d) {
         try {
-            Book.Department dep = Book.Department.valueOf(d);
+            Department dep = Department.valueOf(d);
         } catch (IllegalArgumentException iae) {
             return false;
         }

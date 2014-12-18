@@ -1,14 +1,11 @@
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.DAException;
-import cz.fi.muni.pa165.datatransferobject.BookDTO;
-import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
-import cz.fi.muni.pa165.entity.Book;
-import cz.fi.muni.pa165.entity.Book.Department;
-import cz.fi.muni.pa165.service.api.BookService;
-import cz.fi.muni.pa165.service.api.PrintedBookService;
+import cz.fi.muni.pa165.library.api.constants.Department;
+import cz.fi.muni.pa165.library.api.dto.BookDTO;
+import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
+import cz.fi.muni.pa165.library.api.service.BookService;
+import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -39,7 +37,7 @@ public class BookController {
     @RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
     public ModelAndView addformular() {
         BookDTO book = new BookDTO();
-        book.setDepartment(Book.Department.Sport);
+        book.setDepartment(Department.Sport);
         return new ModelAndView("addbook", "book", book);
     }
 
@@ -58,16 +56,9 @@ public class BookController {
 
         model.addAttribute("name", book.getName());
         book.setBooks(new HashSet<PrintedBookDTO>());
-        try {
-            bookService.insertBook(book);
-        } catch (DAException dae) {
-            redirectAttributes.addFlashAttribute("name", book.getName());
-            redirectAttributes.addFlashAttribute("isbn", book.getISBN());
-            redirectAttributes.addFlashAttribute("authors", book.getAuthors());
-            redirectAttributes.addFlashAttribute("description", book.getDescription());
-            redirectAttributes.addFlashAttribute("error", "duplicate");
-            return "redirect:/book/addformular";
-        }
+        
+        bookService.insertBook(book);
+
         List<BookDTO> list = bookService.findAllBooks();
         model.addAttribute("list", list);
 
@@ -124,7 +115,7 @@ public class BookController {
         }
         try {
             bookService.updateBook(book);
-        } catch (JpaSystemException jse) {
+        } catch (org.springframework.orm.jpa.JpaSystemException jse) {
             redirectAttributes.addFlashAttribute("name", book.getName());
             redirectAttributes.addFlashAttribute("isbn", book.getISBN());
             redirectAttributes.addFlashAttribute("authors", book.getAuthors());

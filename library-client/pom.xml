@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>library-service</artifactId>
+            <artifactId>library-business-logic</artifactId>
             <version>1.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>

@@ -5,11 +5,11 @@
  */
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.datatransferobject.BookDTO;
-import cz.fi.muni.pa165.datatransferobject.PrintedBookDTO;
-import cz.fi.muni.pa165.entity.PrintedBook;
-import cz.fi.muni.pa165.service.api.BookService;
-import cz.fi.muni.pa165.service.api.PrintedBookService;
+import cz.fi.muni.pa165.library.api.constants.Condition;
+import cz.fi.muni.pa165.library.api.dto.BookDTO;
+import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
+import cz.fi.muni.pa165.library.api.service.BookService;
+import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,7 +40,7 @@ public class PrintedBookController {
     @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.GET)
     public String addformular(ModelMap model, @PathVariable("number") int number) {
         PrintedBookDTO pb = new PrintedBookDTO();
-        pb.setCondition(PrintedBook.Condition.New);
+        pb.setCondition(Condition.New);
         pb.setState(Boolean.FALSE);
 
         BookDTO b = bookService.findBookById(number);
@@ -63,7 +63,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/pbook/editpost", method = RequestMethod.POST)
-    public String editpost(@RequestParam("condition") PrintedBook.Condition con, ModelMap model,
+    public String editpost(@RequestParam("condition") Condition con, ModelMap model,
                            @RequestParam("idPrintedBook") long idpbook) {
         PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
         pb.setCondition(con);

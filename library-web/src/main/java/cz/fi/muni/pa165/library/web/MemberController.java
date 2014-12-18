@@ -1,9 +1,8 @@
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.DAException;
-import cz.fi.muni.pa165.datatransferobject.MemberDTO;
-import cz.fi.muni.pa165.service.api.LoanService;
-import cz.fi.muni.pa165.service.api.MemberService;
+import cz.fi.muni.pa165.library.api.dto.MemberDTO;
+import cz.fi.muni.pa165.library.api.service.LoanService;
+import cz.fi.muni.pa165.library.api.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,15 +54,8 @@ public class MemberController {
             }
             return "redirect:/member/addformular";
         }
-        try {
-            memberService.insertMember(member);
-        } catch (DAException dae) {
-            redirectAttributes.addFlashAttribute("name", member.getName());
-            redirectAttributes.addFlashAttribute("email", member.getEmail());
-            redirectAttributes.addFlashAttribute("address", member.getAddress());
-            redirectAttributes.addFlashAttribute("error", "duplicate");
-            return "redirect:/member/addformular";
-        }
+        memberService.insertMember(member);
+
         model.addAttribute(member);
 
         return "redirect:/member/showmembers";
@@ -103,16 +95,7 @@ public class MemberController {
 
         }
 
-        try {
-            memberService.updateMember(member);
-        } catch (DAException dae) {
-            redirectAttributes.addFlashAttribute("name", member.getName());
-            redirectAttributes.addFlashAttribute("email", member.getEmail());
-            redirectAttributes.addFlashAttribute("address", member.getAddress());
-            redirectAttributes.addFlashAttribute("error", "duplicate");
-            return "redirect:/member/edit/" + String.valueOf(member.getIdMember());
-        }
-
+        memberService.updateMember(member);
         model.addAttribute("member", member);
 
         return "redirect:/member/id/" + String.valueOf(member.getIdMember());
@@ -153,15 +136,9 @@ public class MemberController {
         mav.addObject("search", search);
 
         if (search.getSearch().equals("email")) {
-            try {
-                List<MemberDTO> l = new ArrayList<>();
-                l.add(memberService.findMemberByEmail(search.getInput()));
-                mav.addObject("list", l);
-            } catch (DAException dae) {
-                mav.addObject("search", new SearchModel());
-                mav.addObject("list", new ArrayList<MemberDTO>());
-                return mav;
-            }
+            List<MemberDTO> l = new ArrayList<>();
+            l.add(memberService.findMemberByEmail(search.getInput()));
+            mav.addObject("list", l);
         } else if (search.getSearch().equals("Name")) {
             mav.addObject("list", memberService.findMembersByName(search.getInput()));
         }
