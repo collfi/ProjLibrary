@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.library;
 
 /**
- * Created by sergii on 19.12.14.
+ * Exception handler in case of some unexpected exception
+ *
+ * @author xpylypen
  */
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
