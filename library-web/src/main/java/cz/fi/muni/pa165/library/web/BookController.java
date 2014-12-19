@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import cz.fi.muni.pa165.dao.DuplicationException;
+import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 
 /**
  * @author michal.lukac, xlukac, 430614

@@ -3,15 +3,14 @@ package cz.fi.muni.pa165.dao;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.entity.PrintedBook;
 import cz.fi.muni.pa165.library.api.constants.Department;
+import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
-import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 
 /**
  * DAO Implementation of BookDAO interface.

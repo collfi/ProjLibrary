@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.fi.muni.pa165.dao;
+package cz.fi.muni.pa165.library.api.exceptions;
 
-import org.springframework.dao.DataAccessException;
 
 /**
  *
  * @author Boris Valentovic - xvalent2
  */
-public class DuplicationException extends DataAccessException {
+public class DuplicationException extends RuntimeException {
 
     public DuplicationException(String msg) {
         super(msg);

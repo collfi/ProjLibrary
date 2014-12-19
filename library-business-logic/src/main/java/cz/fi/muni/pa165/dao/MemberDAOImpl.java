@@ -1,8 +1,8 @@
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.entity.Book;
-import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
+import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;

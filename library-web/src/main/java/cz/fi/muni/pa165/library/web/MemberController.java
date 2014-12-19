@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.dao.DuplicationException;
+import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import cz.fi.muni.pa165.library.api.service.LoanService;
 import cz.fi.muni.pa165.library.api.service.MemberService;
