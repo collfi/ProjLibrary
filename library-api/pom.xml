@@ -9,4 +9,13 @@
     </parent>
     <artifactId>library-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.2.Final</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
 </project>

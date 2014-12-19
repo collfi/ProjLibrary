@@ -11,8 +11,6 @@ public class BasicController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
-
         return "index";
-
     }
 }

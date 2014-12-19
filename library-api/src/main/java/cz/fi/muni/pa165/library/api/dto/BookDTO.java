@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 package cz.fi.muni.pa165.library.api.dto;
-//import org.hibernate.validator.constraints.NotEmpty;
+
 
 import cz.fi.muni.pa165.library.api.constants.Department;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Data Transfer Object of Book
@@ -20,13 +20,13 @@ import java.util.Set;
 public class BookDTO implements Serializable {
 
     private long idBook;
-    //    @NotEmpty
+    @NotEmpty
     private String name;
-    //    @NotEmpty
+    @NotEmpty
     private String authors;
-    //    @NotEmpty
+    @NotEmpty
     private String description;
-    //    @NotEmpty
+    @NotEmpty
     private String ISBN;
 
     private Set<PrintedBookDTO> Books = new HashSet<PrintedBookDTO>();

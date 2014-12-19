@@ -5,8 +5,8 @@
  */
 package cz.fi.muni.pa165.library.api.dto;
 
-//import org.hibernate.validator.constraints.Email;
-//import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,14 +23,14 @@ public class MemberDTO implements Serializable {
 
     private long idMember;
 
-    //    @NotEmpty
+    @NotEmpty
     private String name;
 
-    //    @NotEmpty
-//    @Email
+    @NotEmpty
+    @Email
     private String email;
 
-    //    @NotEmpty
+    @NotEmpty
     private String address;
 
     private Set<LoanDTO> loans = new HashSet<LoanDTO>();
