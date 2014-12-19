@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 /**
  * DAO Implementation of BookDAO interface.
@@ -43,6 +46,8 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             entityManager.persist(t);
+        } catch (PersistenceException pe) {
+            throw new DuplicationException(pe.getMessage());
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
@@ -60,6 +65,8 @@ public class BookDAOImpl implements BookDAO {
         }
         try {
             entityManager.merge(t);
+        } catch (PersistenceException pe) {
+            throw new DuplicationException(pe.getMessage());
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }

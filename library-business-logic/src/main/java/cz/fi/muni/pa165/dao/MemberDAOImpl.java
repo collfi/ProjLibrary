@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import javax.persistence.PersistenceException;
 
 /**
  * Class for MemberDAOImpl
@@ -103,6 +104,8 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member> {
 
         try {
             entityManager.persist(t);
+        } catch (PersistenceException pe) {
+            throw new DuplicationException(pe.getMessage());
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
@@ -121,6 +124,8 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member> {
             query.setParameter("email", t.getEmail());
             query.setParameter("address", t.getAddress());
             query.executeUpdate();
+        } catch (PersistenceException pe) {
+            throw new DuplicationException(pe.getMessage());
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }

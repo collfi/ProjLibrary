@@ -101,10 +101,7 @@ public class Application {
 
     private static int bookMenu() {
         System.out.println("REST: BOOK MENU");
-        //System.out.println("1. Get book");
-        //System.out.println("2. Delete book");
         System.out.println("1. Find book");
-        // System.out.println("4. Update book");
         System.out.println("2. Add book");
         System.out.println("3. Menu");
 
@@ -127,10 +124,7 @@ public class Application {
 
     private static int memberMenu() {
         System.out.println("REST: MEMBER MENU");
-        //System.out.println("1. Get member");
-        //System.out.println("2. Delete member");
         System.out.println("1. Find member");
-        //System.out.println("4. Update member");
         System.out.println("2. Add member");
         System.out.println("3. Menu");
 
@@ -376,7 +370,6 @@ public class Application {
         }
     }
 
-    //vypise chybu ked nenajde (preco ostatne nie?)
     private static int findMembersByAddress(int error) {
         System.out.println("REST: FIND MEMBER by address");
         printError(error);

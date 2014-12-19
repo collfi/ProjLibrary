@@ -29,43 +29,16 @@
             <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
             <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a>
         </p>
-
         <p>
-            <form:form modelAttribute="book">
-        <table>
-            <tbody>
-            <tr>
+            <p><spring:message code="label.name"/> : ${book.name}</p>
+            <p><spring:message code="label.name"/> : ${book.ISBN}</p>
+            <p><spring:message code="label.authors"/> : ${book.authors}</p>
+            <p><spring:message code="label.genre"/> : ${book.department}</p>
+            <p><spring:message code="label.description"/> : ${book.description}</p>
+            
+        </p>
+        <p>
 
-                <td><spring:message code="label.name"/></td>
-                <td><form:input readonly="true" path="name" value="${name}"/></td>
-            </tr>
-            <tr>
-                <td>ISBN:</td>
-                <td><form:input readonly="true" path="ISBN" value="${isbn}"/></td>
-            </tr>
-            <tr>
-                <td><spring:message code="label.authors"/>:</td>
-                <td><form:input readonly="true" path="authors" value="${authors}"/></td>
-            </tr>
-            <tr>
-                <td><spring:message code="label.description"/>:</td>
-                <td><form:input readonly="true" path="description" value="${description}"/></td>
-            </tr>
-            <tr>
-                <td><spring:message code="label.genre"/>:</td>
-                <td>
-                    <form:select readonly="true" path="department">
-                        <form:option value="Science"><spring:message code="label.science"/></form:option>
-                        <form:option value="Sport"><spring:message code="label.sport"/></form:option>
-                        <form:option value="Autobiografy"><spring:message code="label.autobiografy"/></form:option>
-                        <form:option value="Religion"><spring:message code="label.religion"/></form:option>
-                    </form:select>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-        </form:form>
         <br>
 
         <h3><spring:message code="label.printedbooks"/>:</h3>

@@ -67,10 +67,9 @@
                     
                 <ul>
                     <li><a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
-                          
-                    <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
                     <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
-                        
+                    <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
+                      
                 </ul>
                   
             </li>

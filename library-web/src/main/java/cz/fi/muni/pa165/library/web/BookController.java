@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import cz.fi.muni.pa165.dao.DuplicationException;
 
 /**
  * @author michal.lukac, xlukac, 430614
@@ -56,8 +57,16 @@ public class BookController {
 
         model.addAttribute("name", book.getName());
         book.setBooks(new HashSet<PrintedBookDTO>());
-
-        bookService.insertBook(book);
+        try {
+            bookService.insertBook(book);
+        } catch (DuplicationException e) {
+            redirectAttributes.addFlashAttribute("name", book.getName());
+            redirectAttributes.addFlashAttribute("isbn", book.getISBN());
+            redirectAttributes.addFlashAttribute("authors", book.getAuthors());
+            redirectAttributes.addFlashAttribute("description", book.getDescription());
+            redirectAttributes.addFlashAttribute("error", "duplicate");
+            return "redirect:/book/addformular";
+        }
 
         List<BookDTO> list = bookService.findAllBooks();
         model.addAttribute("list", list);
@@ -121,6 +130,13 @@ public class BookController {
             redirectAttributes.addFlashAttribute("description", book.getDescription());
             redirectAttributes.addFlashAttribute("error", "duplicate");
             return "redirect:/book/edit/" + String.valueOf(book.getIdBook());
+        } catch (DuplicationException e) {
+            redirectAttributes.addFlashAttribute("name", book.getName());
+            redirectAttributes.addFlashAttribute("isbn", book.getISBN());
+            redirectAttributes.addFlashAttribute("authors", book.getAuthors());
+            redirectAttributes.addFlashAttribute("description", book.getDescription());
+            redirectAttributes.addFlashAttribute("error", "duplicate");
+            return "redirect:/book/edit";
         }
         List<BookDTO> list = bookService.findAllBooks();
         model.addAttribute("list", list);

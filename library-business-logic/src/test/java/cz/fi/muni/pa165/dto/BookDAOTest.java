@@ -83,14 +83,9 @@ public class BookDAOTest extends AbstractTestNGSpringContextTests {
 
         em.getTransaction().begin();
 
-        //book.setPrintedBooks(null);
         bdao.insert(book);
         em.getTransaction().commit();
-
-        // em.getTransaction().begin();
-        //final Query query = em.createQuery("SELECT idBook FROM Book");
         List<Book> books = em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
-        //em.getTransaction().commit();
         em.close();
         assertEquals(books.size(), 2);
     }

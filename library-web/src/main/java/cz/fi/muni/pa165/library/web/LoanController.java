@@ -57,7 +57,7 @@ public class LoanController {
 
     @RequestMapping(value = "/loan/addloan/member", method = RequestMethod.POST)
     public String addloanstep1(@ModelAttribute SearchModel search, RedirectAttributes redirectAttributes,
-                               @RequestParam("dateto") String dateto) {
+            @RequestParam("dateto") String dateto) {
         if (search.getSearch() == null) {
             redirectAttributes.addFlashAttribute("error", "validationmissing");
             return "redirect:/loan/addloan";
@@ -198,6 +198,13 @@ public class LoanController {
         loanService.updateLoan(l);
 
         return "redirect:/loan/listloans";
+    }
+
+    @RequestMapping("/loan/id/{number}")
+    public String showloan(ModelMap model, @PathVariable("number") int number) {
+        LoanDTO loan = loanService.findLoanById(number);
+        model.addAttribute("loan", loan);
+        return "showloan";
     }
 
 }

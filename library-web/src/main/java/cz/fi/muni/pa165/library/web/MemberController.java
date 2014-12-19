@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.library.web;
 
+import cz.fi.muni.pa165.dao.DuplicationException;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import cz.fi.muni.pa165.library.api.service.LoanService;
 import cz.fi.muni.pa165.library.api.service.MemberService;
@@ -42,7 +43,7 @@ public class MemberController {
 
     @RequestMapping(value = "/member/addpost", method = RequestMethod.POST)
     public String addpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
-                          RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());
@@ -54,7 +55,15 @@ public class MemberController {
             }
             return "redirect:/member/addformular";
         }
-        memberService.insertMember(member);
+        try {
+            memberService.insertMember(member);
+        } catch (DuplicationException e) {
+            redirectAttributes.addFlashAttribute("name", member.getName());
+            redirectAttributes.addFlashAttribute("email", member.getEmail());
+            redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("error", "duplicate");
+            return "redirect:/member/addformular";
+        }
 
         model.addAttribute(member);
 
@@ -79,7 +88,7 @@ public class MemberController {
 
     @RequestMapping(value = "/member/editpost", method = RequestMethod.POST)
     public String editpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
-                           RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
 
@@ -95,7 +104,15 @@ public class MemberController {
 
         }
 
-        memberService.updateMember(member);
+        try { 
+            memberService.updateMember(member);
+        } catch (DuplicationException e) {
+            redirectAttributes.addFlashAttribute("name", member.getName());
+            redirectAttributes.addFlashAttribute("email", member.getEmail());
+            redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("error", "duplicate");
+            return "redirect:/member/addformular";
+        }
         model.addAttribute("member", member);
 
         return "redirect:/member/id/" + String.valueOf(member.getIdMember());
