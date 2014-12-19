@@ -26,7 +26,7 @@ public interface MemberService {
 
     public List<MemberDTO> findMembersByName(String name);
 
-    public MemberDTO findMemberByEmail(String email);
+    public List<MemberDTO> findMembersByEmail(String email);
 
     public List<MemberDTO> findMembersByAddress(String address);
 

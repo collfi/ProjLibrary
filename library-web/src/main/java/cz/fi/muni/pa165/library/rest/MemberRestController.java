@@ -36,8 +36,8 @@ public class MemberRestController {
         } else if (address.length() > 0) {
             memberList = memberService.findMembersByAddress(address);
         } else if (email.length() > 0) {
-            MemberDTO m = memberService.findMemberByEmail(email);
-            memberList.add(m);
+            List<MemberDTO> m = memberService.findMembersByEmail(email);
+            memberList.addAll(m);
         }
         return memberList;
     }

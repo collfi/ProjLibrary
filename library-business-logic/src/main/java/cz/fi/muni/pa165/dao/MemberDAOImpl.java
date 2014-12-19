@@ -1,12 +1,14 @@
 package cz.fi.muni.pa165.dao;
 
 import cz.fi.muni.pa165.entity.Book;
+import cz.fi.muni.pa165.entity.Loan;
 import cz.fi.muni.pa165.entity.Member;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -55,11 +57,12 @@ public class MemberDAOImpl implements MemberDAO, GenericDAO<Member> {
     }
 
     @Override
-    public Member findMemberByEmail(String email) {
+    public List<Member> findMembersByEmail(String email) {
         try {
-            final Query query = entityManager.createQuery("SELECT mem FROM Member AS mem WHERE mem.email = :email");
-            query.setParameter("email", email);
-            return (Member) query.getSingleResult();
+            final TypedQuery<Member> query = entityManager.createQuery("SELECT mem FROM Member AS mem " +
+                    "WHERE mem.email like :email", Member.class);
+            query.setParameter("email", "%" + email + "%");
+            return query.getResultList();
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }
