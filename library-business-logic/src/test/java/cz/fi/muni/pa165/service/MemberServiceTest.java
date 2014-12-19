@@ -138,12 +138,14 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void findMemberByEmail() {
+    public void findMembersByEmail() {
         final String email = "lucy.red@mail.muni.cz";
 
-        when(memberDAO.findMemberByEmail(email)).thenReturn(member2);
-        MemberDTO memberDTO = memberService.findMemberByEmail(email);
-        assertDeepEqualsForMember(member2, memberDTO);
+        List<Member> members  = new ArrayList<Member>();
+        members.add(member2);
+        when(memberDAO.findMembersByEmail(email)).thenReturn(members);
+        List<MemberDTO> memberDTOs = memberService.findMembersByEmail(email);
+        assertDeepEqualsListForMember(members, memberDTOs);
     }
 
     @Test

@@ -44,7 +44,7 @@ public interface MemberDAO extends GenericDAO<Member> {
      * @param email email of member
      * @return member
      */
-    public Member findMemberByEmail(String email);
+    public List<Member> findMembersByEmail(String email);
 
     /**
      * Method returns list of members by address.

@@ -33,6 +33,7 @@ public class BookRestController {
                                       @RequestParam(value = "isbn", defaultValue = "") String isbn,
                                       @RequestParam(value = "department", defaultValue = "") String department) {
         List<BookDTO> bookList = new ArrayList<>();
+
         try {
             if (name.length() > 0) {
                 bookList = bookService.findBooksByName(name);

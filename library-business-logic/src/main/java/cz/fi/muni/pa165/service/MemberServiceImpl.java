@@ -74,8 +74,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO findMemberByEmail(String email) {
-        return DTOEntityManager.memberEntitytoDTO(memberDAO.findMemberByEmail(email));
+    public List<MemberDTO> findMembersByEmail(String email) {
+        List<Member> members = memberDAO.findMembersByEmail(email);
+        return MemberEntityArrayToMemberDTOArray(members);
     }
 
     @Override

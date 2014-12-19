@@ -154,7 +154,7 @@ public class MemberController {
 
         if (search.getSearch().equals("email")) {
             List<MemberDTO> l = new ArrayList<>();
-            l.add(memberService.findMemberByEmail(search.getInput()));
+            l.addAll(memberService.findMembersByEmail(search.getInput()));
             mav.addObject("list", l);
         } else if (search.getSearch().equals("Name")) {
             mav.addObject("list", memberService.findMembersByName(search.getInput()));

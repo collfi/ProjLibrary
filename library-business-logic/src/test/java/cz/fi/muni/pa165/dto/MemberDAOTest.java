@@ -58,10 +58,10 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         MemberDAOImpl memDAO = new MemberDAOImpl();
         memDAO.setManager(em);
-        Member member = memDAO.findMemberByEmail("john.black@muni.mail.cz");
+        List<Member> members = memDAO.findMembersByEmail("john.black@muni.mail.cz");
         em.close();
 
-        assertEquals("john.black@muni.mail.cz", member.getEmail());
+        assertEquals("john.black@muni.mail.cz", members.get(0).getEmail());
     }
 
     @Test

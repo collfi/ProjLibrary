@@ -1,8 +1,3 @@
-<%-- 
-    Document   : showbooks
-    Created on : Nov 26, 2014, 12:12:50 AM
-    Author     : michal
---%>
 <!DOCTYPE html>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%-- 

@@ -115,8 +115,8 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         ldao.setManager(em);
         MemberDAOImpl mbd = new MemberDAOImpl();
         mbd.setManager(em);
-        Member member = mbd.findMemberByEmail("cruel.coder@gmail.com");
-        List<Loan> loans = ldao.findAllLoansByMember(member, false);
+        List<Member> member = mbd.findMembersByEmail("cruel.coder@gmail.com");
+        List<Loan> loans = ldao.findAllLoansByMember(member.get(0), false);
         assertEquals(1, loans.size());
     }
 
