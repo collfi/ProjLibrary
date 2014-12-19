@@ -12,7 +12,6 @@ public class BasicController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
 
-        //model.addAttribute("message", "Dream team library!");
         return "index";
 
     }

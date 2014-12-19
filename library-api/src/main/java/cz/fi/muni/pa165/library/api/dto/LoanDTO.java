@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Data Transfer Object of Loan
+ *
  * @author Sergii Pylypenko, 430519
  */
 public class LoanDTO implements Serializable {

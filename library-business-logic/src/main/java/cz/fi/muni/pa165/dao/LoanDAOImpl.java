@@ -100,17 +100,8 @@ public class LoanDAOImpl implements LoanDAO, GenericDAO<Loan> {
     @Override
     public void update(Loan loan) {
         try {
-            Loan loan2 = (Loan) em.merge(loan);
+            em.merge(loan);
 
-           /* Loan l = find(loan);2
-            l.setReturned(l.isReturned());
-            l.setDateReturned(l.getDateReturned());
-            l.setFromDate(l.getFromDate());
-            l.setToDate(l.getToDate());
-            l.setDescription(l.getDescription());
-            l.setMember(l.getMember());
-            l.setPrintedBook(l.getPrintedBook());
-            em.persist(l);*/
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }

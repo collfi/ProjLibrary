@@ -26,13 +26,6 @@ public class MemberRestController {
     @Autowired
     public MemberService memberService;
 
-    //delete?
-    @RequestMapping(value = "/api/member/get/{number}", method = RequestMethod.GET, produces = "application/json")
-    public MemberDTO apiGetMember(ModelMap model, @PathVariable("number") int number) {
-        MemberDTO member = memberService.findMemberByIdMember(number);
-        return member;
-    }
-
     @RequestMapping(value = "/api/member/find", method = RequestMethod.GET, produces = "application/json")
     public List<MemberDTO> apiFindMembers(@RequestParam(value = "name", defaultValue = "") String name,
                                           @RequestParam(value = "address", defaultValue = "") String address,

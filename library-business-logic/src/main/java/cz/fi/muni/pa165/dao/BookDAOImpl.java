@@ -58,23 +58,8 @@ public class BookDAOImpl implements BookDAO {
         if (t == null) {
             throw new IllegalArgumentException("cannot insert null in book");
         }
-       /* try {
-            Book b = find(t);
-
-            if (b == null) {
-                throw new IllegalArgumentException("printed book after find is null");
-            }
-            b.setName(t.getName());
-            b.setAuthors(t.getAuthors());
-            b.setDapertment(t.getDepartment());
-            b.setDescription(t.getDescription());
-            b.setISBN(t.getISBN());
-            entityManager.persist(b);
-        } catch (RuntimeException E) {
-            throw new DAException(E.getMessage());
-        }*/
         try {
-            Book book = (Book) entityManager.merge(t);
+            entityManager.merge(t);
         } catch (RuntimeException E) {
             throw new DAException(E.getMessage());
         }

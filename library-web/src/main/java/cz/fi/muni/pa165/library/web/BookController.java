@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
 import cz.fi.muni.pa165.library.api.service.BookService;
 import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.orm.jpa.JpaSystemException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class BookController {
 
         model.addAttribute("name", book.getName());
         book.setBooks(new HashSet<PrintedBookDTO>());
-        
+
         bookService.insertBook(book);
 
         List<BookDTO> list = bookService.findAllBooks();
@@ -104,7 +104,6 @@ public class BookController {
     @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
     public String editpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
                            RedirectAttributes redirectAttributes) {
-//            BookDTO bookNew = bookService.findBookById(book.getIdBook());
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("name", book.getName());
             redirectAttributes.addFlashAttribute("isbn", book.getISBN());
@@ -115,7 +114,7 @@ public class BookController {
         }
         try {
             bookService.updateBook(book);
-        } catch (org.springframework.orm.jpa.JpaSystemException jse) {
+        } catch (JpaSystemException jse) {
             redirectAttributes.addFlashAttribute("name", book.getName());
             redirectAttributes.addFlashAttribute("isbn", book.getISBN());
             redirectAttributes.addFlashAttribute("authors", book.getAuthors());

@@ -14,6 +14,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
+ * Data Transfer Object of Member
+ *
  * @author Martin Malik <374128@mail.muni.cz>
  */
 
@@ -21,14 +23,14 @@ public class MemberDTO implements Serializable {
 
     private long idMember;
 
-//    @NotEmpty
+    //    @NotEmpty
     private String name;
 
-//    @NotEmpty
+    //    @NotEmpty
 //    @Email
     private String email;
 
-//    @NotEmpty
+    //    @NotEmpty
     private String address;
 
     private Set<LoanDTO> loans = new HashSet<LoanDTO>();

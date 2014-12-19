@@ -47,7 +47,7 @@ public class Loan {
     /**
      * @param idLoan       id of loan
      * @param member       member assigned to loan
-     * @param pbooks       borrowed books
+     * @param printedBook  borrowed book
      * @param fromDate     date loan started from
      * @param toDate       date loan ends
      * @param isReturned   is loan closed

@@ -100,16 +100,8 @@ public class MemberServiceImpl implements MemberService {
         return membersDTO;
     }
 
-    public MemberDAO getMemberDAO() {
-        return memberDAO;
-    }
-
     public void setMemberDAO(MemberDAO memberDAO) {
         this.memberDAO = memberDAO;
-    }
-
-    public BookDAO getBookDAO() {
-        return bookDAO;
     }
 
     public void setBookDAO(BookDAO bookDAO) {

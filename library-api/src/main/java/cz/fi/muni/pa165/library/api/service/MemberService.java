@@ -6,6 +6,8 @@ import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import java.util.List;
 
 /**
+ * Interface for MemberService.
+ *
  * @author Martin Malik <374128@mail.muni.cz>
  */
 public interface MemberService {

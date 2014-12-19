@@ -27,13 +27,6 @@ public class BookRestController {
     @Autowired
     public BookService bookService;
 
-    //delete?
-    @RequestMapping(value = "/api/book/get/{number}", method = RequestMethod.GET, produces = "application/json")
-    public BookDTO apiGetBook(ModelMap model, @PathVariable("number") int number) {
-        BookDTO book = bookService.findBookById(number);
-        return book;
-    }
-
     @RequestMapping(value = "/api/book/find", method = RequestMethod.GET, produces = "application/json")
     public List<BookDTO> apiFindBooks(@RequestParam(value = "name", defaultValue = "") String name,
                                       @RequestParam(value = "authors", defaultValue = "") String authors,

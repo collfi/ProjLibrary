@@ -68,10 +68,9 @@ public class LoanController {
         loan.setFromDate(new Date());
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-        String dateInString = dateto;
-        Date date = null;
+        Date date;
         try {
-            date = formatter.parse(dateInString);
+            date = formatter.parse(dateto);
         } catch (ParseException e) {
             redirectAttributes.addFlashAttribute("error", "wrongdate");
             return "redirect:/loan/addloan";
@@ -105,13 +104,6 @@ public class LoanController {
         memberService.updateMember(member);
 
         return "redirect:/loan/listloans";
-    }
-
-    @RequestMapping("/loan/id/{number}")
-    public String showloan(ModelMap model, @PathVariable("number") int number) {
-        LoanDTO loan = loanService.findLoanById(number);
-        model.addAttribute("loan", loan);
-        return "showloan";
     }
 
     @RequestMapping(value = "/loan/listloans", method = RequestMethod.GET)

@@ -13,18 +13,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Data Transfer Object of Book
+ *
  * @author michal.lukac - xlukac, 430614
  */
 public class BookDTO implements Serializable {
 
     private long idBook;
-//    @NotEmpty
+    //    @NotEmpty
     private String name;
-//    @NotEmpty
+    //    @NotEmpty
     private String authors;
-//    @NotEmpty
+    //    @NotEmpty
     private String description;
-//    @NotEmpty
+    //    @NotEmpty
     private String ISBN;
 
     private Set<PrintedBookDTO> Books = new HashSet<PrintedBookDTO>();

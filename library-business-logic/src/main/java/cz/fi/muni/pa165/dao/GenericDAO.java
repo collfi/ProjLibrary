@@ -51,5 +51,4 @@ public interface GenericDAO<T> {
      */
     public T find(T t);
 
-    //TODO what about find by id here?
 }

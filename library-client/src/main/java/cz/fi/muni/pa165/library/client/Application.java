@@ -24,8 +24,8 @@ public class Application {
     public static final String EMAIL_PATTERN = "\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}";
     //match ISBN-10 and 13
     public static final String ISBN_PATTERN = "((978[\\--– ])?[0-9][0-9\\--– ]{10}[\\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])";
-    public static final String DEPARTMENT_PATTERN ="(Science|Sport|Religion|Autobiografy)";
-    
+    public static final String DEPARTMENT_PATTERN = "(Science|Sport|Religion|Autobiografy)";
+
     //error codes
     public static final int EOK = 0;
     public static final int UERROR = 1;
@@ -37,7 +37,7 @@ public class Application {
     public static long idMember = 0;
     public static long idBook = 0;
     public static Map<Integer, String> errorCodes;
-    
+
     public static void main(String args[]) {
         try {
             // initialize
@@ -73,7 +73,6 @@ public class Application {
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
             printError(UERROR);
         }
     }
@@ -115,14 +114,8 @@ public class Application {
         String str = s.nextLine();
 
         switch (str) {
-            //case "1":
-            //    return getBook(EOK);
-            //case "2":
-            //    return deleteBook(EOK);
             case "1":
                 return findBook(EOK);
-            //case "4":
-            //    return updateBook(EOK);
             case "2":
                 return addBook(EOK);
             case "3":
@@ -147,14 +140,8 @@ public class Application {
         String str = s.nextLine();
 
         switch (str) {
-            //case "1":
-            //    return getMember(EOK);
-            //case "2":
-            //    return deleteMember(EOK);
             case "1":
                 return findMember(EOK);
-            //case "4":
-            //    return updateMember(EOK);
             case "2":
                 return addMember(EOK);
             case "3":
@@ -180,19 +167,19 @@ public class Application {
                 try {
                     RestTemplate restTemplate = new RestTemplate();
                     String[] data = str.split(";");
-                    
+
                     if (data.length != 3) throw new Exception();
-                    
+
                     String name = data[0].trim();
                     String email = data[1].trim();
                     String address = data[2].trim();
-                    
+
 //                    only email have strict format
                     if (!checkInput(email, EMAIL_PATTERN)) {
                         System.out.println("bad format of mail");
                         throw new Exception();
                     }
-                    
+
                     MemberDTO member = new MemberDTO();
                     member.setIdMember(idMember);
                     member.setName(name);
@@ -220,7 +207,7 @@ public class Application {
                 }
 
         }
-        
+
         idMember = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -243,24 +230,24 @@ public class Application {
                 try {
                     RestTemplate restTemplate = new RestTemplate();
                     String[] data = str.split(";");
-                   
+
                     if (data.length != 3) throw new Exception();
-                    
+
                     String name = data[0].trim();
                     String email = data[1].trim();
                     String address = data[2].trim();
-                    
+
                     //only email have strict format
                     if (!checkInput(email, EMAIL_PATTERN)) {
                         System.out.println("bad format of mail");
                         throw new Exception();
                     }
-                    
+
                     MemberDTO member = new MemberDTO();
                     member.setName(name);
                     member.setEmail(email);
                     member.setAddress(address);
-                    
+
                     System.out.println("saving:" + member.toString());
                     String response = restTemplate.postForObject(PA165URL + RestURIConstants.ADD_MEMBER, member, String.class);
                     if (response == null) {
@@ -316,7 +303,7 @@ public class Application {
         System.out.println("REST: FIND MEMBER by name");
         printError(error);
         System.out.println("1. Write name, or 0 if you want to go back!:");
-        MemberDTO[] page = null;
+        MemberDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -339,7 +326,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findMembersByName(NOTEER);
         }
@@ -395,7 +381,7 @@ public class Application {
         System.out.println("REST: FIND MEMBER by address");
         printError(error);
         System.out.println("1. Write address, or 0 if you want to go back!:");
-        MemberDTO[] page = null;
+        MemberDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -418,7 +404,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findMembersByAddress(NOTEER);
         }
@@ -441,7 +426,7 @@ public class Application {
         System.out.println("REST: FIND MEMBER by email");
         printError(error);
         System.out.println("1. Write email, or 0 if you want to go back!:");
-        MemberDTO[] page = null;
+        MemberDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -464,7 +449,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findMemberByEmail(NOTEER);
         }
@@ -592,7 +576,7 @@ public class Application {
             default:
                 return deleteBook(BADADDR);
         }
-        
+
         idBook = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -634,7 +618,7 @@ public class Application {
         System.out.println("REST: FIND BOOK by name");
         printError(error);
         System.out.println("1. Write name, or 0 if you want to go back!:");
-        BookDTO[] page = null;
+        BookDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -660,7 +644,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findBooksByName(NOTEER);
         }
@@ -683,7 +666,7 @@ public class Application {
         System.out.println("REST: FIND BOOK by ISBN");
         printError(error);
         System.out.println("1. Write ISBN, or 0 if you want to go back!:");
-        BookDTO[] page = null;
+        BookDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -709,7 +692,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findBooksByISBN(NOTEER);
         }
@@ -732,7 +714,7 @@ public class Application {
         System.out.println("REST: FIND BOOK by author");
         printError(error);
         System.out.println("1. Write author, or 0 if you want to go back!:");
-        BookDTO[] page = null;
+        BookDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -758,7 +740,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findBooksByAuthors(NOTEER);
         }
@@ -782,7 +763,7 @@ public class Application {
         printError(error);
         System.out.println("1. Write department (Science, Sport, Religion, Autobiografy), "
                 + "or 0 if you want to go back!:");
-        BookDTO[] page = null;
+        BookDTO[] page;
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
 
@@ -808,7 +789,6 @@ public class Application {
                     return addBook(SERERR);
                 }
         }
-        //TODO ????
         if (page.length == 0) {
             return findBooksByDepartment(NOTEER);
         }
@@ -846,20 +826,20 @@ public class Application {
                     if (data.length != 5) {
                         throw new Exception();
                     }
-                    
+
                     String name = data[0].trim();
                     String ISBN = data[1].trim();
                     String authors = data[2].trim();
                     String department = data[3].trim();
                     String description = data[4].trim();
-                    
+
                     //only ISBN and department have strict format  
-                    if(!checkInput(ISBN, ISBN_PATTERN)){
+                    if (!checkInput(ISBN, ISBN_PATTERN)) {
                         System.out.println("bad format of ISBN");
                         throw new Exception();
                     }
-                    
-                    if(!checkInput(department, DEPARTMENT_PATTERN)){
+
+                    if (!checkInput(department, DEPARTMENT_PATTERN)) {
                         System.out.println("not allowed value of department");
                         throw new Exception();
                     }
@@ -893,7 +873,7 @@ public class Application {
                 }
 
         }
-        
+
         idBook = 0;
         System.out.println("Press enter to continue!");
         s.nextLine();
@@ -919,24 +899,24 @@ public class Application {
                     if (data.length != 5) {
                         throw new Exception();
                     }
-                    
+
                     String name = data[0].trim();
                     String ISBN = data[1].trim();
                     String authors = data[2].trim();
                     String department = data[3].trim();
                     String description = data[4].trim();
-                    
+
                     //only ISBN and department have strict format  
-                    if(!checkInput(ISBN, ISBN_PATTERN)){
+                    if (!checkInput(ISBN, ISBN_PATTERN)) {
                         System.out.println("bad format of ISBN");
                         throw new Exception();
                     }
-                    
-                    if(!checkInput(department, DEPARTMENT_PATTERN)){
+
+                    if (!checkInput(department, DEPARTMENT_PATTERN)) {
                         System.out.println("not allowed value of department");
                         throw new Exception();
                     }
-                    
+
                     BookDTO book = new BookDTO();
                     book.setName(name);
                     book.setISBN(ISBN);
@@ -967,29 +947,25 @@ public class Application {
         s.nextLine();
         return bookMenu();
     }
-    
-    private static boolean checkInput(String userInput, String allowedInput){
-	Matcher matcher = null;
-	Pattern pattern = null;
-	
+
+    private static boolean checkInput(String userInput, String allowedInput) {
+        Matcher matcher;
+        Pattern pattern;
+
         pattern = Pattern.compile(allowedInput);
-	matcher = pattern.matcher(userInput);
-	return matcher.matches();
+        matcher = pattern.matcher(userInput);
+        return matcher.matches();
     }
 
     public static class RestURIConstants {
         public static final String ADD_BOOK = "/api/book/add/";
         public static final String DEL_BOOK = "/api/book/delete/";
-        //public static final String GET_BOOK = "/api/book/get/";
         public static final String GET_BOOKS = "/api/book/find/";
         public static final String UPD_BOOK = "/api/book/update/";
 
         public static final String ADD_MEMBER = "/api/member/add/";
         public static final String DEL_MEMBER = "/api/member/delete/";
-        //public static final String GET_MEMBER = "/api/member/get/";
         public static final String GET_MEMBERS = "/api/member/find/";
         public static final String UPD_MEMBER = "/api/member/update/";
-
-        public static final String ADD_PBOOK = "/api/pbook/add/";
     }
 }
