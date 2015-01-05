@@ -41,13 +41,18 @@
 <div class="wrapper">
     <header>
         <h1><a href="${contextPath}"><spring:message code="label.appname"/></a></h1>
-
-        <p><spring:message code="label.appdescription"/></p>
+        <p><spring:message code="label.appdescription"/></p><br>
+        <spring:message code="label.loggedas"/><b><c:out value="${pageContext.request.remoteUser}"/></b>
         <span>
         <a href="?lang=en">en</a> 
         | 
         <a href="?lang=sk">sk</a>
         </span>
+
+        <form action="logout" method="post">
+            <input type="submit" value="Logout" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
         <br>
 
         <ul id="nav">
