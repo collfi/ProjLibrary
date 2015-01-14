@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.library.api.service.BookService;
 import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class BookController {
     public BookService bookService;
 
     @RequestMapping(value = "/book/addformular", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView addformular() {
         BookDTO book = new BookDTO();
         book.setDepartment(Department.Sport);
@@ -43,6 +45,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/addpost", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addpost(@ModelAttribute("book") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
                           RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -94,6 +97,7 @@ public class BookController {
     }
 
     @RequestMapping("/book/edit/{number}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editbook(ModelMap model, @PathVariable("number") int number) {
         BookDTO book = bookService.findBookById(number);
         model.addAttribute("book", book);
@@ -102,6 +106,7 @@ public class BookController {
     }
 
     @RequestMapping("/book/delete/{number}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deletepost(ModelMap model, @PathVariable("number") int number) {
         bookService.deleteBook(bookService.findBookById(number));
         List<BookDTO> list = bookService.findAllBooks();
@@ -111,6 +116,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/editpost", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editpost(@ModelAttribute("pa165") @Valid BookDTO book, BindingResult bindingResult, ModelMap model,
                            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

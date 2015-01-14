@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
 import cz.fi.muni.pa165.library.api.service.BookService;
 import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/pbook/addformular/{number}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addformular(ModelMap model, @PathVariable("number") int number) {
         PrintedBookDTO pb = new PrintedBookDTO();
         pb.setCondition(Condition.New);
@@ -56,6 +58,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping("/pbook/edit/{number}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editbook(ModelMap model, @PathVariable("number") long number) {
         PrintedBookDTO pbook = pbookService.findPrintedBookById(number);
         model.addAttribute("pbook", pbook);
@@ -63,6 +66,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping(value = "/pbook/editpost", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editpost(@RequestParam("condition") Condition con, ModelMap model,
                            @RequestParam("idPrintedBook") long idpbook) {
         PrintedBookDTO pb = pbookService.findPrintedBookById(idpbook);
@@ -72,6 +76,7 @@ public class PrintedBookController {
     }
 
     @RequestMapping("/pbook/delete/{number}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deletebook(ModelMap model, @PathVariable("number") long number) {
         PrintedBookDTO pbook = pbookService.findPrintedBookById(number);
         pbookService.deletePrintedBook(pbook);

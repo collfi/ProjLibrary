@@ -18,7 +18,7 @@ import javax.persistence.PersistenceException;
  * @author Martin Malik <374128@mail.muni.cz>
  */
 @Component
-public class MemberDAOImpl implements MemberDAO, GenericDAO<Member> {
+public class MemberDAOImpl implements MemberDAO {
 
     @PersistenceContext(unitName = "myUnit")
     private EntityManager entityManager;

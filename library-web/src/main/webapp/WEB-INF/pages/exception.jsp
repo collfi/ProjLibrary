@@ -21,6 +21,7 @@
             <spring:message code="label.ops"/>
         </p>
         <%--<b>${name}</b>:  ${message}--%>
+        ${message}
 
     </section>
     <%@ include file="footer.jsp" %>

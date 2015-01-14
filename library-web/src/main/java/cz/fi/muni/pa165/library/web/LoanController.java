@@ -14,6 +14,7 @@ import cz.fi.muni.pa165.library.api.service.LoanService;
 import cz.fi.muni.pa165.library.api.service.MemberService;
 import cz.fi.muni.pa165.library.api.service.PrintedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ import java.util.List;
  * @author Sergii Pylypenko - xpylypen
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class LoanController {
 
     @Autowired

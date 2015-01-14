@@ -1,10 +1,13 @@
 package cz.fi.muni.pa165.library.web;
 
+import cz.fi.muni.pa165.library.api.constants.Department;
+import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import cz.fi.muni.pa165.library.api.service.LoanService;
 import cz.fi.muni.pa165.library.api.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,7 @@ import java.util.List;
  * @author Martin Malik <37428@mail.muni.cz>
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class MemberController {
 
     @Autowired
@@ -37,17 +41,21 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/member/addformular", method = RequestMethod.GET)
-    public String addformular(ModelMap model) {
-        return "addmember";
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView addformular() {
+        MemberDTO member = new MemberDTO();
+        return new ModelAndView("addmember", "member", member);
     }
 
     @RequestMapping(value = "/member/addpost", method = RequestMethod.POST)
-    public String addpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
+    public String addpost(@ModelAttribute("member") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());
             redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("password", member.getPassword());
+            redirectAttributes.addFlashAttribute("isAdmin", member.getIsAdmin());
             if (bindingResult.getFieldError("email") == null) {
                 redirectAttributes.addFlashAttribute("error", "missing");
             } else {
@@ -61,6 +69,8 @@ public class MemberController {
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());
             redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("password", member.getPassword());
+            redirectAttributes.addFlashAttribute("isAdmin", member.getIsAdmin());
             redirectAttributes.addFlashAttribute("error", "duplicate");
             return "redirect:/member/addformular";
         }
@@ -87,14 +97,16 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/member/editpost", method = RequestMethod.POST)
-    public String editpost(@ModelAttribute("pa165") @Valid MemberDTO member, BindingResult bindingResult, ModelMap model,
-            RedirectAttributes redirectAttributes) {
+    public String editpost(@ModelAttribute("member") @Valid MemberDTO member, BindingResult bindingResult,
+                           ModelMap model, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
 
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());
             redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("password", member.getPassword());
+            redirectAttributes.addFlashAttribute("isAdmin", member.getIsAdmin());
             if (bindingResult.getFieldError("email") == null) {
                 redirectAttributes.addFlashAttribute("error", "missing");
             } else {
@@ -110,6 +122,8 @@ public class MemberController {
             redirectAttributes.addFlashAttribute("name", member.getName());
             redirectAttributes.addFlashAttribute("email", member.getEmail());
             redirectAttributes.addFlashAttribute("address", member.getAddress());
+            redirectAttributes.addFlashAttribute("password", member.getPassword());
+            redirectAttributes.addFlashAttribute("isAdmin", member.getIsAdmin());
             redirectAttributes.addFlashAttribute("error", "duplicate");
             return "redirect:/member/addformular";
         }

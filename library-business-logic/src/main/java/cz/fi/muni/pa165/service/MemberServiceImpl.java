@@ -8,10 +8,7 @@ import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import cz.fi.muni.pa165.library.api.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Collection;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -36,74 +33,32 @@ public class MemberServiceImpl implements MemberService {
     protected final Log logger = LogFactory.getLog(getClass());
 
     @Override
-    public UserDetails loadUserByUsername(final String username)
-            throws UsernameNotFoundException {
-
-        logger.error("loadUserByUsername username="+username);
-
-        logger.error("tut before throwing");
-        if(!username.equals("rest")) {
-            logger.error("tut throwing");
+    public MemberDTO loadUserByUsername(final String username)  throws UsernameNotFoundException {
+        List<MemberDTO> membersDTO = findMembersByEmail(username);
+        if (!membersDTO.isEmpty()) {
+            return membersDTO.get(0);
+        } else {
             throw new UsernameNotFoundException(username + " not found");
         }
+    }
 
-        //creating dummy user details, should do JDBC operations
-        return new UserDetails() {
-
-            private static final long serialVersionUID = 2059202961588104658L;
-
-            @Override
-            public boolean isEnabled() {
-                return true;
-            }
-
-            @Override
-            public boolean isCredentialsNonExpired() {
-                return true;
-            }
-
-            @Override
-            public boolean isAccountNonLocked() {
-                return true;
-            }
-
-            @Override
-            public boolean isAccountNonExpired() {
-                return true;
-            }
-
-            @Override
-            public String getUsername() {
-                logger.info("getUsername username="+username);
-                return username;
-            }
-
-            @Override
-            public String getPassword() {
-                logger.error("tut getting password");
-                return "rest";
-            }
-
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                logger.error("tut authority");
-                List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
-                auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                return auths;
-            }
-        };
+    protected Member hashPassword(Member member) {
+        ShaPasswordEncoder passwordEncoder = new ShaPasswordEncoder();
+        String hashedPassword = passwordEncoder.encodePassword(member.getPassword(), member.getEmail());
+        member.setPassword(hashedPassword);
+        return member;
     }
 
     @Override
     public void insertMember(MemberDTO memberDTO) {
         Member member = DTOEntityManager.memberDTOtoEntity(memberDTO);
-        memberDAO.insert(member);
+        memberDAO.insert(hashPassword(member));
     }
 
     @Override
     public void updateMember(MemberDTO memberDTO) {
         Member member = DTOEntityManager.memberDTOtoEntity(memberDTO);
-        memberDAO.update(member);
+        memberDAO.update(hashPassword(member));
     }
 
     @Override
@@ -125,7 +80,6 @@ public class MemberServiceImpl implements MemberService {
         for (Member member : members) {
             membersDTO.add(DTOEntityManager.memberEntitytoDTO(member));
         }
-
         return membersDTO;
     }
 

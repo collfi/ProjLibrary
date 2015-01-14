@@ -5,6 +5,7 @@
 --%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -41,55 +42,51 @@
 <div class="wrapper">
     <header>
         <h1><a href="${contextPath}"><spring:message code="label.appname"/></a></h1>
-        <p><spring:message code="label.appdescription"/></p><br>
-        <spring:message code="label.loggedas"/><b><c:out value="${pageContext.request.remoteUser}"/></b>
+        <p><spring:message code="label.appdescription"/></p>
+        <spring:message code="label.loggedas"/> <b><c:out value="${pageContext.request.remoteUser}"/></b><br>
+        <form action="${contextPath}/logout" method="post">
+            <input type="submit" value="Logout" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        <br>
         <span>
         <a href="?lang=en">en</a> 
         | 
         <a href="?lang=sk">sk</a>
         </span>
-
-        <form action="logout" method="post">
-            <input type="submit" value="Logout" />
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
         <br>
-
+        <br>
         <ul id="nav">
               
             <li><a href="#"><spring:message code="label.bookmanagement"/></a>
                     
                 <ul>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
+                    </sec:authorize>
                     <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
                     <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
                         
                 </ul>
                   
             </li>
-              
-            <li><a href="#"><spring:message code="label.loanmanagement"/></a>
-                    
-                <ul>
-                    <li><a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
-                    <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
-                    <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
-                      
-                </ul>
-                  
-            </li>
-              
-            <li><a href="#"><spring:message code="label.membermanagement"/></a>
-                    
-                <ul>
-                          
-                    <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
-                    <li><a href="${contextPath}/member/findmember"><spring:message code="label.findmember"/></a></li>
-                    <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
-                       
-                </ul>
-                  
-            </li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="#"><spring:message code="label.loanmanagement"/></a>
+                    <ul>
+                        <li><a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
+                        <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
+                        <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#"><spring:message code="label.membermanagement"/></a>
+                    <ul>
+                        <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
+                        <li><a href="${contextPath}/member/findmember"><spring:message code="label.findmember"/></a></li>
+                        <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
+                    </ul>
+                </li>
+            </sec:authorize>
         </ul>
     </header>
 </div>

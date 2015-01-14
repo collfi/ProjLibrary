@@ -59,6 +59,8 @@ public class LoanDAOTest extends AbstractTestNGSpringContextTests {
         m.setAddress("Vinarska");
         m.setEmail("cruel.coder@gmail.com");
         m.setName("Cruel Coder");
+        m.setPassword("pass");
+        m.setIsadmin(true);
 
         PrintedBook pb1 = new PrintedBook();
         pb1.setBook(book);

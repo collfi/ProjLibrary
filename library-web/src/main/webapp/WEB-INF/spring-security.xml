@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.springframework.org/schema/security"
+         xsi:schemaLocation="http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <global-method-security pre-post-annotations="enabled" />
+    <http security="none" pattern="/resources/**" />
+    <http use-expressions="true" access-denied-page="/403" disable-url-rewriting="true">
+
+        <session-management invalid-session-url="/login">
+            <concurrency-control max-sessions="1" expired-url="/login" />
+        </session-management>
+        <form-login login-page="/login" login-processing-url="/login.do" default-target-url="/"
+                    authentication-failure-url="/login?err=1" username-parameter="username" password-parameter="password" />
+        <logout logout-url="/logout" logout-success-url="/login?out=1" delete-cookies="JSESSIONID" invalidate-session="true" />
+
+        <intercept-url pattern="/login*" access="permitAll()" />
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="memberServiceImpl">
+            <password-encoder hash="sha">
+                <salt-source user-property="username"/>
+            </password-encoder>
+        </authentication-provider>
+        <authentication-provider>
+            <!--<password-encoder hash="sha"/>-->
+            <user-service>
+                <user name="rest" password="rest"
+                      authorities="ROLE_USER, ROLE_ADMIN" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</b:beans>

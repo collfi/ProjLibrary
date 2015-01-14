@@ -41,8 +41,12 @@
                 <th>ISBN</th>
                 <th><spring:message code="label.authors"/></th>
                 <th><spring:message code="label.genre"/></th>
-                <th><spring:message code="label.show"/>/<spring:message code="label.edit"/>/<spring:message
-                        code="label.delete"/></th>
+                <th><spring:message code="label.show"/>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">/
+                    <spring:message code="label.edit"/>/
+                    <spring:message code="label.delete"/>
+                    </sec:authorize>
+                    </th>
             </tr>
             <c:forEach var="listValue" items="${list}">
                 <tr>
@@ -50,10 +54,14 @@
                     <td>${listValue.ISBN}</td>
                     <td>${listValue.authors}</td>
                     <td>${listValue.department}</td>
-                    <td><a href="${contextPath}/book/id/${listValue.idBook}"><spring:message code="label.show"/></a>/<a
+                    <td><a href="${contextPath}/book/id/${listValue.idBook}"><spring:message code="label.show"/></a>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        /<a
                             href="${contextPath}/book/edit/${listValue.idBook}"><spring:message code="label.edit"/></a>/<a
                             href="${contextPath}/book/delete/${listValue.idBook}"><spring:message
-                            code="label.delete"/></a></td>
+                            code="label.delete"/></a>
+                        </sec:authorize>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

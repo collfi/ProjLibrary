@@ -32,25 +32,32 @@
                 <p><font color="red"><spring:message code="label.validationemail"/></font></p>
             </c:when>
         </c:choose>
-        <form method="POST" action="addpost">
+
+        <form:form method="POST" action="${contextPath}/member/addpost" modelAttribute="member">
             <table>
                 <TR>
                     <TD><spring:message code="label.name"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="name" SIZE="25" value="${name}"></TD>
+                    <td><form:input path="name" value="${name}"/></td>
                 </TR>
                 <TR>
                     <TD><spring:message code="label.email"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25" value="${email}"></TD>
+                    <td><form:input path="email" value="${email}"/></td>
                 </TR>
                 <TR>
                     <TD><spring:message code="label.address"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="address" SIZE="25" value="${address}"></TD>
+                    <td><form:input path="address" value="${address}"/></td>
+                </TR>
+                <TR>
+                    <TD><spring:message code="label.password"/>:</TD>
+                    <td><form:input type="password" path="password" value="${password}"/></td>
+                </TR>
+                <TR>
+                    <TD><spring:message code="label.role"/>:</TD>
+                    <td><form:checkbox path="isAdmin"/></td>
                 </TR>
             </table>
-
             <input type="submit" value="<spring:message code='label.submit'/>"/>
-        </form>
-
+        </form:form>
     </section>
     <%@ include file="footer.jsp" %>
 </div>

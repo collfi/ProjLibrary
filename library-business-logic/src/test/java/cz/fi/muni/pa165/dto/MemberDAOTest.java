@@ -47,6 +47,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member1.setName("John Black");
         member1.setEmail("john.black@muni.mail.cz");
         member1.setAddress("Tererova 164/56,Brno");
+        member1.setPassword("pass");
+        member1.setIsadmin(true);
 
         em.persist(member1);
         em.getTransaction().commit();
@@ -74,6 +76,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member.setName("Lucy Red");
         member.setAddress("1856/12, Cerna Pole, Brno");
         member.setEmail("lucy.red@mail.muni.cz");
+        member.setPassword("pass");
+        member.setIsadmin(true);
 
         em.getTransaction().begin();
         memDAO.insert(member);
@@ -125,6 +129,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member.setName("Lucy Red");
         member.setAddress("1856/12, Cerna Pole, Brno");
         member.setEmail("lucy.red@mail.muni.cz");
+        member.setPassword("pass");
+        member.setIsadmin(true);
 
         em.getTransaction().begin();
         em.persist(member);
@@ -133,6 +139,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member.setName("Lucy Brown");
         member.setEmail("l.red@gmail.com");
         member.setAddress("142/12, Kralovo Pole, Brno");
+        member.setPassword("pass");
+        member.setIsadmin(true);
 
         em.getTransaction().begin();
         memDAO.update(member);
@@ -164,11 +172,15 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member2.setName("John White");
         member2.setEmail("john.white@mail.muni.cz");
         member2.setAddress("Hrncirska 123/8, Kralovo Pole, Brno");
+        member2.setPassword("pass");
+        member2.setIsadmin(true);
 
         Member member3 = new Member();
         member3.setName("John Green");
         member3.setEmail("john.green@mail.muni.cz");
         member3.setAddress("123/56, Cerna Pole, Brno");
+        member3.setPassword("pass");
+        member3.setIsadmin(true);
 
         em.getTransaction().begin();
         em.persist(member2);
@@ -193,6 +205,8 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member1.setName("John White");
         member1.setEmail("john.white@mail.muni.cz");
         member1.setAddress("Hrncirska 123/8, Kralovo Pole, Brno");
+        member1.setPassword("pass");
+        member1.setIsadmin(true);
 
         em.getTransaction().begin();
         em.persist(member1);
@@ -216,11 +230,15 @@ public class MemberDAOTest extends AbstractTestNGSpringContextTests {
         member1.setName("John White");
         member1.setEmail("john.white@mail.muni.cz");
         member1.setAddress("Hrncirska 123/8, Kralovo Pole, Brno");
+        member1.setPassword("pass");
+        member1.setIsadmin(true);
 
         Member member2 = new Member();
         member2.setName("John Green");
         member2.setEmail("john.green@mail.muni.cz");
         member2.setAddress("123/56, Cerna Pole, Brno");
+        member2.setPassword("pass");
+        member2.setIsadmin(true);
 
         Book book = new Book();
         book.setName("Harry Potter");

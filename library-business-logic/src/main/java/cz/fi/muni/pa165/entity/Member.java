@@ -1,5 +1,8 @@
 package cz.fi.muni.pa165.entity;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,8 +27,14 @@ public class Member {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
+
     @Column(name = "ADDRESS", nullable = false)
     private String address;
+
+    @Column(name = "ISADMIN", nullable = false)
+    private Boolean isAdmin;
 
     @OneToMany(mappedBy = "member")
     private Set<Loan> loans = new HashSet<Loan>();
@@ -33,11 +42,24 @@ public class Member {
     public Member() {
     }
 
-    public Member(long idMember, String name, String email, String address) {
+    public Boolean getIsadmin() {
+        return isAdmin;
+    }
+
+    public void setIsadmin(Boolean isadmin) {
+        this.isAdmin = isadmin;
+    }
+
+    public Member(long idMember, String name, String email, String password, String address, Boolean isAdmin) {
         this.idMember = idMember;
         this.name = name;
         this.email = email;
+        this.email = password;
         this.address = address;
+        this.isAdmin = isAdmin;
+
+        Log logger = LogFactory.getLog(getClass());
+        logger.error(password);
     }
 
     public long getIdMember() {
@@ -59,6 +81,13 @@ public class Member {
     public String getEmail() {
         return email;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password; }
 
     public void setEmail(String email) {
         this.email = email;
@@ -87,6 +116,7 @@ public class Member {
         hash = 13 * hash + Objects.hashCode(this.name);
         hash = 13 * hash + Objects.hashCode(this.email);
         hash = 13 * hash + Objects.hashCode(this.address);
+        hash = 13 * hash + Objects.hashCode(this.isAdmin);
         return hash;
     }
 
@@ -111,13 +141,17 @@ public class Member {
         if (!Objects.equals(this.address, other.address)) {
             return false;
         }
+        if (!Objects.equals(this.isAdmin, other.isAdmin)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("idMember: " + idMember + ", name: " + name + ", email: " + email + ", address: " + address);
+        sb.append("idMember: " + idMember + ", name: " + name + ", email: " + email + ", address: " + address
+                + ", isadmin: " + isAdmin);
         return sb.toString();
     }
 }

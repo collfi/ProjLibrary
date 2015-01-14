@@ -20,10 +20,12 @@
     <section>
         <h1><spring:message code="label.book"/></h1>
 
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
         <p>
             <a href="${contextPath}/book/edit/${book.idBook}"><spring:message code="label.editbook"/></a> |
             <a href="${contextPath}/pbook/addformular/${book.idBook}"><spring:message code="label.addpbook"/></a>
         </p>
+        </sec:authorize>
         <p>
             <p><spring:message code="label.name"/> : ${book.name}</p>
             <p><spring:message code="label.name"/> : ${book.ISBN}</p>
@@ -51,6 +53,7 @@
                     <td>${listValue.idPrintedBook}</td>
                     <td><spring:message code="label.${listValue.condition}"/></td>
                     <td><spring:message code="label.${listValue.state}"/></td>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <td><a href="${contextPath}/pbook/edit/${listValue.idPrintedBook}">
                         <spring:message code="label.edit"/></a>
                         /<a href="${contextPath}/pbook/delete/${listValue.idPrintedBook}">
@@ -58,8 +61,8 @@
 
                         /<a href="${contextPath}/loan/addloan?pbookid=${listValue.idPrintedBook}&bookid=${book.idBook}">
                             <spring:message code="label.addloan"/></a>
-
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach><a href="edit/${listValue.idPrintedBook}"></a>
             </tbody>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
+import org.springframework.stereotype.Service;
 
 /**
  * Interface for MemberService.

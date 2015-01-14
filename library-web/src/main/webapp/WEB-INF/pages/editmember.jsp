@@ -39,19 +39,27 @@
             <table>
                 <TR style="display: none;">
                     <TD>ID</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="idMember" value="${member.idMember}" SIZE="25" value="idMember"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="idMember" value="${member.idMember}" SIZE="25"></TD>
                 </TR>
                 <TR>
                     <TD><spring:message code="label.name"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="name" value="${member.name}" SIZE="25" value="name"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="name" value="${member.name}" SIZE="25"></TD>
                 </TR>
                 <TR>
                     <TD><spring:message code="label.email"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="email" value="${member.email}" SIZE="25" value="email"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="email" value="${member.email}" SIZE="25"></TD>
                 </TR>
                 <TR>
                     <TD><spring:message code="label.address"/>:</TD>
-                    <TD><INPUT TYPE="TEXT" NAME="address" value="${member.address}" SIZE="25" value="address"></TD>
+                    <TD><INPUT TYPE="TEXT" NAME="address" value="${member.address}" SIZE="25"></TD>
+                </TR>
+                <TR>
+                    <TD><spring:message code="label.password"/>:</TD>
+                    <TD><INPUT TYPE="PASSWORD" NAME="password" value="${member.password}" SIZE="25"></TD>
+                </TR>
+                <TR>
+                    <TD><spring:message code="label.role"/>:</TD>
+                    <form:checkbox path="isAdmin" value="${isAdmin}"/>Java
                 </TR>
             </table>
             <input type="submit" value="<spring:message code='label.submit'/>"/>
