@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    
     <title>Pa165</title>
 
     <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
@@ -36,7 +36,7 @@
                 <form id="form" action="<c:url value='/login.do'/>" method="POST">
 
                     <c:if test="${not empty param.err}">
-                        <div><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></div>
+                        <div><font color="red"> <spring:message code="label.wronglogin"/> </font></div>
                     </c:if>
                     <c:if test="${not empty param.out}">
                         <div><spring:message code="label.logoutok"/></div>
