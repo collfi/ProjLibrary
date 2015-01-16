@@ -23,7 +23,8 @@
         <url-pattern>/login</url-pattern>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-     <!-- Security Filter -->
+    
+    <!-- Security Filter -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -32,6 +33,22 @@
             <param-value>org.springframework.web.context.WebApplicationContext.ROOT</param-value>
         </init-param>
     </filter>
+
+    <!-- Encoding UTF8 Filter -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>cz.fi.muni.pa165.library.filters.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+      <filter-name>EncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
