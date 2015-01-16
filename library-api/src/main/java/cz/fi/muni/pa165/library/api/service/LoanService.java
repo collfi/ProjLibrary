@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.library.api.service;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.LoanDTO;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Sergii Pylypenko - xpylypen, 430519
  */
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public interface LoanService {
 
     /**

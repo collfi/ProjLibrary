@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.library.api.service;
 
 import cz.fi.muni.pa165.library.api.constants.Department;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author michal.lukac - xlukac, 430614
  */
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public interface BookService {
 
     /**
@@ -17,6 +19,7 @@ public interface BookService {
      *
      * @param bookto which will be inserted.
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void insertBook(BookDTO bookto);
 
     /**
@@ -24,6 +27,7 @@ public interface BookService {
      *
      * @param bookto Update of the object.
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateBook(BookDTO bookto);
 
     /**
@@ -31,6 +35,7 @@ public interface BookService {
      *
      * @param bookto object which we want to delete.
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteBook(BookDTO bookto);
 
     /**

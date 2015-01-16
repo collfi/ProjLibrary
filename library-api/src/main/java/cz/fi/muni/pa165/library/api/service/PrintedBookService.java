@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.library.api.service;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.LoanDTO;
 import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  *
  * @author Boris Valentovic - xvalent2
  */
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public interface PrintedBookService {
 
     /**

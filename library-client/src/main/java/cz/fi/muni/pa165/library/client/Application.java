@@ -148,7 +148,7 @@ public class Application {
     private static int updateMember(int error) {
         System.out.println("REST: UPDATE MEMBER");
         printError(error);
-        System.out.println("1. Write new \"name; email; address\" or 0 if you want to go "
+        System.out.println("1. Write new \"name; email; address; password\" or 0 if you want to go "
                 + "back to menu!:");
 
         Scanner s = new Scanner(System.in);
@@ -162,11 +162,12 @@ public class Application {
                     RestTemplate restTemplate = new RestTemplate();
                     String[] data = str.split(";");
 
-                    if (data.length != 3) throw new Exception();
+                    if (data.length != 4) throw new Exception();
 
                     String name = data[0].trim();
                     String email = data[1].trim();
                     String address = data[2].trim();
+                    String password = data[3].trim();
 
 //                    only email have strict format
                     if (!checkInput(email, EMAIL_PATTERN)) {
@@ -179,6 +180,8 @@ public class Application {
                     member.setName(name);
                     member.setEmail(email);
                     member.setAddress(address);
+                    member.setPassword(password);
+                    member.setIsAdmin(false);
 
                     System.out.println("saving:" + member.toString());
                     String response = restTemplate.postForObject(PA165URL + RestURIConstants.UPD_MEMBER, member, String.class);
@@ -197,6 +200,8 @@ public class Application {
                     System.out.print(ce);
                     return updateMember(SERERR);
                 } catch (Exception e) {
+                    System.out.print("tut");
+                    System.out.print(e);
                     return updateMember(ERRPARS);
                 }
 
@@ -211,7 +216,7 @@ public class Application {
     private static int addMember(int error) {
         System.out.println("REST: ADD MEMBER");
         printError(error);
-        System.out.println("1. Write \"name; email; address\" or 0 if you want to go "
+        System.out.println("1. Write \"name; email; address; password\" or 0 if you want to go "
                 + "back to menu!:");
 
         Scanner s = new Scanner(System.in);
@@ -225,37 +230,42 @@ public class Application {
                     RestTemplate restTemplate = new RestTemplate();
                     String[] data = str.split(";");
 
-                    if (data.length != 3) throw new Exception();
+                    if (data.length != 4) throw new Exception("invalid length");
 
                     String name = data[0].trim();
                     String email = data[1].trim();
                     String address = data[2].trim();
+                    String password = data[3].trim();
 
                     //only email have strict format
                     if (!checkInput(email, EMAIL_PATTERN)) {
                         System.out.println("bad format of mail");
-                        throw new Exception();
+                        throw new Exception("bad format of mail");
                     }
 
                     MemberDTO member = new MemberDTO();
                     member.setName(name);
                     member.setEmail(email);
                     member.setAddress(address);
+                    member.setPassword(password);
+                    member.setIsAdmin(false);
 
                     System.out.println("saving:" + member.toString());
                     String response = restTemplate.postForObject(PA165URL + RestURIConstants.ADD_MEMBER, member, String.class);
                     if (response == null) {
-                        throw new NullPointerException();
+                        throw new NullPointerException("Null response");
                     } else {
                         System.out.println(str);
                     }
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return addMember(BADADDR);
                 } catch (NullPointerException e) {
+                    e.printStackTrace();
                     return addMember(NOTEER);
                 } catch (ResourceAccessException ce) {
                     return updateMember(SERERR);
                 } catch (Exception e) {
+                    System.out.print(e.getMessage());
                     return addMember(ERRPARS);
                 }
         }
@@ -862,6 +872,7 @@ public class Application {
                 } catch (ResourceAccessException ce) {
                     return updateMember(SERERR);
                 } catch (Exception e) {
+                    System.out.print(e);
                     return updateBook(ERRPARS);
                 }
 
@@ -931,6 +942,7 @@ public class Application {
                 } catch (ResourceAccessException ce) {
                     return addBook(SERERR);
                 } catch (Exception e) {
+                    System.out.print(e);
                     return addBook(ERRPARS);
                 }
 
