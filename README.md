@@ -7,6 +7,10 @@ run web application: change directory to library-web and run: mvn tomcat7:run
 
 To run rest client: change directory to library-client and run: mvn exec:java
 
+To configure server URL, pass it as first parameter in format: "address:port".
+
+For example: mvn exec:java -Dexec.args="localhost:8080"
+
 Examle of client usage:
 
 REST INTERACTIVE CLIENT MENU
