@@ -45,8 +45,9 @@
                 <th>ID</th>
                 <th><spring:message code="label.condition"/></th>
                 <th><spring:message code="label.availability"/></th>
-                <th><spring:message code="label.action"/></
-                >
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <th><spring:message code="label.action"/></th>
+                </sec:authorize>
             </tr>
             <c:forEach var="listValue" items="${list}">
                 <tr>

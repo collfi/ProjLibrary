@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <title>Pa165</title>
 
     <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
@@ -45,7 +45,7 @@
         <p><spring:message code="label.appdescription"/></p>
         <spring:message code="label.loggedas"/> <b><c:out value="${pageContext.request.remoteUser}"/></b><br>
         <form action="${contextPath}/logout" method="post">
-            <input type="submit" value="Logout" />
+            <input type="submit" value="<spring:message code="label.logout"/>" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
         <br>
@@ -62,28 +62,26 @@
                     
                 <ul>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li><a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/book/addformular"><spring:message code="label.addbook"/></a></li>
                     </sec:authorize>
-                    <li><a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
-                    <li><a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
-                        
+                    <li>&nbsp;<a href="${contextPath}/book/findbooks"><spring:message code="label.findbook"/></a></li>
+                    <li>&nbsp;<a href="${contextPath}/book/showbooks"><spring:message code="label.allbooks"/></a></li>
                 </ul>
-                  
             </li>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="#"><spring:message code="label.loanmanagement"/></a>
                     <ul>
-                        <li><a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
-                        <li><a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
-                        <li><a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/loan/addloan"><spring:message code="label.addloan"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/loan/findloans"><spring:message code="label.findloans"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/loan/listloans"><spring:message code="label.allloans"/></a></li>
                     </ul>
                 </li>
 
                 <li><a href="#"><spring:message code="label.membermanagement"/></a>
                     <ul>
-                        <li><a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
-                        <li><a href="${contextPath}/member/findmember"><spring:message code="label.findmember"/></a></li>
-                        <li><a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/member/addformular"><spring:message code="label.addmember"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/member/findmember"><spring:message code="label.findmember"/></a></li>
+                        <li>&nbsp;<a href="${contextPath}/member/showmembers"><spring:message code="label.allmembers"/></a></li>
                     </ul>
                 </li>
             </sec:authorize>

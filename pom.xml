@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <!-- Library modules -->
-    <modules> <!-- zmenit nazov na vhodnejsi-->
+    <modules>
         <module>library-web</module>
         <module>library-business-logic</module>
         <module>library-client</module>

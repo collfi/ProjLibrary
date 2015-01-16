@@ -107,8 +107,12 @@ public class BookController {
 
     @RequestMapping("/book/delete/{number}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String deletepost(ModelMap model, @PathVariable("number") int number) {
-        bookService.deleteBook(bookService.findBookById(number));
+    public String deletepost(ModelMap model, RedirectAttributes redirectAttributes, @PathVariable("number") int number) {
+        try {
+            bookService.deleteBook(bookService.findBookById(number));
+        } catch (JpaSystemException jse) {
+            redirectAttributes.addFlashAttribute("error", "isloaned");
+        }
         List<BookDTO> list = bookService.findAllBooks();
         model.addAttribute("list", list);
 

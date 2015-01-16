@@ -36,7 +36,7 @@
         <form:form method="POST" action="${contextPath}/member/addpost" modelAttribute="member">
             <table>
                 <TR>
-                    <TD><spring:message code="label.name"/>:</TD>
+                    <TD><spring:message code="label.username"/>:</TD>
                     <td><form:input path="name" value="${name}"/></td>
                 </TR>
                 <TR>

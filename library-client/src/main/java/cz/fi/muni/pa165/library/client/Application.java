@@ -33,7 +33,7 @@ public class Application {
     public static final int BADADDR = 3;
     public static final int ERRPARS = 4;
     public static final int SERERR = 5;
-    public static final String PA165URL = "http://localhost:8080/pa165";
+    public static String PA165URL = "http://localhost:8080/pa165";
     public static long idMember = 0;
     public static long idBook = 0;
     public static Map<Integer, String> errorCodes;
@@ -48,29 +48,23 @@ public class Application {
             errorCodes.put(BADADDR, "Sorry bad api address to server!");
             errorCodes.put(ERRPARS, "Error with parsing data!");
             errorCodes.put(SERERR, "Server unavailable!");
-
-            if (args.length < 2) {
-                menu();
-            } else {
-                for (String arg : args) {
-                    switch (arg) {
-                        case "-b":
-                            bookMenu();
-                            break;
-                        case "-m":
-                            memberMenu();
-                            break;
-                        case "-menu":
-                            menu();
-                            break;
-                        case "-h":
-                            help();
-                            break;
-                        default:
-                            help();
-                            break;
+            switch (args.length) {
+                case 0:
+                    menu();
+                    break;
+                case 1:
+                    if (args[0].equals("-h")) {
+                        help();
+                        break;
                     }
-                }
+                    else {
+                        PA165URL = "http://" + args[0] + "/pa165";
+                        menu();
+                        break;
+                    }
+                default:
+                    help();
+                    break;
             }
         } catch (Exception e) {
             printError(UERROR);
@@ -514,11 +508,9 @@ public class Application {
 
     public static int help() {
         System.out.println("PA165 Library, Interactive REST Client, HELP");
-        System.out.println("Run with one following argument as arg in cmd!");
-        System.out.println("-b, book management");
-        System.out.println("-m, member management");
-        System.out.println("-menu, menu");
-        System.out.println("-h, help");
+        System.out.println("Run without argument to use default configuration");
+        System.out.println("Run with one argument to configure server in format \"address:port\"");
+        System.out.println("Run with -h argument to show help");
         return EOK;
     }
 

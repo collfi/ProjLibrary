@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.orm.jpa.JpaSystemException;
 
 /**
  * @author Martin Malik <37428@mail.muni.cz>
@@ -133,8 +134,12 @@ public class MemberController {
     }
 
     @RequestMapping("/member/delete/{number}")
-    public String deletepost(ModelMap model, @PathVariable("number") long number) {
-        memberService.deleteMember(memberService.findMemberByIdMember(number));
+    public String deletepost(ModelMap model, RedirectAttributes redirectAttributes, @PathVariable("number") long number) {
+        try {
+            memberService.deleteMember(memberService.findMemberByIdMember(number));
+        } catch (JpaSystemException jse) {
+            redirectAttributes.addFlashAttribute("error", "isloaned");
+        }
         return "redirect:/member/showmembers";
     }
 
