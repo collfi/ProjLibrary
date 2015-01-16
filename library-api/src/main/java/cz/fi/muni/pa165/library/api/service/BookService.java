@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author michal.lukac - xlukac, 430614
  */
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public interface BookService {
 
     /**
