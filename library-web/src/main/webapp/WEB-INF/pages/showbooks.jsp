@@ -16,6 +16,11 @@
     <%@ include file="header.jsp" %>
     <section>
         <h1><spring:message code="label.allbooks"/></h1>
+        <c:choose>
+            <c:when test="${error == 'isloaned'}">
+                <p><font color="red"><spring:message code="label.isloaned"/></font></p>
+            </c:when>
+        </c:choose>
         <table>
             <tbody>
             <tr>
