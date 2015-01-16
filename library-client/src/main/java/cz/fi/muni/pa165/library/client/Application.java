@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.library.api.constants.Department;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -186,6 +187,9 @@ public class Application {
                     }
 
                     break;
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return updateMember(BADADDR);
                 } catch (NullPointerException e) {
@@ -249,17 +253,20 @@ public class Application {
                     if (response == null) {
                         throw new NullPointerException("Null response");
                     } else {
+                        System.out.print("tut ");
                         System.out.println(str);
                     }
+                }
+                catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return addMember(BADADDR);
                 } catch (NullPointerException e) {
-                    e.printStackTrace();
                     return addMember(NOTEER);
                 } catch (ResourceAccessException ce) {
                     return updateMember(SERERR);
                 } catch (Exception e) {
-                    System.out.print(e.getMessage());
                     return addMember(ERRPARS);
                 }
         }
@@ -316,6 +323,10 @@ public class Application {
                     for (int i = 0; i < page.length; i++) {
                         System.out.println((i + 1) + ": " + "Name: " + page[i].getName() + " Address: " + page[i].getAddress() + " Email: " + page[i].getEmail());
                     }
+                }
+                catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findMembersByName(BADADDR);
                 } catch (NullPointerException e) {
@@ -393,6 +404,10 @@ public class Application {
                     for (int i = 0; i < page.length; i++) {
                         System.out.println((i + 1) + ": " + "Name: " + page[i].getName() + " Address: " + page[i].getAddress() + " Email: " + page[i].getEmail());
                     }
+
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findMembersByAddress(BADADDR);
                 } catch (NullPointerException e) {
@@ -438,6 +453,9 @@ public class Application {
                     for (int i = 0; i < page.length; i++) {
                         System.out.println((i + 1) + ": " + "Name: " + page[i].getName() + " Address: " + page[i].getAddress() + " Email: " + page[i].getEmail());
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findMemberByEmail(BADADDR);
                 } catch (NullPointerException e) {
@@ -485,6 +503,9 @@ public class Application {
                         System.out.println("Deleted member with id=" + idMember);
                     }
                     break;
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return deleteMember(BADADDR);
                 } catch (NullPointerException e) {
@@ -561,6 +582,9 @@ public class Application {
                         System.out.println("Deleted book with id=" + idBook);
                     }
                     break;
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return deleteBook(BADADDR);
                 } catch (NullPointerException e) {
@@ -631,6 +655,9 @@ public class Application {
                                 " Department: " + page[i].getDepartment() + " Description: "
                                 + page[i].getDescription());
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findBooksByName(BADADDR);
                 } catch (NullPointerException e) {
@@ -679,6 +706,9 @@ public class Application {
                                 " Department: " + page[i].getDepartment() + " Description: "
                                 + page[i].getDescription());
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findBooksByISBN(BADADDR);
                 } catch (NullPointerException e) {
@@ -727,6 +757,9 @@ public class Application {
                                 " Department: " + page[i].getDepartment() + " Description: "
                                 + page[i].getDescription());
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findBooksByAuthors(BADADDR);
                 } catch (NullPointerException e) {
@@ -776,6 +809,9 @@ public class Application {
                                 " Department: " + page[i].getDepartment() + " Description: "
                                 + page[i].getDescription());
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return findBooksByDepartment(BADADDR);
                 } catch (NullPointerException e) {
@@ -857,6 +893,9 @@ public class Application {
                     }
 
                     break;
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return updateBook(BADADDR);
                 } catch (NullPointerException e) {
@@ -927,6 +966,9 @@ public class Application {
                     } else {
                         System.out.println(str);
                     }
+                } catch (HttpServerErrorException e) {
+                    System.out.print("Server returned error: " + e.getResponseBodyAsString());
+                    return addMember(UERROR);
                 } catch (IllegalStateException | HttpClientErrorException e) {
                     return addBook(BADADDR);
                 } catch (NullPointerException e) {

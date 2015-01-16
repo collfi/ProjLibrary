@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.library;
+package cz.fi.muni.pa165.library.web;
 
 /**
  * Exception handler in case of some unexpected exception
@@ -12,10 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ControllerAdvice
-public class ExceptionControllerAdvice {
+@ControllerAdvice("cz.fi.muni.pa165.library.web")
+public class WebExceptionControllerAdvice {
 
-    private static final Logger log = Logger.getLogger( ExceptionControllerAdvice.class.getName() );
+    private static final Logger log = Logger.getLogger( WebExceptionControllerAdvice.class.getName() );
 
     @ExceptionHandler(Exception.class)
     public ModelAndView exception(Exception e) throws Exception {
