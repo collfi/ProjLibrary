@@ -57,10 +57,6 @@
                     <TD><spring:message code="label.password"/>:</TD>
                     <TD><INPUT TYPE="PASSWORD" NAME="password" value="${member.password}" SIZE="25"></TD>
                 </TR>
-                <TR>
-                    <TD><spring:message code="label.role"/>:</TD>
-                    <form:checkbox path="isAdmin" value="${isAdmin}"/>Java
-                </TR>
             </table>
             <input type="submit" value="<spring:message code='label.submit'/>"/>
         </form>
