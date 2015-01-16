@@ -36,21 +36,12 @@ public class MemberRestController {
     @Autowired
     public MemberService memberService;
 
-    private void doAutoLogin() {
-        List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
-        auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        Authentication auth = new UsernamePasswordAuthenticationToken("rest", null, auths);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-    }
-
     @RequestMapping(value = "/api/member/find", method = RequestMethod.GET, produces = "application/json")
     public List<MemberDTO> apiFindMembers(
                                           @RequestParam(value = "name", defaultValue = "") String name,
                                           @RequestParam(value = "address", defaultValue = "") String address,
                                           @RequestParam(value = "email", defaultValue = "") String email) {
-
-        logger.error("ya tut");
-        doAutoLogin();
+        DoAutoLogin.doIt();
         List<MemberDTO> memberList = new ArrayList<MemberDTO>();
         if (name.length() > 0) {
             memberList = memberService.findMembersByName(name);
@@ -65,6 +56,7 @@ public class MemberRestController {
 
     @RequestMapping(value = "/api/member/delete/{number}", method = RequestMethod.GET, produces = "application/json")
     public MemberDTO apiDeleteMember(ModelMap model, @PathVariable("number") int number) {
+        DoAutoLogin.doIt();
         MemberDTO member = memberService.findMemberByIdMember(number);
         memberService.deleteMember(member);
         return member;
@@ -72,12 +64,14 @@ public class MemberRestController {
 
     @RequestMapping(value = "/api/member/add/", method = RequestMethod.POST)
     public String apiSaveMember(@RequestBody @Valid MemberDTO member) {
+        DoAutoLogin.doIt();
         memberService.insertMember(member);
         return "Saved person: " + member.toString();
     }
 
     @RequestMapping(value = "/api/member/update/", method = RequestMethod.POST)
     public String apiUpdateMember(@RequestBody @Valid MemberDTO member) {
+        DoAutoLogin.doIt();
         memberService.updateMember(member);
         return "Saved person: " + member.toString();
     }

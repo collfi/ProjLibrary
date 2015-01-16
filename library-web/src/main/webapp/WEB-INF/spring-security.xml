@@ -9,6 +9,7 @@
 
     <global-method-security pre-post-annotations="enabled" />
     <http security="none" pattern="/resources/**" />
+    <http security="none" pattern="/api/**" />
     <http use-expressions="true" access-denied-page="/403" disable-url-rewriting="true">
 
         <session-management invalid-session-url="/login">
@@ -29,7 +30,6 @@
             </password-encoder>
         </authentication-provider>
         <authentication-provider>
-            <!--<password-encoder hash="sha"/>-->
             <user-service>
                 <user name="rest" password="rest"
                       authorities="ROLE_USER, ROLE_ADMIN" />

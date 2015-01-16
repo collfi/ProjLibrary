@@ -33,6 +33,7 @@ public class BookRestController {
                                       @RequestParam(value = "authors", defaultValue = "") String authors,
                                       @RequestParam(value = "isbn", defaultValue = "") String isbn,
                                       @RequestParam(value = "department", defaultValue = "") String department) {
+        DoAutoLogin.doIt();
         List<BookDTO> bookList = new ArrayList<>();
 
         try {
@@ -54,6 +55,7 @@ public class BookRestController {
 
     @RequestMapping(value = "/api/book/delete/{number}", method = RequestMethod.GET, produces = "application/json")
     public BookDTO apiDeleteBook(ModelMap model, @PathVariable("number") int number) {
+        DoAutoLogin.doIt();
         BookDTO book = bookService.findBookById(number);
         bookService.deleteBook(book);
         return book;
@@ -61,12 +63,14 @@ public class BookRestController {
 
     @RequestMapping(value = "/api/book/add/", method = RequestMethod.POST)
     public String apiSaveBook(@RequestBody @Valid BookDTO book) {
+        DoAutoLogin.doIt();
         bookService.insertBook(book);
         return "Saved book: " + book.toString();
     }
 
     @RequestMapping(value = "/api/book/update/", method = RequestMethod.POST)
     public String apiUpdateBook(@RequestBody @Valid BookDTO book) {
+        DoAutoLogin.doIt();
         bookService.updateBook(book);
         return "Saved person: " + book.toString();
     }

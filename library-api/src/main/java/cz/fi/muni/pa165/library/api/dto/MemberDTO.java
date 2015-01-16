@@ -36,7 +36,7 @@ public class MemberDTO implements UserDetails {
     @NotEmpty
     private String password;
 
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
 
     private Set<LoanDTO> loans = new HashSet<LoanDTO>();
 
@@ -172,19 +172,6 @@ public class MemberDTO implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
-        if (this.isAdmin) {
-            auths.add(new SimpleGrantedAuthority("ROLE_USER"));
-            auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-        else {
-            auths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        }
-        return auths;
-    }
-
-    @Override
     public String getUsername() {
         return getEmail();
     }
@@ -207,5 +194,19 @@ public class MemberDTO implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
+        if (this.isAdmin) {
+            auths.add(new SimpleGrantedAuthority("ROLE_USER"));
+            auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        else {
+            auths.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return auths;
     }
 }
