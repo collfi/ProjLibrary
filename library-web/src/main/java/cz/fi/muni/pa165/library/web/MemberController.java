@@ -1,7 +1,5 @@
 package cz.fi.muni.pa165.library.web;
 
-import cz.fi.muni.pa165.library.api.constants.Department;
-import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.exceptions.DuplicationException;
 import cz.fi.muni.pa165.library.api.dto.MemberDTO;
 import cz.fi.muni.pa165.library.api.service.LoanService;
@@ -162,7 +160,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/member/findmember/result")
-    private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+    public ModelAndView processSearch(@ModelAttribute SearchModel search) {
         ModelAndView mav = new ModelAndView("findmember");
         if (search.getSearch() == null) {
             mav.addObject("search", new SearchModel());

@@ -6,6 +6,7 @@
 package cz.fi.muni.pa165.service;
 
 import cz.fi.muni.pa165.dao.BookDAO;
+import cz.fi.muni.pa165.dao.BookDAOImpl;
 import cz.fi.muni.pa165.entity.Book;
 import cz.fi.muni.pa165.library.api.constants.Department;
 import cz.fi.muni.pa165.library.api.dto.BookDTO;
@@ -98,6 +99,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findBooksByName(String Name) {
         List<Book> books = bookDao.findBooksByName(Name);
         List<BookDTO> booksdto = new ArrayList<BookDTO>();
+
         for (Book b : books) {
             booksdto.add(DTOEntityManager.bookEntitytoDTO(b));
         }

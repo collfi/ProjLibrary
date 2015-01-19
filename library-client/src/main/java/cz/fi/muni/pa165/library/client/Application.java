@@ -198,7 +198,6 @@ public class Application {
                     System.out.print(ce);
                     return updateMember(SERERR);
                 } catch (Exception e) {
-                    System.out.print("tut");
                     System.out.print(e);
                     return updateMember(ERRPARS);
                 }
@@ -253,7 +252,6 @@ public class Application {
                     if (response == null) {
                         throw new NullPointerException("Null response");
                     } else {
-                        System.out.print("tut ");
                         System.out.println(str);
                     }
                 }

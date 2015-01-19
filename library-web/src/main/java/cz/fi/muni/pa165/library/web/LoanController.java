@@ -125,7 +125,7 @@ public class LoanController {
     }
 
     @RequestMapping(value = "/loan/findloans/result")
-    private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+    public ModelAndView processSearch(@ModelAttribute SearchModel search) {
 
         ModelAndView mav = new ModelAndView("findloans");
         if (search.getSearch() == null) {

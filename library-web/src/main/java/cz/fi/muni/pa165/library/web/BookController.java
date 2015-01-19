@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.library.api.dto.BookDTO;
 import cz.fi.muni.pa165.library.api.dto.PrintedBookDTO;
 import cz.fi.muni.pa165.library.api.service.BookService;
 import cz.fi.muni.pa165.library.api.service.PrintedBookService;
+import cz.fi.muni.pa165.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -163,8 +164,8 @@ public class BookController {
         return mav;
     }
 
-    @RequestMapping(value = "/book/findbooks/result")
-    private ModelAndView processSearch(@ModelAttribute SearchModel search) {
+    @RequestMapping(value = "/book/findbooks/result", method = RequestMethod.POST)
+    public ModelAndView processSearch(@ModelAttribute SearchModel search) {
         ModelAndView mav = new ModelAndView("findbooks");
         if (search.getSearch() == null) {
             mav.addObject("search", new SearchModel());
@@ -176,9 +177,14 @@ public class BookController {
         if (search.getSearch().equals("ISBN")) {
             mav.addObject("list", bookService.findBooksByISBN(search.getInput()));
         } else if (search.getSearch().equals("Name")) {
+            System.out.print(search.getInput());
             mav.addObject("list", bookService.findBooksByName(search.getInput()));
         } else if (search.getSearch().equals("Authors")) {
-            mav.addObject("list", bookService.findBooksByAuthor(search.getInput()));
+            mav.addObject("list",
+                bookService.findBooksByAuthor(
+                    search.getInput()
+                )
+            );
         } else if (search.getSearch().equals("Department")) {
             try {
                 mav.addObject("list", bookService.findBooksByDepartment(Department.valueOf(search.getInput())));
